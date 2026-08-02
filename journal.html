@@ -40,38 +40,12 @@
   h1 em{font-style:italic;font-weight:500}
   .sub{font-family:"Fraunces",Georgia,serif;font-size:18px;font-style:italic;color:var(--ink-soft);margin:0 0 30px}
 
-  /* ---------- view toggle (SAMPLE A vs SAMPLE B demo only) ---------- */
   .demo-note{
     background:#FFF6E5;border:1px solid #E8CE94;border-radius:4px;
     padding:14px 18px;margin:0 0 32px;font-size:13.5px;color:#5C4A1E;
   }
   .demo-note b{color:#4A3A10}
-  .viewtoggle{display:flex;gap:8px;margin:0 0 40px;border-bottom:1px solid var(--rule);padding-bottom:0}
-  .viewtoggle button{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
-    letter-spacing:.08em;text-transform:uppercase;font-weight:600;
-    background:none;border:0;padding:10px 4px 12px;margin-right:20px;
-    color:var(--ink-faint);cursor:pointer;border-bottom:2px solid transparent;
-  }
-  .viewtoggle button.active{color:var(--ink);border-bottom-color:var(--adriatic)}
 
-  .view{display:none}
-  .view.active{display:block}
-
-  /* ---------- Sample A: reverse-chron timeline ---------- */
-  .post{margin:0 0 52px;padding-bottom:52px;border-bottom:1px solid var(--rule)}
-  .post:last-child{border-bottom:0}
-  .post-meta{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px;
-    display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-  }
-  .post-meta .place{color:var(--adriatic);font-weight:600}
-  .post h2{
-    font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:26px;
-    letter-spacing:-.01em;margin:0 0 12px;
-  }
-  .post p{margin:0 0 16px;color:var(--ink-soft);font-size:15px}
   .photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 16px}
   .photo{
     aspect-ratio:4/3;border-radius:4px;background:var(--stone-2);
@@ -149,62 +123,15 @@
 <header>
   <p class="eyebrow"><a href="index.html">&larr; Back to itinerary</a></p>
   <h1>The <em>Journal</em></h1>
-  <p class="sub">Two layout options, both built from the same sample entries — pick one and real posts go in as we travel.</p>
+  <p class="sub">Real posts land here as we travel, grouped by leg and day.</p>
 </header>
 
 <div class="demo-note">
-  <b>This is a sample, not a real post.</b> Once you pick a layout, send real photos and a few lines of text while
-  we're on the road and they'll get added here in this style.
+  <b>These are sample posts, not real ones yet.</b> Send photos and a few lines to this chat while we're on the
+  road and they'll get added here in this style.
 </div>
 
-<div class="viewtoggle">
-  <button class="active" data-view="timeline">A — Timeline</button>
-  <button data-view="byday">B — By day</button>
-</div>
-
-<!-- ============ SAMPLE A: reverse-chron timeline ============ -->
-<div class="view active" id="view-timeline">
-
-  <div class="post">
-    <div class="post-meta"><span class="place">Cape Town</span><span>·</span><span>Sun 16 Aug</span></div>
-    <h2>Wheels down</h2>
-    <div class="photos">
-      <div class="photo">photo</div>
-      <div class="photo">photo</div>
-      <div class="photo">photo</div>
-    </div>
-    <p>Landed after the long haul, dropped bags at the Camps Bay apartment, and walked straight down to the water
-      for sunset. Table Mountain doing its thing in the background the whole time — hard to believe we're actually here.</p>
-  </div>
-
-  <div class="post">
-    <div class="post-meta"><span class="place">Franschhoek</span><span>·</span><span>Wed 19 Aug</span></div>
-    <h2>Wine country, slower pace</h2>
-    <div class="photos">
-      <div class="photo">photo</div>
-      <div class="photo">photo</div>
-    </div>
-    <p>Traded the ocean for vineyards. Long lunch, longer nap, a cellar tour that turned into three. This is the
-      kind of day the whole trip was built around.</p>
-  </div>
-
-  <div class="post">
-    <div class="post-meta"><span class="place">Saseka, Kruger</span><span>·</span><span>Fri 21 Aug</span></div>
-    <h2>First game drive</h2>
-    <div class="photos">
-      <div class="photo">photo</div>
-      <div class="photo">photo</div>
-      <div class="photo">photo</div>
-      <div class="photo">photo</div>
-    </div>
-    <p>Up before dawn, out on the truck by 5:30. Elephants within the first ten minutes, which set an unfair bar for
-      the rest of the trip. Cold enough for every layer we packed.</p>
-  </div>
-
-</div>
-
-<!-- ============ SAMPLE B: grouped by leg/day, mirroring the itinerary ============ -->
-<div class="view" id="view-byday">
+<div id="view-byday">
 
   <div class="legblock">
     <h2>Leg 1 · Cape Town &amp; Franschhoek</h2>
@@ -250,17 +177,6 @@
 </div>
 
 </div>
-
-<script>
-document.querySelectorAll('.viewtoggle button').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.viewtoggle button').forEach(function(b){b.classList.remove('active')});
-    document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
-    btn.classList.add('active');
-    document.getElementById('view-' + btn.dataset.view).classList.add('active');
-  });
-});
-</script>
 
 </body>
 </html>
