@@ -301,7 +301,9 @@
   .foodlist li::before{content:"·";color:var(--ink-faint);margin-right:7px}
 
   @media (max-width:880px){
-    .layout{grid-template-columns:1fr; grid-template-areas:"map" "story"; gap:0}
+    .layout{grid-template-columns:1fr; grid-template-areas:"stack"; gap:0}
+    .story-inner{grid-area:stack; padding-top:320px}
+    .mapcol{grid-area:stack; z-index:5}
     .mapbox{position:sticky; top:0; height:320px; border-radius:0; border-left:0; border-right:0}
     .day{padding-left:14px}
   }
