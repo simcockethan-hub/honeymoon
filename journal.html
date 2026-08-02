@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Journal — Ethan &amp; Brooke's Honeymoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#E7EAE6; --stone-2:#DCE0DB;
+    --ink:#18262A; --ink-soft:#4C5C5E; --ink-faint:#8A9694;
+    --card:#FDFDFC;
+    --cape:#2F7D6E; --bush:#A85A1E; --adriatic:#2B4A8F; --home:#6A5A7E; --sea:#1E7D74;
+    --rule:rgba(24,38,42,.14); --rule-soft:rgba(24,38,42,.08);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--stone);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--adriatic)}
+
+  header{padding:56px 0 28px}
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 18px;
+  }
+  .eyebrow a{color:var(--ink-faint);text-decoration:none}
+  .eyebrow a:hover{color:var(--adriatic)}
+  h1{
+    font-family:"Fraunces",Georgia,serif;font-weight:300;
+    font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-.02em;margin:0 0 10px;
+  }
+  h1 em{font-style:italic;font-weight:500}
+  .sub{font-family:"Fraunces",Georgia,serif;font-size:18px;font-style:italic;color:var(--ink-soft);margin:0 0 30px}
+
+  /* ---------- view toggle (SAMPLE A vs SAMPLE B demo only) ---------- */
+  .demo-note{
+    background:#FFF6E5;border:1px solid #E8CE94;border-radius:4px;
+    padding:14px 18px;margin:0 0 32px;font-size:13.5px;color:#5C4A1E;
+  }
+  .demo-note b{color:#4A3A10}
+  .viewtoggle{display:flex;gap:8px;margin:0 0 40px;border-bottom:1px solid var(--rule);padding-bottom:0}
+  .viewtoggle button{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+    background:none;border:0;padding:10px 4px 12px;margin-right:20px;
+    color:var(--ink-faint);cursor:pointer;border-bottom:2px solid transparent;
+  }
+  .viewtoggle button.active{color:var(--ink);border-bottom-color:var(--adriatic)}
+
+  .view{display:none}
+  .view.active{display:block}
+
+  /* ---------- Sample A: reverse-chron timeline ---------- */
+  .post{margin:0 0 52px;padding-bottom:52px;border-bottom:1px solid var(--rule)}
+  .post:last-child{border-bottom:0}
+  .post-meta{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px;
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  }
+  .post-meta .place{color:var(--adriatic);font-weight:600}
+  .post h2{
+    font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:26px;
+    letter-spacing:-.01em;margin:0 0 12px;
+  }
+  .post p{margin:0 0 16px;color:var(--ink-soft);font-size:15px}
+  .photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 16px}
+  .photo{
+    aspect-ratio:4/3;border-radius:4px;background:var(--stone-2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-faint);
+    text-align:center;padding:8px;border:1px dashed var(--rule);
+  }
+
+  /* ---------- Sample B: grouped by leg/day ---------- */
+  .legblock{margin:0 0 44px}
+  .legblock h2{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+    color:var(--cape);border-bottom:1px solid var(--rule);padding-bottom:10px;margin:0 0 20px;
+  }
+  .dayrow{display:grid;grid-template-columns:64px 1fr;gap:16px;margin:0 0 30px}
+  .dayrow .daynum{
+    font-family:"Fraunces",Georgia,serif;font-size:15px;color:var(--ink-faint);padding-top:2px;
+  }
+  .dayrow h3{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:19px;margin:0 0 8px}
+  .dayrow p{margin:0 0 12px;color:var(--ink-soft);font-size:14.5px}
+
+  /* ---------- how-to-post box ---------- */
+  .howto{
+    margin-top:60px;padding:24px 26px;background:var(--card);border:1px solid var(--rule);
+    border-radius:4px;font-size:14px;color:var(--ink-soft);
+  }
+  .howto b{color:var(--ink)}
+
+  @media (max-width:560px){
+    .dayrow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="lockscreen" style="position:fixed;inset:0;z-index:9999;background:#0f1a17;color:#f2ede4;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <form id="lockform" style="display:flex;flex-direction:column;gap:14px;width:min(320px,86vw);text-align:center;">
+    <p style="margin:0 0 4px;font-size:15px;letter-spacing:.02em;color:#cfc8ba;">This journal is private. Enter the passcode.</p>
+    <input id="lockinput" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" style="font-size:17px;padding:12px 14px;border-radius:8px;border:1px solid #3a463f;background:#182420;color:#f2ede4;outline:none;">
+    <button type="submit" style="font-size:15px;padding:12px 14px;border-radius:8px;border:0;background:#3d6b5c;color:#fff;cursor:pointer;">Unlock</button>
+    <p id="lockerror" style="margin:0;font-size:13px;color:#e08a7d;display:none;">Wrong passcode, try again.</p>
+  </form>
+</div>
+<script>
+(function(){
+  var HASH = "57c7a8466300ce21bc9b50c98c2773d844af0611c2e4ae4d3cb14b5ba2225653";
+  var KEY = "honeymoon-unlocked";
+  var lock = document.getElementById('lockscreen');
+  function sha256(msg){
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg)).then(function(buf){
+      return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+    });
+  }
+  if (localStorage.getItem(KEY) === HASH) {
+    lock.remove();
+  } else {
+    document.getElementById('lockform').addEventListener('submit', function(e){
+      e.preventDefault();
+      var val = document.getElementById('lockinput').value;
+      sha256(val).then(function(h){
+        if (h === HASH) {
+          localStorage.setItem(KEY, HASH);
+          lock.remove();
+        } else {
+          document.getElementById('lockerror').style.display = 'block';
+        }
+      });
+    });
+  }
+})();
+</script>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow"><a href="index.html">&larr; Back to itinerary</a></p>
+  <h1>The <em>Journal</em></h1>
+  <p class="sub">Two layout options, both built from the same sample entries — pick one and real posts go in as we travel.</p>
+</header>
+
+<div class="demo-note">
+  <b>This is a sample, not a real post.</b> Once you pick a layout, send real photos and a few lines of text while
+  we're on the road and they'll get added here in this style.
+</div>
+
+<div class="viewtoggle">
+  <button class="active" data-view="timeline">A — Timeline</button>
+  <button data-view="byday">B — By day</button>
+</div>
+
+<!-- ============ SAMPLE A: reverse-chron timeline ============ -->
+<div class="view active" id="view-timeline">
+
+  <div class="post">
+    <div class="post-meta"><span class="place">Cape Town</span><span>·</span><span>Sun 16 Aug</span></div>
+    <h2>Wheels down</h2>
+    <div class="photos">
+      <div class="photo">photo</div>
+      <div class="photo">photo</div>
+      <div class="photo">photo</div>
+    </div>
+    <p>Landed after the long haul, dropped bags at the Camps Bay apartment, and walked straight down to the water
+      for sunset. Table Mountain doing its thing in the background the whole time — hard to believe we're actually here.</p>
+  </div>
+
+  <div class="post">
+    <div class="post-meta"><span class="place">Franschhoek</span><span>·</span><span>Wed 19 Aug</span></div>
+    <h2>Wine country, slower pace</h2>
+    <div class="photos">
+      <div class="photo">photo</div>
+      <div class="photo">photo</div>
+    </div>
+    <p>Traded the ocean for vineyards. Long lunch, longer nap, a cellar tour that turned into three. This is the
+      kind of day the whole trip was built around.</p>
+  </div>
+
+  <div class="post">
+    <div class="post-meta"><span class="place">Saseka, Kruger</span><span>·</span><span>Fri 21 Aug</span></div>
+    <h2>First game drive</h2>
+    <div class="photos">
+      <div class="photo">photo</div>
+      <div class="photo">photo</div>
+      <div class="photo">photo</div>
+      <div class="photo">photo</div>
+    </div>
+    <p>Up before dawn, out on the truck by 5:30. Elephants within the first ten minutes, which set an unfair bar for
+      the rest of the trip. Cold enough for every layer we packed.</p>
+  </div>
+
+</div>
+
+<!-- ============ SAMPLE B: grouped by leg/day, mirroring the itinerary ============ -->
+<div class="view" id="view-byday">
+
+  <div class="legblock">
+    <h2>Leg 1 · Cape Town &amp; Franschhoek</h2>
+
+    <div class="dayrow">
+      <div class="daynum">Aug 16</div>
+      <div>
+        <h3>Wheels down</h3>
+        <div class="photos"><div class="photo">photo</div><div class="photo">photo</div></div>
+        <p>Landed after the long haul, dropped bags at the Camps Bay apartment, and walked straight down to the
+          water for sunset.</p>
+      </div>
+    </div>
+
+    <div class="dayrow">
+      <div class="daynum">Aug 19</div>
+      <div>
+        <h3>Wine country, slower pace</h3>
+        <div class="photos"><div class="photo">photo</div></div>
+        <p>Traded the ocean for vineyards. Long lunch, longer nap, a cellar tour that turned into three.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="legblock">
+    <h2>Leg 2 · Saseka Tented Camp</h2>
+
+    <div class="dayrow">
+      <div class="daynum">Aug 21</div>
+      <div>
+        <h3>First game drive</h3>
+        <div class="photos"><div class="photo">photo</div><div class="photo">photo</div><div class="photo">photo</div></div>
+        <p>Up before dawn, out on the truck by 5:30. Elephants within the first ten minutes.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="howto">
+  <b>How this gets updated:</b> while traveling, send photos and a few lines to this chat. They get resized, dropped
+  into whichever layout we pick, and pushed live — usually within a few minutes.
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.viewtoggle button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.viewtoggle button').forEach(function(b){b.classList.remove('active')});
+    document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
+    btn.classList.add('active');
+    document.getElementById('view-' + btn.dataset.view).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
