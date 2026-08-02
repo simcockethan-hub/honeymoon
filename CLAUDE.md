@@ -67,8 +67,14 @@ items are marked (see the Budget and Money sections for the pattern:
 
 ## Deploying
 
-Repo: `github.com/simcockethan-hub/honeymoon`, served via GitHub Pages
-from `index.html` at the root. To publish a change:
+Repo: `github.com/simcockethan-hub/honeymoon` (public, required for free
+GitHub Pages), served via GitHub Pages from `index.html` at the root on
+`main`. Live at https://simcockethan-hub.github.io/honeymoon/
+
+`honeymoon-itinerary.html` and `index.html` are kept identical —
+`honeymoon-itinerary_8.html` (the numbered revision series) was the
+latest content as of the 2026-08-02 handoff and is what both were seeded
+from. To publish a change:
 
 ```bash
 cp honeymoon-itinerary.html index.html
@@ -78,4 +84,9 @@ git push
 ```
 
 GitHub Pages will pick up the change automatically within a minute or two
-of the push landing on the default branch.
+of the push landing on `main`.
+
+Note: this repo is **public** — it contains real budget figures,
+confirmation numbers, and travel dates. That was a deliberate tradeoff
+(private repos need a paid GitHub plan for Pages) confirmed with the
+user on 2026-08-02.
