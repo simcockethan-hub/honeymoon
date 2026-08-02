@@ -90,3 +90,27 @@ Note: this repo is **public** — it contains real budget figures,
 confirmation numbers, and travel dates. That was a deliberate tradeoff
 (private repos need a paid GitHub plan for Pages) confirmed with the
 user on 2026-08-02.
+
+### Access control
+
+- The root site (`index.html`) has a client-side passcode gate (see the
+  `#lockscreen` block right after `<body>`) — SHA-256 hash is in the
+  script, not the plaintext passcode. **Do not add the plaintext
+  passcode to this file or any other committed file** — this repo is
+  public, so anything committed here is world-readable and would
+  defeat the gate. The user has the passcode from chat history.
+  This gate is a deterrent, not real security — anyone fetching the
+  raw HTML (curl, non-JS bots) bypasses it. It exists to stop casual
+  link-sharing exposure and simple crawlers, given the repo/Pages site
+  is public.
+- There is a second, redacted copy at `guest/index.html`
+  (`/guest/` on the live site), same rule — its own passcode, own
+  hash, plaintext never committed. Meant for wedding guests / other
+  visitors. It strips budget figures,
+  confirmation numbers, phone numbers, and personal emails but keeps
+  the full day-by-day itinerary. **When editing the master
+  `honeymoon-itinerary.html`, remember non-sensitive changes (dates,
+  activities, logistics) need to be mirrored into `guest/index.html`
+  too** — check whether the edit touches redacted content first (see
+  the redaction list in the commit that introduced `guest/index.html`
+  for what's stripped).
