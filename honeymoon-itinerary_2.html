@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan &amp; Brooke — Honeymoon, Aug–Sep 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#E7EAE6;
+    --stone-2:#DCE0DB;
+    --ink:#18262A;
+    --ink-soft:#4C5C5E;
+    --ink-faint:#8A9694;
+    --card:#FDFDFC;
+
+    --cape:#2F7D6E;
+    --bush:#A85A1E;
+    --adriatic:#2B4A8F;
+    --home:#6A5A7E;
+
+    --leg:var(--cape);
+    --rule:rgba(24,38,42,.14);
+    --rule-soft:rgba(24,38,42,.08);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--stone);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--adriatic);text-decoration-thickness:1px;text-underline-offset:2px}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--adriatic);outline-offset:3px}
+
+  /* ---------- masthead ---------- */
+  header{padding:72px 0 40px}
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 22px;
+  }
+  h1{
+    font-family:"Fraunces",Georgia,serif;font-weight:300;
+    font-size:clamp(38px,7vw,72px);line-height:1.02;letter-spacing:-.02em;
+    margin:0 0 6px;font-variation-settings:"SOFT" 20,"WONK" 1;
+  }
+  h1 em{font-style:italic;font-weight:500}
+  .dates{
+    font-family:"Fraunces",Georgia,serif;font-size:clamp(19px,2.6vw,26px);
+    font-weight:300;font-style:italic;color:var(--ink-soft);margin:0 0 34px;
+  }
+  .route{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:13px;font-weight:500;letter-spacing:.06em;
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+    padding:16px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    margin-bottom:28px;
+  }
+  .route i{color:var(--ink-faint);font-style:normal}
+  .route .drive{color:var(--adriatic)}
+  .stats{display:flex;flex-wrap:wrap;gap:34px}
+  .stat b{
+    display:block;font-family:"Fraunces",Georgia,serif;font-weight:500;
+    font-size:30px;line-height:1;letter-spacing:-.01em;
+  }
+  .stat span{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  }
+
+  /* ---------- legend ---------- */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:18px;margin-top:30px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.05em;color:var(--ink-soft);
+  }
+  .legend span{display:flex;align-items:center;gap:7px}
+  .swatch{width:22px;height:0;border-top:3px solid var(--ink)}
+  .sw-conf{border-top-style:solid;border-color:var(--cape)}
+  .sw-doc{border-top-style:solid;border-color:var(--ink-faint)}
+  .sw-open{border-top-style:dashed;border-color:var(--ink-faint)}
+
+  /* ---------- spine ---------- */
+  .leg{position:relative;padding:56px 0 8px 62px;border-left:2px solid var(--leg)}
+  .leg::before{
+    content:"";position:absolute;left:-7px;top:64px;width:12px;height:12px;
+    border-radius:50%;background:var(--leg);box-shadow:0 0 0 5px var(--stone);
+  }
+  .leg--cape{--leg:var(--cape)}
+  .leg--bush{--leg:var(--bush)}
+  .leg--adriatic{--leg:var(--adriatic)}
+  .leg--home{--leg:var(--home)}
+  .leg--last{border-left-color:transparent;
+    background:linear-gradient(var(--home),var(--home)) left top/2px 130px no-repeat}
+  .leg-num{
+    position:absolute;left:62px;top:56px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.16em;color:var(--leg);
+  }
+  .leg-head{padding-top:26px;margin-bottom:26px}
+  .leg-head h2{
+    font-family:"Fraunces",Georgia,serif;font-weight:500;
+    font-size:clamp(25px,3.6vw,34px);letter-spacing:-.01em;line-height:1.15;margin:0 0 4px;
+  }
+  .leg-head p{margin:0;color:var(--ink-soft);font-size:15px}
+  .leg-when{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    letter-spacing:.08em;color:var(--leg);font-weight:600;margin-bottom:8px;
+  }
+
+  /* ---------- entries ---------- */
+  .entry{
+    background:var(--card);border:1px solid var(--rule);
+    border-left:3px solid var(--leg);border-radius:3px;
+    padding:20px 22px;margin-bottom:14px;
+  }
+  .entry--doc{border-left-color:var(--ink-faint)}
+  .entry--open{border-left-style:dashed;border-left-color:var(--ink-faint);background:transparent}
+  .entry-top{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:baseline;margin-bottom:10px}
+  .kind{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--leg);
+    padding:3px 7px;border-radius:2px;
+  }
+  .entry--doc .kind{background:var(--ink-faint)}
+  .entry--open .kind{background:transparent;color:var(--ink-faint);border:1px dashed var(--ink-faint)}
+  .entry h3{font-size:17px;font-weight:600;margin:0;letter-spacing:-.005em}
+  .entry--open h3{font-weight:500;color:var(--ink-soft)}
+  .entry p{margin:0 0 10px;color:var(--ink-soft);font-size:14.5px}
+  .entry p:last-child{margin-bottom:0}
+
+  .segs{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;line-height:1.75;margin:0 0 12px}
+  .seg{display:flex;flex-wrap:wrap;gap:0 12px;padding:5px 0;border-top:1px dotted var(--rule)}
+  .seg:first-child{border-top:0}
+  .seg .no{color:var(--leg);font-weight:600;min-width:74px}
+  .seg .pair{font-weight:500;min-width:112px}
+  .seg .time{color:var(--ink-soft)}
+  .seg .plus{color:var(--bush);font-size:11px}
+
+  .facts{display:flex;flex-wrap:wrap;gap:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px}
+  .facts b{display:inline-block;font-weight:500;background:var(--stone-2);color:var(--ink-soft);padding:4px 8px;border-radius:2px}
+  .facts b u{text-decoration:none;color:var(--ink);font-weight:600}
+
+  .entry h3 a{color:var(--adriatic)}
+  .entry h3 a::after{content:" ↗";font-size:11px;color:var(--ink-faint)}
+  .night .what strong a{color:var(--adriatic)}
+  .night .what strong a::after{content:" ↗";font-size:10px;color:var(--ink-faint)}
+  ul.plain a::after{content:" ↗";font-size:9px;color:var(--ink-faint)}
+
+  .mapembed{width:100%;border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin:22px 0 30px;background:var(--card)}
+  .mapembed iframe{width:100%;height:420px;border:0;display:block}
+  .mapembed-cap{padding:10px 16px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-faint);border-top:1px solid var(--rule)}
+  @media (max-width:620px){.mapembed iframe{height:300px}}
+
+  .money-box{margin-top:40px;padding:32px 30px;background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--bush);border-radius:3px}
+  .money-box h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+  .money-box>p{margin:0 0 8px;color:var(--ink-soft);font-size:14.5px}
+  .money-row{display:flex;gap:20px;padding:16px 0;border-top:1px solid var(--rule-soft);align-items:baseline}
+  .money-row:first-of-type{border-top:1px solid var(--rule);margin-top:14px}
+  .m-amt{
+    font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:21px;color:var(--bush);
+    min-width:120px;flex-shrink:0;letter-spacing:-.01em;
+  }
+  .m-amt.unknown{
+    font-size:11.5px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;
+    color:var(--ink-faint);letter-spacing:.04em;text-transform:uppercase;
+  }
+  .m-body b{display:block;font-size:15px;font-weight:600;margin-bottom:2px}
+  .m-body span{display:block;font-size:13.5px;color:var(--ink-soft)}
+  .money-paid{
+    margin-top:18px;padding-top:14px;border-top:1px dashed var(--rule);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--ink-faint);line-height:1.8;
+  }
+  @media (max-width:560px){.money-row{flex-direction:column;gap:4px}.m-amt{min-width:0}}
+
+
+  .pack{
+    margin-top:12px;padding-top:12px;border-top:1px dashed var(--rule);
+    font-size:13px;color:var(--ink-soft);line-height:1.65;
+  }
+  .pack b{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--bush);
+    margin-right:8px;white-space:nowrap;
+  }
+
+  /* ---------- the nights strip (leg 4 signature) ---------- */
+  .nights{margin:0 0 16px;border-top:1px solid var(--rule)}
+  .night{
+    display:grid;grid-template-columns:104px 1fr auto;gap:4px 18px;
+    padding:14px 2px;border-bottom:1px solid var(--rule-soft);align-items:baseline;
+  }
+  .night:last-child{border-bottom:1px solid var(--rule)}
+  .night .when{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    font-weight:600;color:var(--adriatic);letter-spacing:.02em;
+  }
+  .night .what strong{display:block;font-size:16px;font-weight:600;letter-spacing:-.005em}
+  .night .what span{display:block;font-size:14px;color:var(--ink-soft);margin-top:1px}
+  .night .what .pack-hint{
+    display:block;font-size:12px;color:var(--bush);margin-top:5px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.01em;
+  }
+  .night .what .pack-hint b{
+    text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-right:6px;
+  }
+  .night .tag{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+    padding:3px 7px;border-radius:2px;
+  }
+  .t-booked{background:var(--adriatic);color:#fff}
+  .t-plan{background:var(--stone-2);color:var(--ink-soft)}
+  .t-open{border:1px dashed var(--ink-faint);color:var(--ink-faint)}
+  .night--open .what strong{color:var(--ink-soft);font-weight:500}
+  .drivenote{
+    grid-column:1/-1;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.06em;color:var(--bush);padding-top:4px;
+  }
+
+  /* ---------- lists ---------- */
+  details{
+    background:var(--card);border:1px solid var(--rule);border-radius:3px;
+    padding:0;margin-bottom:14px;
+  }
+  summary{
+    cursor:pointer;padding:16px 22px;font-weight:600;font-size:15px;
+    list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{
+    content:"+";font-family:"IBM Plex Mono",monospace;color:var(--ink-faint);font-weight:400;font-size:18px;
+  }
+  details[open] summary::after{content:"–"}
+  details .body{padding:0 22px 20px}
+  .cols{columns:2;column-gap:32px}
+  @media (max-width:560px){.cols{columns:1}}
+  .cols li{break-inside:avoid;font-size:14.5px;color:var(--ink-soft);margin-bottom:5px}
+  ul.plain{list-style:none;margin:0;padding:0}
+  ul.plain li::before{content:"·";color:var(--ink-faint);margin-right:8px}
+
+  /* ---------- open items ---------- */
+  .open-box{margin-top:64px;padding:32px 30px;background:var(--card);border:1px solid var(--rule);border-radius:3px}
+  .open-box h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+  .open-box>p{margin:0 0 20px;color:var(--ink-soft);font-size:14.5px}
+  .open-box ul{margin:0;padding-left:20px}
+  .open-box li{margin-bottom:10px;color:var(--ink-soft);font-size:14.5px}
+  .open-box li b{color:var(--ink);font-weight:600}
+  .flag{border-left:3px solid var(--bush);padding:14px 16px;background:var(--stone);border-radius:2px;margin:0 0 20px}
+  .flag p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .flag b{color:var(--ink)}
+
+  footer{
+    margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11.5px;line-height:1.85;color:var(--ink-faint);
+  }
+
+  @media (max-width:620px){
+    header{padding:44px 0 30px}
+    .leg{padding-left:32px}
+    .leg-num{left:32px}
+    .stats{gap:22px}
+    .night{grid-template-columns:1fr;gap:2px}
+    .night .tag{justify-self:start;margin-top:6px}
+  }
+  @media print{
+    body{background:#fff}
+    .entry,.open-box,.night{break-inside:avoid}
+    details{border:0} details .body{display:block}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Itinerary · booked to date · 29 Jul 2026</p>
+  <h1>Ethan &amp; <em>Brooke</em></h1>
+  <p class="dates">Honeymoon — 16 August to 20 September 2026</p>
+
+  <div class="route">
+    <span>LAX</span><i>→</i><span>IST</span><i>→</i><span>CPT</span><i>→</i>
+    <span>HDS</span><i class="drive">→ road →</i><span>JNB</span><i>→</i><span>IST</span><i>→</i>
+    <span>LJU</span><i class="drive">→ 16 days by car →</i><span>DBV</span><i>→</i>
+    <span>AMS</span><i>→</i><span>ATL</span><i>→</i><span>SDF</span><i>→</i>
+    <span>MSP</span><i>→</i><span>LAX</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>36</b><span>days away</span></div>
+    <div class="stat"><b>4</b><span>countries</span></div>
+    <div class="stat"><b>11</b><span>flight segments</span></div>
+    <div class="stat"><b>8/10</b><span>Europe stops confirmed</span></div>
+    <div class="stat"><b>$18k</b><span>target spend</span></div>
+  </div>
+
+  <div class="legend">
+    <span><i class="swatch sw-conf"></i> Confirmation in hand</span>
+    <span><i class="swatch sw-doc"></i> Per the planning doc, unconfirmed</span>
+    <span><i class="swatch sw-open"></i> Not booked</span>
+  </div>
+</header>
+
+<!-- ============ LEG 1 ============ -->
+<section class="leg leg--cape">
+  <div class="leg-num">LEG 01</div>
+  <div class="leg-head">
+    <div class="leg-when">SUN 16 AUG — MON 24 AUG</div>
+    <h2>Cape Town &amp; the Winelands</h2>
+    <p>Two nights in the air, then six days on the Cape.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Los Angeles → Cape Town</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">TK 10</span><span class="pair">LAX → IST</span><span class="time">Sun 16 Aug, 8:10pm dep</span><span class="time">777-300ER</span></div>
+      <div class="seg"><span class="no">TK 44</span><span class="pair">IST → CPT</span><span class="time">arrives Tue 18 Aug, 11:50am</span><span class="time">A350-900</span></div>
+    </div>
+    <p>Turkish Airlines, Business Flex. One stop in Istanbul with a 6h 30m layover; 30h 40m gate to gate. Checked bags, refund and exchange included — carry-on and seat selection are not.</p>
+    <div class="facts">
+      <b>Airline conf <u>SC7A8T</u></b>
+      <b>Chase trip <u>1015915798</u></b>
+      <b>Fare <u>$11,039.20</u></b>
+      <b>132,941 pts + $9,045.08 · Visa •2357</b>
+      <b>Non-refundable</b>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Stay</span><h3><a href="https://www.google.com/maps/search/?api=1&query=6+Chilworth+Road%2C+Camps+Bay%2C+Cape+Town%2C+South+Africa" target="_blank" rel="noopener">Cape Town</a> — Camps Bay apartment, 4 nights</h3></div>
+    <p>"NEW: Spacious Apartment Close to Camps Bay Beach," hosted by Janine. Check-in 2:00pm Tuesday, checkout 10:00am Saturday.</p>
+    <div class="facts">
+      <b>Conf <u>HMATPXCP3B</u></b>
+      <b>Host <u>+27 83 709 9001</u></b>
+      <b><a href="https://www.google.com/maps/search/?api=1&query=6+Chilworth+Road%2C+Camps+Bay%2C+Cape+Town%2C+South+Africa" target="_blank" rel="noopener">6 Chilworth Road, Cape Town 8040</a></b>
+      <b>Check-in Tue 2pm · out Sat 10am</b>
+    </div>
+    <p class="pack"><b>Pack</b> windbreaker or light jacket — Camps Bay is exposed to the Cape's afternoon wind · swimsuit and a rash guard for the Atlantic (it runs cold) · smart-casual for wine-country dinners · comfortable walking shoes for Table Mountain and the coastal path · sunscreen, the UV runs strong even when it's breezy.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Stay</span><h3><a href="https://www.google.com/maps/search/?api=1&query=7+Anne-Marie+Street%2C+Franschhoek%2C+South+Africa" target="_blank" rel="noopener">Franschhoek</a> — La Rivière riverside cottage, 2 nights</h3></div>
+    <p>"La Rivière: Peaceful Riverside Cottage," hosted by Sarah. Check-in 2:00pm Saturday, checkout 10:00am Monday — that Monday checkout lines up with the flight to Hoedspruit that afternoon.</p>
+    <div class="facts">
+      <b>Conf <u>HMC5ZSMNTH</u></b>
+      <b>Host <u>+27 65 833 3999</u></b>
+      <b><a href="https://www.google.com/maps/search/?api=1&query=7+Anne-Marie+Street%2C+Franschhoek%2C+South+Africa" target="_blank" rel="noopener">7 Anne-Marie Street, Franschhoek 7690</a></b>
+      <b>Check-in Sat 2pm · out Mon 10am</b>
+    </div>
+    <p class="pack"><b>Pack</b> neutral linen or cotton for wine-estate lunches — this is the stretch the outfit board was built around · a light layer for evenings, the valley cools fast after sunset · one nicer outfit for a tasting-room dinner · comfortable flats or loafers over anything technical.</p>
+  </article>
+</section>
+
+<!-- ============ LEG 2 ============ -->
+<section class="leg leg--bush">
+  <div class="leg-num">LEG 02</div>
+  <div class="leg-head">
+    <div class="leg-when">MON 24 AUG — THU 27 AUG</div>
+    <h2>Saseka Tented Camp</h2>
+    <p>Three nights in the Greater Kruger. Arranged end to end by Sydney van Deventer at Africa Tailormade, reconfirmed 24 July.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Cape Town → Hoedspruit</h3></div>
+    <p>E-tickets issued and seats pre-assigned by Africa Tailormade. They'll check you both in 24 hours ahead and send boarding passes — they've asked whether you'd prefer WhatsApp or email, which still needs an answer. Flight numbers and times are in the two ticket-receipt PDFs attached to their 24 July email.</p>
+    <div class="facts"><b>Booked via <u>Africa Tailormade</u></b><b>sydney@africatailormade.com</b><b>Pre-seated</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Transfer</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Hoedspruit+Airport%2C+South+Africa" target="_blank" rel="noopener">Hoedspruit Airport</a> → Saseka</h3></div>
+    <p>A Sable Tours representative meets you in arrivals holding a board with your names. If they're not there, call them directly.</p>
+    <div class="facts"><b>Sable Tours <u>+27 15 793 0802</u></b><b><u>+27 83 268 7496</u></b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Lodge</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Saseka+Tented+Camp%2C+Timbavati%2C+South+Africa" target="_blank" rel="noopener">Saseka Tented Camp</a> — 3 nights</h3></div>
+    <p>In on the 24th, out on the 27th. Pack warm layers: August game drives are cold. The Greater Kruger is low-risk malaria, worth a word with your GP. A yellow fever certificate only applies if you've recently come from a yellow fever country, so it doesn't affect you.</p>
+    <div class="facts"><b>Digital itinerary on <u>safariportal.app</u></b><b>Reconfirmed 24 Jul</b><b>Outfit needed: safari casual</b></div>
+    <p class="pack"><b>Pack</b> neutral khaki, olive or brown — bright colors and white spook game — the green pants and long-sleeve shirt already on hand work well · warm layers for early and evening drives, temps drop fast · closed shoes, not sandals · a light scarf or buff for dust · binoculars if you have them, camp doesn't always supply them.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Admin</span><h3>SARS online traveller declaration</h3></div>
+    <p>New as of 1 July 2026: everyone entering <em>and</em> leaving South Africa files an online customs declaration within 24 hours of travel — so once on the way in, and again before you fly JNB → IST on 30 August. Keep the emailed confirmation on your phone. Nothing to declare still means you file.</p>
+    <div class="facts"><b>sars.gov.za/travellerdeclaration</b><b>File twice</b><b>No US visa required</b><b>Passport valid 6 months + 2–3 blank pages</b></div>
+  </article>
+</section>
+
+<!-- ============ LEG 3 ============ -->
+<section class="leg leg--bush">
+  <div class="leg-num">LEG 03</div>
+  <div class="leg-head">
+    <div class="leg-when">THU 27 AUG — SUN 30 AUG</div>
+    <h2>Monate Game Lodge — the wedding</h2>
+    <p>The fixed point the whole trip is built around.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Transfer</span><h3>Saseka → Monate Game Lodge</h3></div>
+    <p>Sable Tours collect you from Saseka at 10:00am on Thursday 27 August and drive you through to Monate.</p>
+    <div class="facts"><b>Pickup <u>10:00am, 27 Aug</u></b><b>Sable Tours</b><b>Part of the Africa Tailormade package</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Lodge</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Monate+Game+Lodge%2C+South+Africa" target="_blank" rel="noopener">Monate Game Lodge</a> — 3 nights</h3></div>
+    <p>Check-in Thursday at 14:00, check-out strictly 10:00. Reception hours are 07:00–21:00 — arrange ahead for a late check-in or early check-out. It's a licensed establishment, so no outside liquor or cooler boxes. Wedding outfit is sorted. Randy is handling the final payment directly with Elzaan at Monate — see Money below, not something to track over email.</p>
+    <div class="facts"><b>Reservation <u>#116793</u></b><b>roomsdiv@monatelodge.com</b><b>+27 14 718 7000</b><b>Check-in Thu 14:00 · out 10:00</b></div>
+    <p class="pack"><b>Pack</b> the wedding outfit ✓, already sorted · safari casual for the night-before dinner · a smarter layer for evenings, lodge dinners run a notch dressier than Saseka · comfortable shoes that can go from game drive to reception without a change.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Transfer</span><h3>Monate → Johannesburg, 30 August</h3></div>
+    <p>Uncle Randy is driving you to JNB for the 6:00pm departure — no longer an open item, but worth confirming a pickup time with him directly given it's roughly a three-hour drive.</p>
+    <div class="facts"><b>Driver <u>Randy</u></b><b>Flight departs <u>6:00pm</u></b><b>~3hr drive</b></div>
+  </article>
+</section>
+
+<!-- ============ LEG 4 ============ -->
+<section class="leg leg--adriatic">
+  <div class="leg-num">LEG 04</div>
+  <div class="leg-head">
+    <div class="leg-when">SUN 30 AUG — WED 16 SEP</div>
+    <h2>Slovenia to the Adriatic</h2>
+    <p>Seventeen nights, one car, Ljubljana down to Dubrovnik. City, then mountains, then coast, then islands.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Johannesburg → Ljubljana</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">TK 43</span><span class="pair">JNB → IST</span><span class="time">Sun 30 Aug, 6:00pm dep</span><span class="time">A350-900</span></div>
+      <div class="seg"><span class="no">TK 1061</span><span class="pair">IST → LJU</span><span class="time">Mon 31 Aug, 8:50am arr</span><span class="plus">next day</span></div>
+    </div>
+    <p>Turkish Airlines, Business Flex, 2h 45m in Istanbul, 14h 45m total. This ticket is refundable. Chase has pushed two minor schedule changes through already, on 5 July and 27 July, so it's worth one last look at the times the week before you fly.</p>
+    <div class="facts"><b>Airline conf <u>RCPLFN</u></b><b>Chase trip <u>1018183599</u></b><b>Refundable</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Car</span><h3>Enterprise — Ljubljana Airport to Dubrovnik Airport</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">PICK UP</span><span class="pair">LJU</span><span class="time">Mon 31 Aug, 10:00am · <a href="https://www.google.com/maps/search/?api=1&query=Zgornji+Brnik+130a%2C+Slovenia" target="_blank" rel="noopener">Zgornji Brnik 130a</a></span></div>
+      <div class="seg"><span class="no">DROP OFF</span><span class="pair">DBV</span><span class="time">Wed 16 Sep, 10:00am · <a href="https://www.google.com/maps/search/?api=1&query=Cilipi+20213%2C+Croatia" target="_blank" rel="noopener">Čilipi 20213</a></span></div>
+    </div>
+    <p>Compact — VW Golf or similar, 5 seats, unlimited mileage. Sixteen days, one-way across the Slovenia–Croatia border, so confirm the cross-border fee and green card at the counter.</p>
+    <div class="facts">
+      <b>Enterprise conf <u>2123930311</u></b>
+      <b>Expedia itin <u>73498767418297</u></b>
+      <b>Total <u>$1,226.76</u> due at counter</b>
+      <b>$547.98 rental + $678.78 tax &amp; fees</b>
+      <b>Enterprise SI +386 30 208 881</b>
+    </div>
+  </article>
+
+  <div class="mapembed">
+    <iframe src="https://www.google.com/maps?saddr=Ljubljana+Airport%2C+Slovenia&daddr=Ljubljana%2C+Slovenia+to+Lake+Bohinj%2C+Slovenia+to+Tolmin%2C+Slovenia+to+Izola%2C+Slovenia+to+Rovinj%2C+Croatia+to+Omis%2C+Croatia+to+Korcula%2C+Croatia+to+Dubrovnik+Airport%2C+Croatia&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Driving route: Ljubljana to Dubrovnik"></iframe>
+    <p class="mapembed-cap">Driving route, Ljubljana Airport → Lake Bohinj → Tolmin → Izola → Rovinj → Omiš → Korčula → Dubrovnik Airport. Drag to explore, or open in Google Maps for turn-by-turn.</p>
+  </div>
+
+  <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:21px;margin:34px 0 4px;letter-spacing:-.01em">Where you sleep, night by night</h3>
+  <p style="margin:0 0 16px;color:var(--ink-soft);font-size:14.5px">Ten stops in seventeen nights. Four are locked, two are the stated plan, one is out for quote and one is still a choice between towns.</p>
+
+  <div class="nights">
+    <div class="night">
+      <div class="when">31 AUG — 3 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Ljubljana</a></strong><span>Airbnb · the city stretch, straight off the flight</span><span class="pack-hint"><b>Pack</b>City walking shoes, one nice-dinner outfit, layer for river-walk evenings</span></div>
+      <div class="tag t-plan">Per doc</div>
+    </div>
+    <div class="night">
+      <div class="when">3 — 5 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Lake+Bohinj%2C+Slovenia" target="_blank" rel="noopener">Lake Bohinj</a></strong><span>Hotel · the mountain stretch, in the Julian Alps</span><span class="pack-hint"><b>Pack</b>Hiking shoes, moisture-wicking layers, rain shell, swimsuit for the lake</span></div>
+      <div class="tag t-plan">Per doc</div>
+    </div>
+    <div class="night">
+      <div class="when">5 — 6 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Kamp+Siber%2C+Poljubinj+92a%2C+Tolmin%2C+Slovenia" target="_blank" rel="noopener">Tolmin</a></strong><span>Camp Šiber · wooden glamping tent for 2, confirmed · pay at reception on arrival</span><span class="pack-hint"><b>Pack</b>Casual outdoor gear, a warm layer for the tent at night, cash for check-in</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">6 — 7 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Izola%2C+Slovenia" target="_blank" rel="noopener">Izola</a></strong><span>Airbnb, about $120 · first night on the water</span><span class="pack-hint"><b>Pack</b>Swimsuit, sandals, sun hat — first proper beach stop of the trip</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">7 — 9 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Rovinj%2C+Croatia" target="_blank" rel="noopener">Rovinj</a></strong><span>Airbnb with free parking, about $300 · Istria</span><span class="pack-hint"><b>Pack</b>Coastal casual by day, one smart layer for an Old Town dinner</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">9 — 10 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Omis%2C+Croatia" target="_blank" rel="noopener">Omiš</a></strong><span>Bluesun Hotel Marina · reservation PH29018259 · parking €10/day/car</span><span class="pack-hint"><b>Pack</b>Just a change of clothes — this is the one-night break-the-drive stop</span></div>
+      <div class="tag t-booked">Booked</div>
+      <div class="drivenote">↓ ROVINJ TO THE MAKARSKA COAST IS ALMOST A 6-HOUR DRIVE — THIS IS THE BREAK-THE-JOURNEY NIGHT</div>
+    </div>
+    <div class="night">
+      <div class="when">10 — 13 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Korcula%2C+Croatia" target="_blank" rel="noopener">Korčula</a></strong><span>The Dreamers' Club, Sun Ray (2+2), Lumbarda · eco-aparthotel by the vineyards — you boat in</span><span class="pack-hint"><b>Pack</b>Swimwear, light linen, a dry bag for the boat transfer, wine-tasting casual</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">13 — 16 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubrovnik</a></strong><span>Hotel Stari Grad, inside Old Town · about $800 for 3 nights</span><span class="pack-hint"><b>Pack</b>Good walking shoes for the City Walls, a nicer outfit for Dubravka on the 14th</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+  </div>
+
+  <article class="entry entry--doc">
+    <div class="entry-top"><span class="kind">Watch</span><h3>The car and Old Town don't quite line up</h3></div>
+    <p>Old Town is car-free, and the doc's own plan was to drop the car at the airport and taxi back in. But the rental is booked through to 10:00am on the 16th, which is the morning you fly. So either you hand it back on the 13th and eat three unused days, shorten the booking with Expedia, or find paid parking outside the walls for the last stretch. Worth deciding before you land in Ljubljana.</p>
+    <div class="facts"><b>Arrive Dubrovnik <u>13 Sep</u></b><b>Car booked until <u>16 Sep</u></b><b>Flight departs <u>1:25pm, 16 Sep</u></b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Table</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Dubravka+1836%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubravka 1836</a> — dinner, Mon 14 Sep, 6:30–8:30pm</h3></div>
+    <p>Confirmed for two. Dubrovnik, just inside the Pile Gate with the view back along the walls. They hold the table 15 minutes past 6:30 before releasing it, so don't run late.</p>
+  </article>
+
+  <details>
+    <summary>Ljubljana — where to eat <span style="font-weight:400;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:11px">17 SPOTS</span></summary>
+    <div class="body">
+      <ul class="plain cols">
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Raw+Pasta%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Raw Pasta</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Julija%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Julija</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Piccola%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Piccola</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lajbah%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Lajbah</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Sarajevo+84%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Sarajevo 84</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Le+Petit%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Le Petit</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Kavarna+Rog%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Kavarna Rog</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Super+Natural%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Super Natural</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Barbella%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Barbella</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Veganika%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Veganika</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=El+Papron%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">El Papron</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Uno+Mass%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Uno Mass</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Brot%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Brot</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Donut+Tell%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Donut Tell</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=5-6+Kg%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">5-6 Kg</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Dobra+Vila%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Dobra Vila</a></li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Dubrovnik — where to eat <span style="font-weight:400;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:11px">9 SPOTS</span></summary>
+    <div class="body">
+      <ul class="plain cols">
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Dubravka+1836%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubravka 1836</a> — <em>booked, 14 Sep 6:30pm</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Bu%C5%BEa+Bar%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Buža Bar</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Nautika%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Nautika</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Fish+Restaurant+Proto%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Fish Restaurant Proto</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Grand+Kavana+Arsenal%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Grand Kavana Arsenal</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Pady+Pi-pi%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Pady Pi-pi</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lucin+Kantun%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Lucin Kantun</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=M%27arden+Wine+Bar%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">M'arden Wine Bar</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Oyster+%26+Sushi+Bar+Bota%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Oyster & Sushi Bar Bota</a></li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Dubrovnik — what to do <span style="font-weight:400;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:11px">13 THINGS</span></summary>
+    <div class="body">
+      <ul class="plain cols">
+        <li><a href="https://www.google.com/maps/search/?api=1&query=City+Walls+of+Dubrovnik" target="_blank" rel="noopener">City Walls walk</a> — <em>go early</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Dubrovnik+Old+Town" target="_blank" rel="noopener">Old Town on foot</a> — <em>go early</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Mount+Sr%C4%91+Cable+Car+Dubrovnik" target="_blank" rel="noopener">Mount Srđ cable car</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lokrum+Island" target="_blank" rel="noopener">Lokrum Island</a> — <em>short boat, swimming and trails</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Banje+Beach+Dubrovnik" target="_blank" rel="noopener">Banje Beach</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=West+Harbour+Dubrovnik" target="_blank" rel="noopener">West Harbour</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Plo%C4%8De+Gate+Dubrovnik" target="_blank" rel="noopener">The road above Ploče Gate</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Franciscan+Monastery+Dubrovnik" target="_blank" rel="noopener">Franciscan Monastery</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Jesuit+Staircase+Dubrovnik" target="_blank" rel="noopener">Jesuit Staircase</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lovrijenac+Fortress" target="_blank" rel="noopener">Lovrijenac Fortress</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Onofrio%27s+Fountain+Dubrovnik" target="_blank" rel="noopener">Onofrio's Fountain</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Rector%27s+Palace+Dubrovnik" target="_blank" rel="noopener">Rector's Palace</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Stradun+Dubrovnik" target="_blank" rel="noopener">Stradun</a></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ============ LEG 5 ============ -->
+<section class="leg leg--home leg--last">
+  <div class="leg-num">LEG 05</div>
+  <div class="leg-head">
+    <div class="leg-when">WED 16 SEP — SUN 20 SEP</div>
+    <h2>Louisville, then home</h2>
+    <p>Brian and Josie's wedding, and a late landing at LAX.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Dubrovnik → Louisville</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">DL 9504</span><span class="pair">DBV → AMS</span><span class="time">Wed 16 Sep, 1:25pm — 3:55pm</span><span class="time">KLM Cityhopper</span></div>
+      <div class="seg"><span class="no">DL 9374</span><span class="pair">AMS → ATL</span><span class="time">5:05pm — 8:25pm</span><span class="time">KLM</span></div>
+      <div class="seg"><span class="no">DL 2624</span><span class="pair">ATL → SDF</span><span class="time">10:40pm — 11:59pm</span></div>
+    </div>
+    <p>Delta, economy. Car drops at Dubrovnik airport at 10:00am, so there's about three and a half hours before departure — comfortable, not generous.</p>
+    <div class="facts"><b>Conf <u>HJYJ8T</u></b><b>1h 10m in Amsterdam</b><b>2h 15m in Atlanta</b></div>
+  </article>
+
+  <article class="entry entry--open">
+    <div class="entry-top"><span class="kind">Stay</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Louisville%2C+Kentucky" target="_blank" rel="noopener">Louisville</a> — 4 nights</h3></div>
+    <p>16 to 20 September, nothing booked and nothing in the doc. Outfits needed: Brian and Josie's wedding is sorted, cowboy cocktail isn't.</p>
+    <p class="pack"><b>Pack</b> Brian and Josie's wedding outfit ✓ · a cowboy cocktail look — still to pull together · comfortable shoes, you'll be back on pavement after weeks of sand and stone.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Louisville → Los Angeles</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">DL 4965</span><span class="pair">SDF → MSP</span><span class="time">Sun 20 Sep, 7:54pm — 9:05pm</span><span class="time">Endeavor Air</span></div>
+      <div class="seg"><span class="no">DL 2103</span><span class="pair">MSP → LAX</span><span class="time">9:59pm — 11:52pm</span></div>
+    </div>
+    <p>Delta Main Classic, both of you on the same record. Home just before midnight.</p>
+    <div class="facts"><b>Conf <u>H3HZX8</u></b><b>Ethan + Brooke</b><b>54m in Minneapolis</b></div>
+  </article>
+</section>
+
+<!-- ============ MONEY ============ -->
+<section class="money-box">
+  <h2>Money still owed</h2>
+  <p>Everything with a dollar or euro figure still outstanding, in one place — pulled out of the day-by-day itinerary above so it doesn't get lost among logistics.</p>
+
+  <div class="money-row">
+    <div class="m-amt">$1,226.76</div>
+    <div class="m-body"><b>Enterprise rental car</b><span>Due at the counter on pickup — <a href="https://www.google.com/maps/search/?api=1&query=Ljubljana+Airport%2C+Slovenia" target="_blank" rel="noopener">Ljubljana Airport</a>, 31 Aug. Conf 2123930311.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt">€661.20</div>
+    <div class="m-body"><b><a href="https://www.google.com/maps/search/?api=1&query=Korcula%2C+Croatia" target="_blank" rel="noopener">Korčula</a> balance — The Dreamers' Club</b><span>Due 11 Aug to Adriatic Pearls (myholiday@adriaticpearls.com). Deposit of €314 already paid. Their reminder email hasn't arrived — don't wait for it.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt unknown">Amount TBD</div>
+    <div class="m-body"><b><a href="https://www.google.com/maps/search/?api=1&query=Monate+Game+Lodge%2C+South+Africa" target="_blank" rel="noopener">Monate Game Lodge</a> final payment</b><span>Randy is handling this directly with Elzaan (roomsdiv@monatelodge.com) — not something to track over email. Reservation #116793. Monate has flagged they'll never change their bank details from what's on the official invoice, so anything that looks like a new payment request is suspect.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt unknown">Cash on arrival</div>
+    <div class="m-body"><b><a href="https://www.google.com/maps/search/?api=1&query=Kamp+Siber%2C+Poljubinj+92a%2C+Tolmin%2C+Slovenia" target="_blank" rel="noopener">Camp Šiber</a>, Tolmin</b><span>Pay in person at reception when you check in, 5 Sep. No pre-payment required.</span></div>
+  </div>
+
+  <p class="money-paid">Already paid, for reference — not action items: Turkish Airlines LAX–CPT ($9,045.08 + 132,941 pts, Visa •2357) · Turkish Airlines JNB–LJU (ticketed, refundable) · Delta DBV–SDF and SDF–LAX (both ticketed) · Korčula deposit (€314) · Bluesun Omiš (parking is €10/day/car extra, paid on site).</p>
+</section>
+
+<!-- ============ OPEN ============ -->
+<section class="open-box">
+  <h2>Still open</h2>
+  <p>Non-financial items only — money is tracked separately above. Down to Louisville, two unconfirmed Slovenia nights, and three admin items.</p>
+
+  <ul>
+    <li><b>Louisville, 16–20 Sep</b> — four nights around Brian and Josie's wedding, nothing booked.</li>
+    <li><b>Ljubljana and Lake Bohinj, 31 Aug – 5 Sep</b> — the only two Slovenia/Croatia nights with no confirmation forwarded, versus everything from Tolmin onward, which is now locked. Worth checking these are actually reserved and not just decided.</li>
+    <li><b>The Dubrovnik car question</b> — return it early, shorten the booking, or park outside the walls, since it's booked three days past your arrival in car-free Old Town.</li>
+    <li><b>Boarding-pass preference</b> — Sydney is still waiting to hear WhatsApp or email for the Cape Town → Hoedspruit passes.</li>
+    <li><b>SARS declarations</b> — one on the way into South Africa, one before leaving on 30 August, each within 24 hours of travel.</li>
+    <li><b>Two outfits</b> — safari casual for the night-before dinner, and cowboy cocktail for Louisville.</li>
+  </ul>
+</section>
+
+<footer>
+  Built from confirmation emails in simcock.ethan@gmail.com, six forwards from stroosma.simcock@gmail.com, and the shared "Honeymoon" doc — last updated 29 July 2026.<br>
+  The stroosma.simcock@gmail.com inbox still isn't directly connected, and neither is the "Doing Things" calendar — the Cape Town, Franschhoek, Ljubljana and Bohinj bookings are most likely sitting in one of those.
+</footer>
+
+</div>
+</body>
+</html>

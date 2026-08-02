@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ljubljana → Dubrovnik — The Journey, Day by Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#E7EAE6; --stone-2:#DCE0DB; --ink:#18262A; --ink-soft:#4C5C5E;
+    --ink-faint:#8A9694; --card:#FDFDFC;
+    --adriatic:#2B4A8F; --bush:#A85A1E; --sea:#1E7D74; --option:#8A9694;
+    --rule:rgba(24,38,42,.14); --rule-soft:rgba(24,38,42,.08);
+    --seabg:#CFE1DE; --landbg:#EFEAD9; --landline:#B9AE8C;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--stone);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:15.5px;line-height:1.6}
+  a{color:var(--adriatic);text-decoration-thickness:1px;text-underline-offset:2px}
+
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--adriatic);width:0;z-index:1200;transition:width .15s linear}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 12vh}
+
+  /* the map: a plain sticky block, NOT part of a flex/vh column layout */
+  .mapbox{
+    position:sticky; top:0; z-index:500;
+    width:100%; height:420px;
+    background:var(--seabg);
+    border-bottom:2px solid var(--ink);
+    overflow:hidden;
+    box-shadow:0 6px 16px rgba(24,38,42,.18);
+  }
+  #mapsvg{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform;
+    transition:transform 1.0s cubic-bezier(.22,.61,.36,1)}
+
+  #daybadge{position:absolute;z-index:20;top:14px;left:14px;background:var(--ink);color:#fff;
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    padding:7px 12px;border-radius:2px;box-shadow:0 2px 8px rgba(24,38,42,.25);max-width:76%}
+  #daybadge b{display:block;font-size:13px;letter-spacing:.03em;margin-top:2px;text-transform:none}
+  .maplegend{position:absolute;z-index:20;bottom:12px;left:14px;background:rgba(253,253,252,.94);
+    border:1px solid var(--rule);border-radius:3px;padding:8px 11px;
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.03em;color:var(--ink-soft);line-height:1.85}
+  .maplegend i{display:inline-block;width:20px;height:0;margin-right:6px;vertical-align:middle}
+  .l-drive{border-top:3px solid var(--adriatic)}
+  .l-ferry{border-top:3px dashed var(--sea)}
+  .l-train{border-top:3px dotted var(--bush)}
+  .l-opt{border-top:2px dashed var(--option)}
+  .northarrow{position:absolute;z-index:20;top:14px;right:14px;background:rgba(253,253,252,.9);
+    border:1px solid var(--rule);border-radius:3px;padding:6px 9px;text-align:center;
+    font-family:"IBM Plex Mono",monospace;font-size:9px;color:var(--ink-soft);letter-spacing:.05em}
+  .northarrow svg{display:block;margin:0 auto 2px}
+
+  :root{ --cs: 1; }
+  .mk-scale{transform:scale(var(--cs,1));transition:opacity .5s, transform .25s}
+  .mk circle,.mk rect{transition:opacity .5s}
+  .mk-a{cursor:pointer}
+  .lb{font-family:"IBM Plex Mono",monospace;fill:var(--ink);opacity:0;transition:opacity .5s;
+      paint-order:stroke; stroke:var(--seabg); stroke-width:3px; stroke-linejoin:round;font-weight:600}
+  .rte{transition:opacity .5s, stroke-width .5s}
+  .rte.ghost{opacity:1}
+  .mk[data-ch]{opacity:.30}
+  .mk-a[data-ch] .mk{opacity:.30}
+  .rte[data-ch]{opacity:.18}
+  .lb[data-ch]{opacity:0}
+  .hot.mk, .mk-a.hot .mk{opacity:1}
+  .hot.mk circle,.hot.mk rect{filter:drop-shadow(0 1px 3px rgba(24,38,42,.4))}
+  .rte.hot{opacity:1;stroke-width:4.4}
+  .lb.hot{opacity:1}
+  .foodzone.hot{opacity:.9!important}
+  .foodzone{opacity:0;transition:opacity .5s}
+
+  header{padding:48px 0 30px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 18px}
+  h1{font-family:"Fraunces",Georgia,serif;font-weight:300;font-size:clamp(30px,6vw,48px);
+    line-height:1.04;letter-spacing:-.02em;margin:0 0 10px}
+  h1 em{font-style:italic;font-weight:500}
+  header p.lede{color:var(--ink-soft);margin:0 0 24px;font-size:16px}
+  .bignums{display:flex;flex-wrap:wrap;gap:26px;padding:18px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .bignums b{display:block;font-family:"Fraunces",serif;font-weight:500;font-size:26px;line-height:1}
+  .bignums span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint)}
+  .hint{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-faint);letter-spacing:.05em;margin-top:18px}
+
+  .step{padding:7vh 0 7vh;border-left:4px solid transparent;padding-left:20px;opacity:.4;transition:opacity .35s, border-color .35s}
+  .step.active{opacity:1;border-left-color:var(--adriatic)}
+  .step .when{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+    letter-spacing:.1em;color:var(--adriatic);margin-bottom:8px;text-transform:uppercase}
+  .step h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:clamp(22px,3vw,28px);
+    letter-spacing:-.01em;line-height:1.15;margin:0 0 12px}
+  .step p{margin:0 0 12px;color:var(--ink-soft);font-size:14.5px}
+  .step p strong{color:var(--ink)}
+  .movestrip{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px}
+  .movestrip b{font-weight:500;background:var(--stone-2);color:var(--ink-soft);padding:4px 9px;border-radius:2px}
+  .movestrip b.hotc{background:var(--adriatic);color:#fff}
+  .movestrip b.ferrychip{background:var(--sea);color:#fff}
+  .movestrip b.trainchip{background:var(--bush);color:#fff}
+  .choice{border:1px dashed var(--ink-faint);border-radius:3px;padding:13px 16px;margin:14px 0;background:var(--card)}
+  .choice .ctag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--bush);font-weight:600;display:block;margin-bottom:5px}
+  .choice p{margin:0;font-size:13.8px}
+  .bookahead{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+  .bookahead b{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+    font-weight:600;color:var(--bush);border:1px solid var(--bush);border-radius:2px;padding:4px 9px;background:transparent}
+  .epic{margin-top:14px;padding:12px 16px;background:var(--ink);color:#EDEFEA;border-radius:3px;font-size:13.8px}
+  .epic b{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:#D8A56B;display:block;margin-bottom:4px}
+  .foodlist{columns:2;column-gap:24px;margin:10px 0 0;padding:0;list-style:none;font-size:13.5px}
+  .foodlist li{break-inside:avoid;margin-bottom:4px;color:var(--ink-soft)}
+  .foodlist li::before{content:"·";color:var(--ink-faint);margin-right:7px}
+
+  .finale{margin:4vh 0 10vh;padding:28px 28px;background:var(--card);border:1px solid var(--rule);
+    border-left:4px solid var(--bush);border-radius:3px}
+  .finale h2{font-family:"Fraunces",serif;font-weight:500;font-size:24px;margin:0 0 8px}
+  .finale ul{margin:0;padding-left:20px}
+  .finale li{margin-bottom:9px;color:var(--ink-soft);font-size:14px}
+  .finale li b{color:var(--ink)}
+
+  footer{padding:0 0 60px;font-family:"IBM Plex Mono",monospace;font-size:11px;
+    line-height:1.9;color:var(--ink-faint)}
+
+  @media (max-width:600px){
+    .mapbox{height:300px}
+    .maplegend,.northarrow{transform:scale(.85);transform-origin:bottom left}
+    .step{padding-left:14px}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="shell">
+
+<div class="story">
+<div class="wrap">
+<header id="ch-overview" class="chapter" data-ch="0">
+  <p class="eyebrow">Companion planner · Leg 04 · 31 Aug – 16 Sep 2026</p>
+  <h1>Ljubljana → Dubrovnik,<br><em>the long way down</em></h1>
+  <p class="lede">Seventeen nights, eight beds, one car, one ferry. City → Alps → river valley → first salt water → Istria → the long haul → the islands → the walls. Scroll, and the map moves with you.</p>
+  <div class="bignums">
+    <div><b>≈1,090</b><span>km behind the wheel</span></div>
+    <div><b>1</b><span>border crossing</span></div>
+    <div><b>1</b><span>car ferry</span></div>
+    <div><b>1</b><span>optional car-train</span></div>
+    <div><b>8</b><span>beds</span></div>
+  </div>
+  <p class="hint">▼ scroll — the map pans and zooms with each stage · click any pin for its Google Maps link</p>
+</header>
+<div class="mapbox">
+  <div class="northarrow">
+    <svg width="16" height="20" viewBox="0 0 18 22"><path d="M9 0 L16 14 L9 10 L2 14 Z" fill="#18262A"></path></svg>
+    N
+  </div>
+  <svg id="mapsvg" width="1080" height="1240" viewBox="0 0 1080 1240" xmlns="http://www.w3.org/2000/svg">
+    <rect x="-200" y="-200" width="1500" height="1700" fill="var(--seabg)"></rect>
+    <path d="M 32.2,270.0 L -21.4,315.0 L -171.6,495.0 L -257.4,705.0 L -42.9,885.0 L 42.9,1005.0 L 107.3,1005.0 L 42.9,825.0 L -85.8,645.0 L -64.4,435.0 L 32.2,270.0 Z" fill="var(--ink)" fill-opacity=".05" stroke="none"></path>
+    <path d="M -4.3,-96.0 L 257.4,-90.0 L 482.7,-30.0 L 579.2,45.0 L 504.1,135.0 L 418.3,240.0 L 332.5,300.0 L 257.4,339.0 L 49.3,324.0 L 32.2,285.0 L 68.7,249.0 L 42.9,195.0 L 10.7,135.0 L 10.7,60.0 L -21.4,0.0 L -4.3,-96.0 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.6" vector-effect="non-scaling-stroke"></path>
+    <path d="M 49.3,324.0 L 32.2,345.0 L 27.9,381.0 L 38.6,420.0 L 49.3,441.0 L 68.7,465.0 L 81.5,486.0 L 96.5,504.0 L 113.7,516.0 L 128.7,495.0 L 133.0,459.0 L 124.4,420.0 L 118.0,381.0 L 111.5,345.0 L 96.5,321.0 L 75.1,300.0 L 53.6,300.0 L 49.3,324.0 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.6" vector-effect="non-scaling-stroke"></path>
+    <path d="M 321.8,600.0 L 343.2,675.0 L 364.7,729.0 L 396.9,735.0 L 418.3,780.0 L 461.2,825.0 L 504.1,846.0 L 547.0,861.0 L 579.2,885.0 L 611.4,900.0 L 632.9,915.0 L 654.3,915.0 L 675.8,927.0 L 697.2,933.0 L 707.9,933.0 L 729.4,945.0 L 757.3,954.0 L 772.3,975.0 L 793.7,1005.0 L 825.9,1035.0 L 858.1,1047.0 L 875.3,1059.0 L 890.3,1071.0 L 890.3,1095.0 L 905.3,1107.0 L 922.5,1113.0 L 933.2,1116.0 L 954.6,1131.0 L 982.5,1149.0 L 993.2,1161.0 L 1004.0,1173.0 L 1019.0,1179.0 L 1029.7,1191.0 L 1040.5,1215.0 L 1051.2,1233.0 L 901.0,1233.0 L 836.6,1185.0 L 772.3,1140.0 L 718.7,1080.0 L 675.8,1020.0 L 622.1,960.0 L 557.8,900.0 L 493.4,825.0 L 439.8,750.0 L 375.4,675.0 L 321.8,600.0 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.6" vector-effect="non-scaling-stroke"></path>
+    <path d="M 890.3,1071.0 L 868.8,1065.0 L 836.6,1062.0 L 815.2,1065.0 L 800.2,1068.0 L 795.9,1072.5 L 802.3,1075.5 L 815.2,1078.5 L 836.6,1083.0 L 858.1,1086.0 L 875.3,1089.0 L 890.3,1095.0 L 905.3,1107.0 L 922.5,1113.0 L 933.2,1116.0 L 926.8,1107.0 L 901.0,1095.0 L 890.3,1083.0 L 892.4,1074.0 L 890.3,1071.0 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.6" vector-effect="non-scaling-stroke"></path>
+    <path d="M 754.1,964.5 L 748.1,951.5 L 731.4,941.0 L 707.4,935.2 L 680.6,935.2 L 656.5,941.0 L 639.9,951.5 L 633.9,964.5 L 639.9,977.5 L 656.5,988.0 L 680.6,993.8 L 707.4,993.8 L 731.4,988.0 L 748.1,977.5 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+    <path d="M 802.3,1012.5 L 793.4,1005.3 L 768.4,999.6 L 732.3,996.4 L 692.2,996.4 L 656.0,999.6 L 631.0,1005.3 L 622.1,1012.5 L 631.0,1019.7 L 656.0,1025.4 L 692.2,1028.6 L 732.3,1028.6 L 768.4,1025.4 L 793.4,1019.7 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+    <path d="M 840.9,1078.5 L 834.6,1070.7 L 816.7,1064.4 L 790.9,1061.0 L 762.3,1061.0 L 736.5,1064.4 L 718.6,1070.7 L 712.2,1078.5 L 718.6,1086.3 L 736.5,1092.6 L 762.3,1096.0 L 790.9,1096.0 L 816.7,1092.6 L 834.6,1086.3 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+    <path d="M 941.8,1140.0 L 936.7,1134.8 L 922.4,1130.6 L 901.7,1128.3 L 878.8,1128.3 L 858.2,1130.6 L 843.9,1134.8 L 838.8,1140.0 L 843.9,1145.2 L 858.2,1149.4 L 878.8,1151.7 L 901.7,1151.7 L 922.4,1149.4 L 936.7,1145.2 Z" fill="var(--landbg)" stroke="var(--landline)" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+    <path d="M 905.3,1071.0 L 911.7,1080.0 L 905.3,1086.0 L 896.7,1083.0 L 905.3,1071.0 Z" fill="var(--seabg)" stroke="var(--landline)" stroke-width="1" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"></path>
+    <ellipse cx="95" cy="70" rx="90" ry="55" fill="#8CA07E" fill-opacity=".18"></ellipse>
+    <ellipse cx="60" cy="95" rx="55" ry="40" fill="#8CA07E" fill-opacity=".22"></ellipse>
+    <ellipse cx="770" cy="945" rx="45" ry="18" fill="#8CA07E" fill-opacity=".25" transform="rotate(35 770 945)"></ellipse>
+    <text x="160" y="40" font-size="17" letter-spacing="3" fill="var(--ink)" fill-opacity=".38" font-family="IBM Plex Mono, monospace">SLOVENIA</text>
+    <text x="430" y="560" font-size="19" letter-spacing="3" fill="var(--ink)" fill-opacity=".38" font-family="IBM Plex Mono, monospace">CROATIA</text>
+    <text x="946" y="1150" font-size="9" letter-spacing="1.5" fill="var(--ink)" fill-opacity=".45" font-family="IBM Plex Mono, monospace">BiH</text>
+    <text x="30" y="480" font-size="15" letter-spacing="3" fill="var(--adriatic)" fill-opacity=".30" font-family="IBM Plex Mono, monospace" transform="rotate(-78 30 480)">ADRIATIC SEA</text>
+    <text x="-120" y="230" font-size="12" letter-spacing="2" fill="var(--ink)" fill-opacity=".22" font-family="IBM Plex Mono, monospace">ITALY</text>
+
+    <path class="rte ghost" d="M 226.9,97.9 L 237.2,147.9 L 153.3,54.5 L 104.1,82.1 L 118.5,82.8 L 60.9,108.2 L 71.2,109.4 L 127.2,266.1 L 56.1,303.9 L 48.9,320.4 L 41.8,396.9 L 51.2,440.7 L 392.9,729.2 L 535.3,844.5 L 652.2,912.6 L 705.6,932.0 L 757.9,954.6 L 864.8,1048.2 L 891.6,1070.7 L 850.8,1088.7 L 810.5,1072.2 L 803.8,1078.2 L 808.8,1088.1 L 803.8,1078.2 L 810.5,1072.2 L 921.6,1113.9 L 981.9,1151.1 L 1009.6,1172.6 L 1044.4,1196.6" vector-effect="non-scaling-stroke" style="stroke:var(--ink);stroke-opacity:.22;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="1" d="M 226.9,97.9 L 237.2,147.9" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <circle class="foodzone mk-scale" data-ch="2" cx="237.22" cy="147.93" r="7.2" fill="var(--bush)" fill-opacity=".09" stroke="var(--bush)" stroke-width=".7" vector-effect="non-scaling-stroke" style="transform-origin:237.22px 147.93px"></circle>
+    <path class="rte drive" data-ch="3" d="M 237.2,147.9 L 236.0,135.0 L 153.3,54.5" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="3" d="M 153.3,54.5 L 197.4,105.0 L 104.1,82.1" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="4" d="M 104.1,82.1 L 94.1,87.0" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte opt" data-ch="4" d="M 104.1,82.1 L 86.2,78.2" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="5" d="M 104.1,82.1 L 118.5,82.8" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="5" d="M 118.5,82.8 L 124.4,75.0 L 60.9,108.2" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte train" data-ch="5" d="M 118.5,82.8 L 60.9,108.2" vector-effect="non-scaling-stroke" style="stroke:var(--bush);stroke-width:3.4;fill:none;stroke-dasharray:1 6;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="5" d="M 60.9,108.2 L 71.2,109.4" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="5" d="M 71.2,109.4 L 38.3,90.8" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="6" d="M 71.2,109.4 L 92.2,150.0 L 107.3,195.0 L 127.2,266.1" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="6" d="M 127.2,266.1 L 120.1,240.0 L 56.1,303.9" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="6" d="M 56.1,303.9 L 36.0,306.4" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="7" d="M 56.1,303.9 L 48.9,320.4" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="7" d="M 48.9,320.4 L 60.1,363.0 L 41.8,396.9 L 51.2,440.7" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="7" d="M 41.8,396.9 L 92.0,364.0" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte opt" data-ch="8" d="M 51.2,440.7 L 51.9,445.2" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte opt" data-ch="8" d="M 51.2,440.7 L 96.5,505.0" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="9" d="M 51.2,440.7 L 236.0,405.0 L 311.1,540.0 L 407.6,660.0 L 392.9,729.2 L 461.2,795.0 L 535.3,844.5 L 611.4,909.9 L 652.2,912.6 L 705.6,932.0" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="9" d="M 392.9,729.2 L 468.1,505.4" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="10" d="M 705.6,932.0 L 707.1,930.6 L 757.9,954.6 L 795.1,978.2 L 864.8,1048.2 L 891.6,1070.7 L 850.8,1088.7 L 810.5,1072.2" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="10" d="M 864.8,1048.2 L 831.1,1062.9" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte ferry" data-ch="10" d="M 810.5,1072.2 L 803.8,1078.2" vector-effect="non-scaling-stroke" style="stroke:var(--sea);stroke-width:3.4;fill:none;stroke-dasharray:2 7;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="10" d="M 803.8,1078.2 L 808.8,1088.1" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="11" d="M 808.8,1088.1 L 801.2,1077.0" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte opt" data-ch="11" d="M 808.8,1088.1 L 807.0,1078.5" vector-effect="non-scaling-stroke" style="stroke:var(--option);stroke-width:2.2;fill:none;stroke-dasharray:6 6;stroke-linecap:round"></path>
+    <path class="rte ferry" data-ch="12" d="M 808.8,1088.1 L 803.8,1078.2 L 810.5,1072.2" vector-effect="non-scaling-stroke" style="stroke:var(--sea);stroke-width:3.4;fill:none;stroke-dasharray:2 7;stroke-linecap:round"></path>
+    <path class="rte drive" data-ch="12" d="M 810.5,1072.2 L 868.8,1065.0 L 921.6,1113.9" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="12" d="M 921.6,1113.9 L 923.3,1111.8 L 981.9,1151.1 L 1008.9,1171.9 L 1009.6,1172.6" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <path class="rte drive" data-ch="14" d="M 1009.6,1172.6 L 1029.7,1185.0 L 1044.4,1196.6" vector-effect="non-scaling-stroke" style="stroke:var(--adriatic);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round"></path>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Ljubljana+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:237.22px 147.93px"><circle cx="237.22" cy="147.93" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Ljubljana</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Lake+Bohinj+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:104.11px 82.08px"><circle cx="104.11" cy="82.08" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Lake Bohinj</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Kamp+Siber+Tolmin" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:74.65px 111.6px"><circle cx="74.65" cy="111.6" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Tolmin</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Izola+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:56.08px 303.93px"><circle cx="56.08" cy="303.93" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Izola</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Rovinj+Croatia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:51.21px 440.67px"><circle cx="51.21" cy="440.67" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Rovinj</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Omis+Croatia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:705.64px 932.01px"><circle cx="705.64" cy="932.01" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Omiš</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=The+Dreamers+Club+Lumbarda" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:808.76px 1088.1px"><circle cx="808.76" cy="1088.1" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Korčula / Lumbarda</title></g></a>
+    <a class="mk-a" data-ch="0,15" href="https://www.google.com/maps/search/?api=1&query=Hotel+Stari+Grad+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="0,15" style="transform-origin:1009.64px 1172.58px"><circle cx="1009.64" cy="1172.58" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Dubrovnik</title></g></a>
+    <a class="mk-a" data-ch="1" href="https://www.google.com/maps/search/?api=1&query=Ljubljana+Airport" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="1" style="transform-origin:226.88px 97.89px"><circle cx="226.88" cy="97.89" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Ljubljana Airport — Enterprise pickup 10:00 — raise the Dubrovnik return here</title></g></a>
+    <a class="mk-a" data-ch="1,2" href="https://www.google.com/maps/search/?api=1&query=Ljubljana+old+town" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="1,2" style="transform-origin:237.22px 147.93px"><circle cx="237.22" cy="147.93" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Ljubljana Airbnb — Nights 1–3</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Ljubljana+Castle" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.89px 150.33px"><circle cx="237.89" cy="150.33" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Ljubljana Castle — Funicular up</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Ljubljana+Central+Market" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.46px 149.64px"><circle cx="237.46" cy="149.64" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Central Market — Mornings</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Metelkova+Ljubljana" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:239.3px 148.05px"><circle cx="239.3" cy="148.05" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Metelkova — Murals & bars</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Tivoli+Park+Ljubljana" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:234.26px 149.1px"><circle cx="234.26" cy="149.1" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Tivoli Park — Golden hour</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Raw+Pasta%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:238.0px 147.93px"><rect x="234.6" y="144.5" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 238.0 147.93)" vector-effect="non-scaling-stroke"></rect><title>Raw Pasta</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Julija%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:238.12px 147.53px"><rect x="234.7" y="144.1" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 238.12 147.53)" vector-effect="non-scaling-stroke"></rect><title>Julija</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Piccola%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:238.05px 147.04px"><rect x="234.6" y="143.6" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 238.05 147.04)" vector-effect="non-scaling-stroke"></rect><title>Piccola</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Lajbah%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.52px 147.15px"><rect x="234.1" y="143.7" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 237.52 147.15)" vector-effect="non-scaling-stroke"></rect><title>Lajbah</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Sarajevo+84%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.22px 146.88px"><rect x="233.8" y="143.4" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 237.22 146.88)" vector-effect="non-scaling-stroke"></rect><title>Sarajevo 84</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Le+Petit%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.77px 146.77px"><rect x="233.3" y="143.3" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.77 146.77)" vector-effect="non-scaling-stroke"></rect><title>Le Petit</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Kavarna+Rog%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.67px 147.34px"><rect x="233.2" y="143.9" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.67 147.34)" vector-effect="non-scaling-stroke"></rect><title>Kavarna Rog</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Super+Natural%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.32px 147.53px"><rect x="232.9" y="144.1" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.32 147.53)" vector-effect="non-scaling-stroke"></rect><title>Super Natural</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Barbella%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.05px 147.93px"><rect x="232.6" y="144.5" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.05 147.93)" vector-effect="non-scaling-stroke"></rect><title>Barbella</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Veganika%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.5px 148.25px"><rect x="233.1" y="144.8" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.5 148.25)" vector-effect="non-scaling-stroke"></rect><title>Veganika</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=El+Papron%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.53px 148.67px"><rect x="233.1" y="145.2" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.53 148.67)" vector-effect="non-scaling-stroke"></rect><title>El Papron</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Uno+Mass%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:236.77px 149.09px"><rect x="233.3" y="145.6" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 236.77 149.09)" vector-effect="non-scaling-stroke"></rect><title>Uno Mass</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Brot%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.22px 148.77px"><rect x="233.8" y="145.3" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 237.22 148.77)" vector-effect="non-scaling-stroke"></rect><title>Brot</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Donut+Tell%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.6px 148.9px"><rect x="234.2" y="145.5" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 237.6 148.9)" vector-effect="non-scaling-stroke"></rect><title>Donut Tell</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=5-6+Kg%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:238.05px 148.82px"><rect x="234.6" y="145.4" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 238.05 148.82)" vector-effect="non-scaling-stroke"></rect><title>5-6 Kg</title></g></a>
+    <a class="mk-a" data-ch="2" href="https://www.google.com/maps/search/?api=1&query=Dobra+Vila%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="2" style="transform-origin:237.94px 148.25px"><rect x="234.5" y="144.8" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 237.94 148.25)" vector-effect="non-scaling-stroke"></rect><title>Dobra Vila</title></g></a>
+    <a class="mk-a" data-ch="3" href="https://www.google.com/maps/search/?api=1&query=Vintgar+Gorge" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="3" style="transform-origin:147.38px 47.25px"><circle cx="147.38" cy="47.25" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Vintgar Gorge — Timed slot, go at opening</title></g></a>
+    <a class="mk-a" data-ch="3" href="https://www.google.com/maps/search/?api=1&query=Lake+Bled" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="3" style="transform-origin:153.3px 54.51px"><circle cx="153.3" cy="54.51" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Lake Bled — Island + kremšnita</title></g></a>
+    <a class="mk-a" data-ch="3,4" href="https://www.google.com/maps/search/?api=1&query=Lake+Bohinj+Ribcev+Laz" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="3,4" style="transform-origin:104.11px 82.08px"><circle cx="104.11" cy="82.08" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Lake Bohinj Airbnb — Nights 4–5</title></g></a>
+    <a class="mk-a" data-ch="4" href="https://www.google.com/maps/search/?api=1&query=Vogel+cable+car+Bohinj" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="4" style="transform-origin:94.13px 86.97px"><circle cx="94.13" cy="86.97" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Vogel cable car — Clear days only</title></g></a>
+    <a class="mk-a" data-ch="4" href="https://www.google.com/maps/search/?api=1&query=Slap+Savica" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="4" style="transform-origin:86.24px 78.24px"><circle cx="86.24" cy="78.24" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Savica Waterfall — 25-min hike</title></g></a>
+    <a class="mk-a" data-ch="4" href="https://www.google.com/maps/search/?api=1&query=Ukanc+Bohinj" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="4" style="transform-origin:96.11px 80.7px"><circle cx="96.11" cy="80.7" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Ukanc beach — Quiet end of the lake</title></g></a>
+    <a class="mk-a" data-ch="5" href="https://www.google.com/maps/search/?api=1&query=Bohinjska+Bistrica+railway+station" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="5" style="transform-origin:118.53px 82.83px"><circle cx="118.53" cy="82.83" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Bohinjska Bistrica — Avtovlak car-train loads here</title></g></a>
+    <a class="mk-a" data-ch="5" href="https://www.google.com/maps/search/?api=1&query=Most+na+Soci+station" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="5" style="transform-origin:60.9px 108.24px"><circle cx="60.9" cy="108.24" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Most na Soči — Car-train unloads here</title></g></a>
+    <a class="mk-a" data-ch="5" href="https://www.google.com/maps/search/?api=1&query=Tolmin+Gorges" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="5" style="transform-origin:70.36px 105.6px"><circle cx="70.36" cy="105.6" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Tolmin Gorges — Devil's Bridge</title></g></a>
+    <a class="mk-a" data-ch="5" href="https://www.google.com/maps/search/?api=1&query=Kobarid" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="5" style="transform-origin:38.31px 90.78px"><circle cx="38.31" cy="90.78" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Kobarid — WWI museum + big lunch (detour)</title></g></a>
+    <a class="mk-a" data-ch="5" href="https://www.google.com/maps/search/?api=1&query=Kamp+Siber+Tolmin" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="5" style="transform-origin:74.65px 111.6px"><circle cx="74.65" cy="111.6" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Camp Šiber — Night 6 · cash at reception</title></g></a>
+    <a class="mk-a" data-ch="6" href="https://www.google.com/maps/search/?api=1&query=Skocjan+Caves" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="6" style="transform-origin:127.21px 266.1px"><circle cx="127.21" cy="266.1" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Škocjan Caves — UNESCO · check tour times</title></g></a>
+    <a class="mk-a" data-ch="6" href="https://www.google.com/maps/search/?api=1&query=Predjama+Castle" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="6" style="transform-origin:156.71px 227.1px"><circle cx="156.71" cy="227.1" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Predjama Castle — Lighter alternative</title></g></a>
+    <a class="mk-a" data-ch="6" href="https://www.google.com/maps/search/?api=1&query=Izola+Slovenia" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="6" style="transform-origin:56.08px 303.93px"><circle cx="56.08" cy="303.93" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Izola Airbnb — Night 7 · first swim</title></g></a>
+    <a class="mk-a" data-ch="6" href="https://www.google.com/maps/search/?api=1&query=Piran+Tartini+Square" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="6" style="transform-origin:36.04px 306.45px"><circle cx="36.04" cy="306.45" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Piran — Sunset, 15 min away</title></g></a>
+    <a class="mk-a" data-ch="7" href="https://www.google.com/maps/search/?api=1&query=Dragonja+border+crossing" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="7" style="transform-origin:48.91px 320.4px"><circle cx="48.91" cy="320.4" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Dragonja border — SLO → HR · passports handy</title></g></a>
+    <a class="mk-a" data-ch="7" href="https://www.google.com/maps/search/?api=1&query=Motovun" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="7" style="transform-origin:92.01px 363.99px"><circle cx="92.01" cy="363.99" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Motovun — Truffle-lunch detour, +1h</title></g></a>
+    <a class="mk-a" data-ch="7" href="https://www.google.com/maps/search/?api=1&query=Euphrasian+Basilica+Porec" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="7" style="transform-origin:41.83px 396.9px"><circle cx="41.83" cy="396.9" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Poreč — UNESCO basilica, quick stop</title></g></a>
+    <a class="mk-a" data-ch="7,8" href="https://www.google.com/maps/search/?api=1&query=Rovinj" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="7,8" style="transform-origin:51.21px 440.67px"><circle cx="51.21" cy="440.67" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Rovinj Airbnb — Nights 8–9 · free parking</title></g></a>
+    <a class="mk-a" data-ch="8" href="https://www.google.com/maps/search/?api=1&query=Zlatni+Rt+Rovinj" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="8" style="transform-origin:51.92px 445.2px"><circle cx="51.92" cy="445.2" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Zlatni Rt — Forest park · coves · bikes</title></g></a>
+    <a class="mk-a" data-ch="8" href="https://www.google.com/maps/search/?api=1&query=Pula+Arena" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="8" style="transform-origin:96.45px 505.02px"><circle cx="96.45" cy="505.02" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Pula Arena — Roman amphitheatre, 40 min south</title></g></a>
+    <a class="mk-a" data-ch="9" href="https://www.google.com/maps/search/?api=1&query=Zadar+Sea+Organ" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="9" style="transform-origin:392.88px 729.18px"><circle cx="392.88" cy="729.18" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Zadar — Lunch + Sea Organ — the pick</title></g></a>
+    <a class="mk-a" data-ch="9" href="https://www.google.com/maps/search/?api=1&query=Plitvice+Lakes" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="9" style="transform-origin:468.09px 505.38px"><circle cx="468.09" cy="505.38" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Plitvice Lakes — +2h detour · timed entry · 7am start</title></g></a>
+    <a class="mk-a" data-ch="9" href="https://www.google.com/maps/search/?api=1&query=Sibenik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="9" style="transform-origin:535.28px 844.5px"><circle cx="535.28" cy="844.5" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Šibenik / Krka — The compromise stop</title></g></a>
+    <a class="mk-a" data-ch="9" href="https://www.google.com/maps/search/?api=1&query=Diocletian%27s+Palace+Split" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="9" style="transform-origin:652.2px 912.57px"><circle cx="652.2" cy="912.57" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Split — Save it — roll past today</title></g></a>
+    <a class="mk-a" data-ch="9,10" href="https://www.google.com/maps/search/?api=1&query=Bluesun+Hotel+Marina+Omis" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="9,10" style="transform-origin:705.64px 932.01px"><circle cx="705.64" cy="932.01" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Omiš — Hotel Marina — Night 10 · €10 parking</title></g></a>
+    <a class="mk-a" data-ch="10" href="https://www.google.com/maps/search/?api=1&query=Fortica+Omis" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10" style="transform-origin:707.07px 930.6px"><circle cx="707.07" cy="930.6" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Fortica fortress — Sunrise climb over Omiš</title></g></a>
+    <a class="mk-a" data-ch="10" href="https://www.google.com/maps/search/?api=1&query=Brela+beach" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10" style="transform-origin:757.92px 954.6px"><circle cx="757.92" cy="954.6" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Brela — The famous stone · pull off</title></g></a>
+    <a class="mk-a" data-ch="10" href="https://www.google.com/maps/search/?api=1&query=Biokovo+Skywalk" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10" style="transform-origin:795.12px 978.24px"><circle cx="795.12" cy="978.24" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Biokovo Skywalk — Vertigo detour +1.5h</title></g></a>
+    <a class="mk-a" data-ch="10" href="https://www.google.com/maps/search/?api=1&query=Peljesac+Bridge" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10" style="transform-origin:891.57px 1070.7px"><circle cx="891.57" cy="1070.7" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Pelješac Bridge — Free, fast, elegant</title></g></a>
+    <a class="mk-a" data-ch="10" href="https://www.google.com/maps/search/?api=1&query=Trpanj+ferry" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10" style="transform-origin:831.07px 1062.9px"><circle cx="831.07" cy="1062.9" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Trpanj ferry — Alternative from Ploče</title></g></a>
+    <a class="mk-a" data-ch="10" href="https://www.google.com/maps/search/?api=1&query=Matusko+winery+Potomje" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10" style="transform-origin:850.81px 1088.7px"><circle cx="850.81" cy="1088.7" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Dingač wine country — 4pm tasting: Matuško / Grgić</title></g></a>
+    <a class="mk-a" data-ch="10,12" href="https://www.google.com/maps/search/?api=1&query=Orebic+ferry+port" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10,12" style="transform-origin:810.48px 1072.2px"><circle cx="810.48" cy="1072.2" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Orebić ferry — 20 min across to Korčula</title></g></a>
+    <a class="mk-a" data-ch="10,11" href="https://www.google.com/maps/search/?api=1&query=The+Dreamers+Club+Lumbarda" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="10,11" style="transform-origin:808.76px 1088.1px"><circle cx="808.76" cy="1088.1" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>The Dreamers' Club — Nights 11–13</title></g></a>
+    <a class="mk-a" data-ch="11" href="https://www.google.com/maps/search/?api=1&query=Bire+winery+Lumbarda" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="11" style="transform-origin:808.33px 1088.55px"><rect x="804.9" y="1085.1" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 808.33 1088.55)" vector-effect="non-scaling-stroke"></rect><title>Bire winery — Grk · walkable</title></g></a>
+    <a class="mk-a" data-ch="11" href="https://www.google.com/maps/search/?api=1&query=Zure+Lumbarda" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="11" style="transform-origin:807.9px 1088.34px"><rect x="804.5" y="1084.9" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 807.9 1088.34)" vector-effect="non-scaling-stroke"></rect><title>Zure — Grk + family dinner — book</title></g></a>
+    <a class="mk-a" data-ch="11" href="https://www.google.com/maps/search/?api=1&query=Vela+Przina+Lumbarda" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="11" style="transform-origin:809.19px 1091.1px"><circle cx="809.19" cy="1091.1" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Vela Pržina — Sandy beach, 15-min walk</title></g></a>
+    <a class="mk-a" data-ch="11" href="https://www.google.com/maps/search/?api=1&query=Korcula+Old+Town" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="11" style="transform-origin:801.25px 1077.0px"><circle cx="801.25" cy="1077.0" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Korčula Town — Mini-Dubrovnik, no crowds</title></g></a>
+    <a class="mk-a" data-ch="11" href="https://www.google.com/maps/search/?api=1&query=Badija+island" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="11" style="transform-origin:807.04px 1078.5px"><circle cx="807.04" cy="1078.5" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Badija island — Water-taxi · deer + monastery</title></g></a>
+    <a class="mk-a" data-ch="12" href="https://www.google.com/maps/search/?api=1&query=Ston+walls" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="12" style="transform-origin:921.6px 1113.9px"><circle cx="921.6" cy="1113.9" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Ston walls — 40-min rampart walk</title></g></a>
+    <a class="mk-a" data-ch="12" href="https://www.google.com/maps/search/?api=1&query=Bota+Sare+Mali+Ston" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="12" style="transform-origin:923.32px 1111.8px"><rect x="919.9" y="1108.4" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 923.32 1111.8)" vector-effect="non-scaling-stroke"></rect><title>Mali Ston oysters — Bota Šare — the original</title></g></a>
+    <a class="mk-a" data-ch="12" href="https://www.google.com/maps/search/?api=1&query=Trsteno+Arboretum" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="12" style="transform-origin:981.88px 1151.1px"><circle cx="981.88" cy="1151.1" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Trsteno Arboretum — Gardens over the sea, 30 min</title></g></a>
+    <a class="mk-a" data-ch="12" href="https://www.google.com/maps/search/?api=1&query=Ilijina+Glavica+parking+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="12" style="transform-origin:1008.91px 1171.89px"><circle cx="1008.91" cy="1171.89" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Ilijina Glavica garage — Park here · 10 min to Pile</title></g></a>
+    <a class="mk-a" data-ch="12,13,14,15" href="https://www.google.com/maps/search/?api=1&query=Hotel+Stari+Grad+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="12,13,14,15" style="transform-origin:1009.64px 1172.58px"><circle cx="1009.64" cy="1172.58" r="7.5" fill="var(--adriatic)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Hotel Stari Grad — Nights 14–16 · in the walls</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Hotel+Stari+Grad+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.83px 1172.49px"><circle cx="1009.83" cy="1172.49" r="7.5" fill="var(--ink)" stroke="#fff" stroke-width="2.8" vector-effect="non-scaling-stroke"></circle><title>Hotel Stari Grad — Home base — Od Sigurate</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Dubravka+1836+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.49px 1172.25px"><rect x="1006.0" y="1168.8" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1009.49 1172.25)" vector-effect="non-scaling-stroke"></rect><title>Dubravka 1836 — BOOKED · Mon 6:30pm</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Nautika+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.43px 1172.16px"><rect x="1006.0" y="1168.7" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1009.43 1172.16)" vector-effect="non-scaling-stroke"></rect><title>Nautika — Pile Gate</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Restaurant+Proto+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1010.15px 1172.76px"><rect x="1006.7" y="1169.3" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1010.15 1172.76)" vector-effect="non-scaling-stroke"></rect><title>Fish Restaurant Proto</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Lucin+Kantun+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.98px 1172.79px"><rect x="1006.5" y="1169.3" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1009.98 1172.79)" vector-effect="non-scaling-stroke"></rect><title>Lucin Kantun — Your street</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Gradska+Kavana+Arsenal+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1010.69px 1172.37px"><rect x="1007.2" y="1168.9" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1010.69 1172.37)" vector-effect="non-scaling-stroke"></rect><title>Gr. Kavana Arsenal — Old port</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Buza+Bar+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.75px 1173.06px"><rect x="1006.3" y="1169.6" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1009.75 1173.06)" vector-effect="non-scaling-stroke"></rect><title>Buža Bar — Hole in the wall</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Bota+Sare+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1010.52px 1172.94px"><rect x="1007.1" y="1169.5" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1010.52 1172.94)" vector-effect="non-scaling-stroke"></rect><title>Bota Oyster & Sushi — Behind cathedral</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Pady+Pi-pi+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1010.09px 1172.64px"><rect x="1006.6" y="1169.2" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1010.09 1172.64)" vector-effect="non-scaling-stroke"></rect><title>Pady Pi-pi</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=M%27arden+Wine+Bar+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.94px 1172.55px"><rect x="1006.5" y="1169.1" width="6.9" height="6.9" fill="var(--bush)" stroke="#fff" stroke-width="1.9" transform="rotate(45 1009.94 1172.55)" vector-effect="non-scaling-stroke"></rect><title>M'arden Wine Bar</title></g></a>
+    <a class="mk-a" data-ch="13,15" href="https://www.google.com/maps/search/?api=1&query=Dubrovnik+City+Walls" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13,15" style="transform-origin:1009.55px 1172.4px"><circle cx="1009.55" cy="1172.4" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>City Walls entry — Mon 08:00, tickets in hand</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Lokrum+ferry+Dubrovnik" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1011.01px 1172.61px"><circle cx="1011.01" cy="1172.61" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Lokrum boats — Old port · 15 min out</title></g></a>
+    <a class="mk-a" data-ch="13" href="https://www.google.com/maps/search/?api=1&query=Dubrovnik+cable+car" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="13" style="transform-origin:1009.88px 1171.8px"><circle cx="1009.88" cy="1171.8" r="5.4" fill="#fff" stroke="var(--bush)" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>Srđ cable car — One sunset</title></g></a>
+    <a class="mk-a" data-ch="14" href="https://www.google.com/maps/search/?api=1&query=Dubrovnik+Airport" target="_blank" rel="noopener"><g class="mk mk-scale" data-ch="14" style="transform-origin:1044.37px 1196.58px"><circle cx="1044.37" cy="1196.58" r="6.0" fill="var(--sea)" stroke="#fff" stroke-width="2.6" vector-effect="non-scaling-stroke"></circle><title>DBV — car due 10:00 — Enterprise desk · then AMS → ATL → SDF</title></g></a>
+    <text class="lb mk-scale" data-ch="0" x="245.2" y="150.9" text-anchor="start" font-size="12" style="transform-origin:245.2px 150.9px">Ljubljana</text>
+    <text class="lb mk-scale" data-ch="0" x="112.1" y="85.1" text-anchor="start" font-size="12" style="transform-origin:112.1px 85.1px">Lake Bohinj</text>
+    <text class="lb mk-scale" data-ch="0" x="82.7" y="114.6" text-anchor="start" font-size="12" style="transform-origin:82.7px 114.6px">Tolmin</text>
+    <text class="lb mk-scale" data-ch="0" x="64.1" y="306.9" text-anchor="start" font-size="12" style="transform-origin:64.1px 306.9px">Izola</text>
+    <text class="lb mk-scale" data-ch="0" x="59.2" y="443.7" text-anchor="start" font-size="12" style="transform-origin:59.2px 443.7px">Rovinj</text>
+    <text class="lb mk-scale" data-ch="0" x="713.6" y="935.0" text-anchor="start" font-size="12" style="transform-origin:713.6px 935.0px">Omiš</text>
+    <text class="lb mk-scale" data-ch="0" x="816.8" y="1091.1" text-anchor="start" font-size="12" style="transform-origin:816.8px 1091.1px">Korčula / Lumbarda</text>
+    <text class="lb mk-scale" data-ch="0" x="1017.6" y="1175.6" text-anchor="start" font-size="12" style="transform-origin:1017.6px 1175.6px">Dubrovnik</text>
+    <text class="lb mk-scale" data-ch="1" x="234.9" y="100.9" text-anchor="start" font-size="11" style="transform-origin:234.9px 100.9px">Ljubljana Airport</text>
+    <text class="lb mk-scale" data-ch="3" x="161.3" y="57.5" text-anchor="start" font-size="11" style="transform-origin:161.3px 57.5px">Bled</text>
+    <text class="lb mk-scale" data-ch="3" x="112.1" y="85.1" text-anchor="start" font-size="11" style="transform-origin:112.1px 85.1px">Bohinj</text>
+    <text class="lb mk-scale" data-ch="5" x="79.2" y="112.4" text-anchor="start" font-size="11" style="transform-origin:79.2px 112.4px">Tolmin</text>
+    <text class="lb mk-scale" data-ch="6" x="64.1" y="306.9" text-anchor="start" font-size="11" style="transform-origin:64.1px 306.9px">Izola</text>
+    <text class="lb mk-scale" data-ch="7" x="59.2" y="443.7" text-anchor="start" font-size="11" style="transform-origin:59.2px 443.7px">Rovinj</text>
+    <text class="lb mk-scale" data-ch="9" x="400.9" y="732.2" text-anchor="start" font-size="11" style="transform-origin:400.9px 732.2px">Zadar</text>
+    <text class="lb mk-scale" data-ch="9" x="713.6" y="935.0" text-anchor="start" font-size="11" style="transform-origin:713.6px 935.0px">Omiš</text>
+    <text class="lb mk-scale" data-ch="10" x="818.5" y="1075.2" text-anchor="start" font-size="11" style="transform-origin:818.5px 1075.2px">Orebić</text>
+    <text class="lb mk-scale" data-ch="10" x="816.8" y="1091.1" text-anchor="start" font-size="11" style="transform-origin:816.8px 1091.1px">Lumbarda</text>
+    <text class="lb mk-scale" data-ch="12" x="929.6" y="1116.9" text-anchor="start" font-size="11" style="transform-origin:929.6px 1116.9px">Ston</text>
+    <text class="lb mk-scale" data-ch="12" x="1017.6" y="1175.6" text-anchor="start" font-size="11" style="transform-origin:1017.6px 1175.6px">Dubrovnik</text>
+    <text class="lb mk-scale" data-ch="15" x="155.4" y="50.2" text-anchor="start" font-size="10" style="transform-origin:155.4px 50.2px">Vintgar</text>
+    <text class="lb mk-scale" data-ch="15" x="858.8" y="1091.7" text-anchor="start" font-size="10" style="transform-origin:858.8px 1091.7px">Dingač</text>
+    <text class="lb mk-scale" data-ch="15" x="135.2" y="269.1" text-anchor="start" font-size="10" style="transform-origin:135.2px 269.1px">Škocjan</text>
+    <text class="lb mk-scale" data-ch="15" x="126.5" y="85.8" text-anchor="start" font-size="10" style="transform-origin:126.5px 85.8px">Avtovlak</text>
+  </svg>
+  <div id="daybadge">Leg 04<b>The whole run</b></div>
+  <div class="maplegend">
+    <i class="l-drive"></i>drive<br>
+    <i class="l-ferry"></i>ferry / boat<br>
+    <i class="l-train"></i>car-train option<br>
+    <i class="l-opt"></i>optional detour
+  </div>
+</div><!-- /mapbox -->
+
+
+
+<section class="step chapter" data-ch="1">
+  <div class="when">Mon 31 Aug · Day 1</div>
+  <h2>Wheels down, keys up, into the city</h2>
+  <div class="movestrip"><b class="hotc">LJU airport → Ljubljana</b><b>26 km</b><b>~25 min</b></div>
+  <p>Land 8:50am off the Istanbul red-eye, Enterprise counter at 10:00 — <strong>this is where you raise the Dubrovnik return question in person</strong> — then a shockingly short hop into the capital. Airbnb, shower, coffee.</p>
+  <p>Keep day one on foot and by the river: Prešeren Square, the Triple Bridge, the funicular up to the castle if legs allow. No driving after check-in — you'll have earned a riverside dinner.</p>
+  <p><strong>Brooke's 16 saved spots all sit inside one ~800-metre riverside band</strong> — the highlighted zone on the map, Prešeren down through Stari trg. Nothing is more than a 10-minute walk from anything else, so nothing needs planning; wander and pick.</p>
+  <ul class="foodlist">
+    <li>Raw Pasta</li><li>Julija</li><li>Piccola</li><li>Lajbah</li>
+    <li>Sarajevo 84</li><li>Le Petit</li><li>Kavarna Rog</li><li>Super Natural</li>
+    <li>Barbella</li><li>Veganika</li><li>El Papron</li><li>Uno Mass</li>
+    <li>Brot</li><li>Donut Tell</li><li>5-6 Kg</li><li>Dobra Vila</li>
+  </ul>
+  <div class="epic"><b>Make it epic</b>Book one proper dinner tonight for tomorrow (Julija is the classic old-town pick) and let jet lag set the pace for everything else.</div>
+</section>
+
+<section class="step chapter" data-ch="2">
+  <div class="when">Tue 1 – Wed 2 Sep · Days 2–3</div>
+  <h2>Two full city days — spend one wisely</h2>
+  <div class="movestrip"><b>On foot</b><b>Castle · market · Metelkova · Tivoli</b></div>
+  <p>Ljubljana genuinely only needs one full day: castle, central market (morning), Metelkova's murals, Tivoli Park at golden hour. Which frees a decision:</p>
+  <div class="choice"><span class="ctag">The choice</span>
+  <p><strong>Day-trip on day 3, or save it?</strong> Bled is 45 minutes away and the obvious lure — but you drive right past it on Thursday anyway. Recommendation: <strong>don't burn a day on it now.</strong> Do Postojna/Predjama Castle as the day-3 trip if you want one (1h away, castle-in-a-cliff), or take the rest day. You'll want the fuel later.</p></div>
+  <div class="bookahead"><b>Book: Dubrovnik walls tickets (skip-line, for 14 Sep)</b><b>Book: Vintgar Gorge timed slot for Thu am</b></div>
+</section>
+
+<section class="step chapter" data-ch="3">
+  <div class="when">Thu 3 Sep · Day 4</div>
+  <h2>Into the Alps — via the postcard</h2>
+  <div class="movestrip"><b class="hotc">Ljubljana → Bled → Bohinj</b><b>~80 km</b><b>1h15 driving + stops</b></div>
+  <p>Checkout, then the route earns its keep: <strong>Vintgar Gorge first</strong> (boardwalks over glacial water — go at opening, before the buses), then <strong>Lake Bled</strong> — pletna boat to the island or just the lakeside walk, and a kremšnita cream cake at the castle view. That's 3–4 unhurried hours.</p>
+  <p>Then 25 more minutes and the crowds simply vanish: <strong>Lake Bohinj</strong> is Bled's bigger, wilder, quieter sibling. Check in, swim if the sun's out, sunset at the Church of St John bridge.</p>
+  <div class="epic"><b>Make it epic</b>Bled by 10am means island + cake before lunch and an empty Bohinj beach by 4pm. The whole day is a warm-up act structured around one truth: sleep by the quiet lake, visit the famous one.</div>
+</section>
+
+<section class="step chapter" data-ch="4">
+  <div class="when">Fri 4 Sep · Day 5</div>
+  <h2>The mountain day</h2>
+  <div class="movestrip"><b>Bohinj basin</b><b>Vogel · Savica · the lake</b></div>
+  <p>One full Julian Alps day, weather-dependent by design: <strong>if it's clear, Vogel cable car first</strong> — the Triglav panorama from the top station is the single best view of the trip's first week. Then Savica Waterfall (25-min hike), then the afternoon on the water — canoe or SUP rental at Ribčev Laz, or the swim you'll describe for years.</p>
+  <div class="choice"><span class="ctag">Weather call</span>
+  <p>Clouds down? Flip the day: Mostnica Gorge (all-weather, gorgeous) and the Alpine Dairy Museum, save the splurge. Vogel with no view is money on fog.</p></div>
+</section>
+
+<section class="step chapter" data-ch="5">
+  <div class="when">Sat 5 Sep · Day 6</div>
+  <h2>Over — or under — to the Soča</h2>
+  <div class="movestrip"><b class="hotc">Bohinj → Tolmin</b><b>~50 km</b><b>1h15 over the hills</b><b class="trainchip">or: the car train</b></div>
+  <p>Short move, big character, and a genuine either/or:</p>
+  <div class="choice"><span class="ctag">Road or rail</span>
+  <p><strong>(a) Drive Baška Grapa</strong> — 1h15 of tight, pretty valley switchbacks. <strong>(b) The avtovlak:</strong> at Bohinjska Bistrica you drive the Tesla-less Golf onto a flatbed rail car and ride <em>inside your own car</em> through a 6-km WWI-era tunnel to Most na Soči — 40 minutes, a few euros, one of Europe's last car-shuttle trains. Check Saturday departure times the day before. It's the quirkier story.</p></div>
+  <p>Either way you surface in the Soča valley by lunch. Afternoon: <strong>Tolmin Gorges</strong> — the confluence, the Devil's Bridge, water an impossible blue-green. Then check in at Camp Šiber (cash, at reception) and grill something under the trees.</p>
+  <div class="epic"><b>Make it epic</b>Take the train in, and detour 25 min up-valley to Kobarid for lunch — the WWI museum is world-class and Hiša Franko's casual sister restaurant is in town if you want one big-deal meal in Slovenia.</div>
+</section>
+
+<section class="step chapter" data-ch="6">
+  <div class="when">Sun 6 Sep · Day 7</div>
+  <h2>Mountains to salt water in one morning</h2>
+  <div class="movestrip"><b class="hotc">Tolmin → Izola</b><b>~110 km</b><b>~1h50</b><b>+ Škocjan detour</b></div>
+  <p>The day the trip changes texture. Wind down the Soča, across the Karst, and the one stop worth the pause: <strong>Škocjan Caves</strong> — UNESCO, a 90-minute walk through a canyon <em>inside the earth</em>. Guided entries run on the hour; check morning times. (Predjama Castle is the lighter alternative if caves aren't the mood.)</p>
+  <p>Then: the Adriatic. First swim off Izola's town beach, then the move that makes the evening — <strong>Piran is 15 minutes away.</strong> Tartini Square, the walls at sunset, seafood on the water. Sleep back in cheaper, calmer Izola.</p>
+  <div class="bookahead"><b>Check: Škocjan tour times</b></div>
+</section>
+
+<section class="step chapter" data-ch="7">
+  <div class="when">Mon 7 Sep · Day 8</div>
+  <h2>One border, one hill town, then Rovinj</h2>
+  <div class="movestrip"><b class="hotc">Izola → Rovinj</b><b>~75 km direct</b><b>1h15 + border</b><b>+1h with Motovun</b></div>
+  <p><strong>The only border of the whole drive</strong> — Slovenia into Croatia at Dragonja. Passports in the door pocket; Monday morning queues are usually short. Both countries are Schengen and euro now, so it's a wave-through on a good day.</p>
+  <div class="choice"><span class="ctag">The detour</span>
+  <p>September is <strong>truffle season in Istria</strong>. Swinging inland through <strong>Motovun</strong> (or quieter Grožnjan) adds an hour and gets you a medieval hilltop town and a truffle-pasta lunch that will bully every meal for a week. Strongly endorsed.</p></div>
+  <p>Into Rovinj by late afternoon — the Airbnb has free parking, which in Rovinj is worth its weight in truffles. Old town at dusk: Grisia street up to St Euphemia's, batana boats in the harbour.</p>
+</section>
+
+<section class="step chapter" data-ch="8">
+  <div class="when">Tue 8 Sep · Day 9</div>
+  <h2>Rovinj, properly</h2>
+  <div class="movestrip"><b>Rovinj + Zlatni Rt</b><b>optional: Pula, 40 min</b></div>
+  <p>A no-driving day if you want one: morning swim and shaded cycling in <strong>Golden Cape (Zlatni Rt) forest park</strong> — pebble coves five minutes from the old town — long lunch, slow afternoon.</p>
+  <div class="choice"><span class="ctag">Optional add</span>
+  <p><strong>Pula's Roman amphitheatre</strong> is 40 minutes south — one of the six largest ever built, and you walk the arena floor. Doable as a 3-hour round trip; skip if the beach is winning.</p></div>
+  <div class="epic"><b>Make it epic</b>Dinner reservation tonight matters more than any other Rovinj call — the water-edge terraces book out. Ask the host for their one pick the day you arrive.</div>
+</section>
+
+<section class="step chapter" data-ch="9">
+  <div class="when">Wed 9 Sep · Day 10</div>
+  <h2>The long haul — built around one great stop</h2>
+  <div class="movestrip"><b class="hotc">Rovinj → Omiš</b><b>≈490 km</b><b>5h45 driving</b><b>A1 motorway</b></div>
+  <p>The one genuinely big day, and the reason Omiš exists on this plan at all — a bed placed exactly where the driving should stop. The A1 is fast, empty, and scenic in its own inland way. The play is <strong>one anchor stop, not three:</strong></p>
+  <div class="choice"><span class="ctag">Pick one</span>
+  <p><strong>Zadar</strong> (on route, +30 min): lunch in the old town, the Sea Organ playing the harbour — best value per minute. <strong>Plitvice Lakes</strong> (+2h detour, 3h inside): the fairy-tale one, but it turns this into a 10-hour day and needs a 7am start plus a timed ticket. <strong>Krka/Šibenik</strong> (+1h): the compromise. Honest recommendation: <strong>Zadar lunch</strong>, then push on.</p></div>
+  <p>Roll past Split (save it — see tomorrow) and into Omiš by early evening: a fortress town wedged into a literal canyon mouth where the Cetina river hits the sea. Hotel Marina, €10 parking, dinner, done.</p>
+  <div class="bookahead"><b>If Plitvice: timed entry + 7am start</b></div>
+</section>
+
+<section class="step chapter" data-ch="10">
+  <div class="when">Thu 10 Sep · Day 11</div>
+  <h2>The coast road, the bridge, the boat</h2>
+  <div class="movestrip"><b class="hotc">Omiš → Orebić</b><b>~185 km</b><b>~3h driving</b><b class="ferrychip">+ 20-min car ferry</b></div>
+  <p>The most beautiful driving day of the trip, no contest. First, if you're up early: the <strong>Fortica fortress</strong> above Omiš (45-min climb, canyon-and-sea view) — or the Cetina canyon <strong>zipline</strong>, which needs booking days ahead.</p>
+  <p>Then the <strong>Makarska Riviera</strong> — the D8 coastal road with Biokovo's 1,700-metre wall on your left and that impossible water on your right. Pull-offs at <strong>Brela</strong> (the famous stone) are mandatory. Vertigo fans: the <strong>Biokovo Skywalk</strong> detour adds 1.5h.</p>
+  <div class="choice"><span class="ctag">Boat choice</span>
+  <p>At Ploče you choose: <strong>(a) Pelješac Bridge</strong> — the elegant 2022 span, free, no waiting, then the peninsula road to Orebić; or <strong>(b) Ploče–Trpanj car ferry</strong> — 1h on the water, cuts driving, but sails to a timetable. The bridge is faster and more reliable; the ferry is more romantic. Either way it ends the same: <strong>Orebić → Dominče car ferry, 20 minutes across to Korčula</strong>, then 10 minutes to Lumbarda.</p></div>
+  <div class="epic"><b>Make it epic</b>The Pelješac road runs straight through <strong>Dingač wine country</strong> — Croatia's best reds, grown on slopes so steep they built a tunnel for the grapes. A 4pm cellar stop (Matuško or Grgić, book a tasting) with Brooke, 30 minutes before the ferry, is the honeymoon photo.</div>
+  <div class="bookahead"><b>Book: zipline (if wanted)</b><b>Book: Pelješac tasting ~4pm</b></div>
+</section>
+
+<section class="step chapter" data-ch="11">
+  <div class="when">Fri 11 – Sat 12 Sep · Days 12–13</div>
+  <h2>Korčula — the exhale</h2>
+  <div class="movestrip"><b>Lumbarda base</b><b>Grk vineyards on foot</b><b>Old town 15 min away</b></div>
+  <p>Two clear days, zero obligations. The Dreamers' Club sits in Lumbarda's vineyard flats, and this is the one place on earth that grows <strong>Grk</strong> — a white that ripens only in this sand. <strong>Bire and Zure wineries are walking distance from the room.</strong> Zure also does a family-table dinner worth booking.</p>
+  <p>Split the days: one for <strong>Vela Pržina beach</strong> (sandy — rare here — 15 min walk) and lazy vineyard wandering; one for <strong>Korčula Town</strong> — a miniature Dubrovnik without the crowds, Marco Polo's alleged tower, swimming off the rocks at Banje. Water-taxi to <strong>Badija island</strong> (monastery + tame deer) if a boat urge strikes.</p>
+  <div class="epic"><b>Make it epic</b>Saturday sunset: the west-facing beach bars in Lumbarda point directly at the sun dropping behind Pelješac's ridge. Book nothing after 6pm. That's the whole plan.</div>
+  <div class="bookahead"><b>Book: Zure dinner</b></div>
+</section>
+
+<section class="step chapter" data-ch="12">
+  <div class="when">Sun 13 Sep · Day 14</div>
+  <h2>Oysters, walls, and the last miles</h2>
+  <div class="movestrip"><b class="ferrychip">Ferry back</b><b class="hotc">Orebić → Ston → Dubrovnik</b><b>~150 km</b><b>~3h + stops</b></div>
+  <p>Ferry off the island, back along Pelješac — and this time <strong>stop at Ston</strong>: Europe's longest fortress walls (a 40-minute rampart walk if it's not scorching) and, in Mali Ston, the oyster beds that have fed Dubrovnik for 500 years. Lunch here is non-negotiable. Fun link: <strong>Bota Šare in Mali Ston is the original of the Bota on Brooke's Dubrovnik list</strong> — same family, same oysters.</p>
+  <p>Then the D8 south — all in Croatia, the bridge means no Bosnia corridor — with one soft stop at <strong>Trsteno Arboretum</strong> (Renaissance gardens over the sea, 30 min). Into Dubrovnik by late afternoon: park at <strong>Ilijina Glavica garage</strong> (or as agreed at the Enterprise counter), roll bags 10 minutes to Hotel Stari Grad inside the walls.</p>
+  <div class="epic"><b>Make it epic</b>First evening ritual: through Pile Gate at golden hour, straight down Stradun, out the hole in the seaward wall to <strong>Buža Bar</strong> — a drink on the rocks with the sun going down on day 14. It's on her list. Start there.</div>
+</section>
+
+<section class="step chapter" data-ch="13">
+  <div class="when">Mon 14 – Tue 15 Sep · Days 15–16</div>
+  <h2>Dubrovnik — everything is six minutes away</h2>
+  <div class="movestrip"><b>Hotel Stari Grad, in the walls</b><b>Dubravka booked Mon 6:30pm</b></div>
+  <p>The map is zoomed all the way in for a reason: <strong>every one of Brooke's nine restaurants sits within a 6-minute walk of the hotel door.</strong> Dubravka and Nautika cluster at Pile Gate, Proto and Lucin Kantun are practically on your street, Arsenal and Bota flank the old port, Buža hangs off the seaward wall. Zero logistics. Pure choosing.</p>
+  <p>The two mornings: <strong>walls at 08:00 sharp Monday</strong> (tickets in hand, 90 minutes, before heat and cruise crowds), then <strong>Lokrum island Tuesday</strong> — 15-min boat from the old port, swimming coves, peacocks, back by mid-afternoon. Srđ cable car for one sunset. <strong>Monday 6:30pm: Dubravka 1836</strong> — booked, table held only 15 minutes, city walls glowing over your shoulder.</p>
+  <ul class="foodlist">
+    <li>Dubravka 1836 — <em>booked</em></li><li>Nautika</li><li>Buža Bar</li>
+    <li>Fish Restaurant Proto</li><li>Lucin Kantun</li><li>Grand Kavana Arsenal</li>
+    <li>Bota Oyster &amp; Sushi</li><li>Pady Pi-pi</li><li>M'arden Wine Bar</li>
+  </ul>
+</section>
+
+<section class="step chapter" data-ch="14">
+  <div class="when">Wed 16 Sep · Day 17</div>
+  <h2>Down the coast, hand back the keys</h2>
+  <div class="movestrip"><b class="hotc">Old town → DBV airport</b><b>~22 km</b><b>~30 min</b><b>Car due 10:00 · fly 13:25</b></div>
+  <p>Unhurried by design: bags out by 9, the coast road south past Cavtat, car to the Enterprise desk at 10:00, and three clean hours before the KLM hop to Amsterdam. Sixteen days, ~1,090 km, one ferry, zero regrets.</p>
+  <p>Next stop: Louisville, a lockbox, and a Tesla.</p>
+</section>
+
+<div class="finale chapter" data-ch="15">
+  <h2>The book-ahead shortlist</h2>
+  <p style="margin:0 0 14px;color:var(--ink-soft);font-size:14px">Everything above that can't be walk-up, in the order it bites:</p>
+  <ul>
+    <li><b>Dubrovnik walls tickets</b> — buy online now for Mon 14 Sep, 08:00 entry.</li>
+    <li><b>Vintgar Gorge timed slot</b> — for Thu 3 Sep morning, before Bled.</li>
+    <li><b>Pelješac wine tasting</b> — Matuško or Grgić, ~4:00pm Thu 10 Sep.</li>
+    <li><b>Zure family dinner, Lumbarda</b> — for the 11th or 12th.</li>
+    <li><b>Omiš zipline</b> — only if wanted; books out days ahead (morning of the 10th).</li>
+    <li><b>Škocjan Caves tour time</b> — check the Sunday-morning schedule for 6 Sep.</li>
+    <li><b>Avtovlak car-train times</b> — check the Saturday timetable for 5 Sep.</li>
+    <li><b>One Rovinj dinner</b> — ask the host on arrival, book for the 8th.</li>
+  </ul>
+</div>
+
+<footer>
+  Companion to honeymoon-itinerary.html · schematic map, not to scale — click any pin for its exact Google Maps listing.<br>
+  No external map service is used; this page works fully offline once loaded.
+</footer>
+
+</div><!-- /story -->
+
+</div><!-- /wrap -->
+<script>
+(function(){
+"use strict";
+
+var FOCUS = [
+ {x:547.8, y:639.3, s:0.507},
+ {x:232.1, y:122.9, s:12.138},
+ {x:236.8, y:148.6, s:60},
+ {x:170.7, y:97.6, s:3.784},
+ {x:95.2, y:82.6, s:28.187},
+ {x:78.4, y:97.2, s:6.279},
+ {x:96.4, y:207.9, s:3.083},
+ {x:66.9, y:372.3, s:4.442},
+ {x:73.8, y:472.8, s:9.439},
+ {x:378.4, y:686.3, s:0.77},
+ {x:798.6, y:1009.7, s:2.709},
+ {x:805.2, y:1084.0, s:43.079},
+ {x:910.1, y:1122.4, s:2.529},
+ {x:1010.2, y:1172.4, s:60},
+ {x:1027.0, y:1184.6, s:14.503},
+ {x:547.8, y:639.3, s:0.507}
+];
+
+var svg = document.getElementById('mapsvg');
+var wrap = document.querySelector(".mapbox");
+var badge = document.getElementById('daybadge');
+var BADGES = [
+ ["Leg 04","The whole run: LJU → DBV"],
+ ["Day 1 · Mon 31 Aug","Airport → Ljubljana"],
+ ["Days 2–3 · 1–2 Sep","Ljubljana on foot"],
+ ["Day 4 · Thu 3 Sep","Ljubljana → Bled → Bohinj"],
+ ["Day 5 · Fri 4 Sep","The mountain day"],
+ ["Day 6 · Sat 5 Sep","Bohinj → Tolmin (road or rail)"],
+ ["Day 7 · Sun 6 Sep","Tolmin → the sea"],
+ ["Day 8 · Mon 7 Sep","Border day: Izola → Rovinj"],
+ ["Day 9 · Tue 8 Sep","Rovinj, properly"],
+ ["Day 10 · Wed 9 Sep","The long haul: 490 km"],
+ ["Day 11 · Thu 10 Sep","Coast road → bridge → ferry"],
+ ["Days 12–13 · 11–12 Sep","Korčula — the exhale"],
+ ["Day 14 · Sun 13 Sep","Ston oysters → Dubrovnik"],
+ ["Days 15–16 · 14–15 Sep","Dubrovnik: 6 minutes to everything"],
+ ["Day 17 · Wed 16 Sep","Old town → DBV · fly 13:25"],
+ ["Book-ahead list","Eight small moves, epic days"]
+];
+
+var active = -1;
+
+function applyTransform(f){
+  var r = wrap.getBoundingClientRect();
+  var cx = r.width/2, cy = r.height/2;
+  var tx = cx - f.x*f.s, ty = cy - f.y*f.s;
+  svg.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+f.s+')';
+  document.documentElement.style.setProperty('--cs', (1/f.s).toFixed(4));
+}
+
+function setHot(n){
+  var all = document.querySelectorAll('[data-ch]');
+  for (var i=0;i<all.length;i++){
+    var el = all[i];
+    var chs = el.getAttribute('data-ch').split(',');
+    if (chs.indexOf(String(n)) !== -1){
+      el.classList.add('hot');
+    } else {
+      el.classList.remove('hot');
+    }
+  }
+}
+
+function go(n){
+  if (n === active) return;
+  active = n;
+  var f = FOCUS[n] || FOCUS[0];
+  applyTransform(f);
+  setHot(n);
+  var b = BADGES[n] || BADGES[0];
+  badge.innerHTML = b[0] + '<b>' + b[1] + '</b>';
+}
+
+var chapters = document.querySelectorAll('.chapter');
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (e.isIntersecting){
+      var n = +e.target.getAttribute('data-ch');
+      document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+      if (e.target.classList.contains('step')) e.target.classList.add('active');
+      go(n);
+    }
+  });
+}, {rootMargin:'-38% 0px -38% 0px', threshold:0});
+chapters.forEach(function(c){ io.observe(c); });
+
+window.addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  document.getElementById('progress').style.width = (p*100) + '%';
+}, {passive:true});
+
+window.addEventListener('resize', function(){
+  if (active >= 0) applyTransform(FOCUS[active]);
+});
+
+go(0);
+window.addEventListener('load', function(){ applyTransform(FOCUS[active] || FOCUS[0]); });
+})();
+</script>
+</body>
+</html>

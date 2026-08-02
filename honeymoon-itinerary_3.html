@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan &amp; Brooke — Honeymoon, Aug–Sep 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone:#E7EAE6;
+    --stone-2:#DCE0DB;
+    --ink:#18262A;
+    --ink-soft:#4C5C5E;
+    --ink-faint:#8A9694;
+    --card:#FDFDFC;
+
+    --cape:#2F7D6E;
+    --bush:#A85A1E;
+    --adriatic:#2B4A8F;
+    --home:#6A5A7E;
+    --sea:#1E7D74;
+
+    --leg:var(--cape);
+    --rule:rgba(24,38,42,.14);
+    --rule-soft:rgba(24,38,42,.08);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--stone);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--adriatic);text-decoration-thickness:1px;text-underline-offset:2px}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--adriatic);outline-offset:3px}
+
+  /* ---------- masthead ---------- */
+  header{padding:72px 0 40px}
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 22px;
+  }
+  h1{
+    font-family:"Fraunces",Georgia,serif;font-weight:300;
+    font-size:clamp(38px,7vw,72px);line-height:1.02;letter-spacing:-.02em;
+    margin:0 0 6px;font-variation-settings:"SOFT" 20,"WONK" 1;
+  }
+  h1 em{font-style:italic;font-weight:500}
+  .dates{
+    font-family:"Fraunces",Georgia,serif;font-size:clamp(19px,2.6vw,26px);
+    font-weight:300;font-style:italic;color:var(--ink-soft);margin:0 0 34px;
+  }
+  .route{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:13px;font-weight:500;letter-spacing:.06em;
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+    padding:16px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    margin-bottom:28px;
+  }
+  .route i{color:var(--ink-faint);font-style:normal}
+  .route .drive{color:var(--adriatic)}
+  .stats{display:flex;flex-wrap:wrap;gap:34px}
+  .stat b{
+    display:block;font-family:"Fraunces",Georgia,serif;font-weight:500;
+    font-size:30px;line-height:1;letter-spacing:-.01em;
+  }
+  .stat span{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  }
+
+  /* ---------- legend ---------- */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:18px;margin-top:30px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.05em;color:var(--ink-soft);
+  }
+  .legend span{display:flex;align-items:center;gap:7px}
+  .swatch{width:22px;height:0;border-top:3px solid var(--ink)}
+  .sw-conf{border-top-style:solid;border-color:var(--cape)}
+  .sw-doc{border-top-style:solid;border-color:var(--ink-faint)}
+  .sw-open{border-top-style:dashed;border-color:var(--ink-faint)}
+
+  /* ---------- spine ---------- */
+  .leg{position:relative;padding:56px 0 8px 62px;border-left:2px solid var(--leg)}
+  .leg::before{
+    content:"";position:absolute;left:-7px;top:64px;width:12px;height:12px;
+    border-radius:50%;background:var(--leg);box-shadow:0 0 0 5px var(--stone);
+  }
+  .leg--cape{--leg:var(--cape)}
+  .leg--bush{--leg:var(--bush)}
+  .leg--adriatic{--leg:var(--adriatic)}
+  .leg--home{--leg:var(--home)}
+  .leg--last{border-left-color:transparent;
+    background:linear-gradient(var(--home),var(--home)) left top/2px 130px no-repeat}
+  .leg-num{
+    position:absolute;left:62px;top:56px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.16em;color:var(--leg);
+  }
+  .leg-head{padding-top:26px;margin-bottom:26px}
+  .leg-head h2{
+    font-family:"Fraunces",Georgia,serif;font-weight:500;
+    font-size:clamp(25px,3.6vw,34px);letter-spacing:-.01em;line-height:1.15;margin:0 0 4px;
+  }
+  .leg-head p{margin:0;color:var(--ink-soft);font-size:15px}
+  .leg-when{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    letter-spacing:.08em;color:var(--leg);font-weight:600;margin-bottom:8px;
+  }
+
+  /* ---------- entries ---------- */
+  .entry{
+    background:var(--card);border:1px solid var(--rule);
+    border-left:3px solid var(--leg);border-radius:3px;
+    padding:20px 22px;margin-bottom:14px;
+  }
+  .entry--doc{border-left-color:var(--ink-faint)}
+  .entry--open{border-left-style:dashed;border-left-color:var(--ink-faint);background:transparent}
+  .entry-top{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:baseline;margin-bottom:10px}
+  .kind{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--leg);
+    padding:3px 7px;border-radius:2px;
+  }
+  .entry--doc .kind{background:var(--ink-faint)}
+  .entry--open .kind{background:transparent;color:var(--ink-faint);border:1px dashed var(--ink-faint)}
+  .entry h3{font-size:17px;font-weight:600;margin:0;letter-spacing:-.005em}
+  .entry--open h3{font-weight:500;color:var(--ink-soft)}
+  .entry p{margin:0 0 10px;color:var(--ink-soft);font-size:14.5px}
+  .entry p:last-child{margin-bottom:0}
+
+  .segs{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;line-height:1.75;margin:0 0 12px}
+  .seg{display:flex;flex-wrap:wrap;gap:0 12px;padding:5px 0;border-top:1px dotted var(--rule)}
+  .seg:first-child{border-top:0}
+  .seg .no{color:var(--leg);font-weight:600;min-width:74px}
+  .seg .pair{font-weight:500;min-width:112px}
+  .seg .time{color:var(--ink-soft)}
+  .seg .plus{color:var(--bush);font-size:11px}
+
+  .facts{display:flex;flex-wrap:wrap;gap:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px}
+  .facts b{display:inline-block;font-weight:500;background:var(--stone-2);color:var(--ink-soft);padding:4px 8px;border-radius:2px}
+  .facts b u{text-decoration:none;color:var(--ink);font-weight:600}
+
+  .entry h3 a{color:var(--adriatic)}
+  .entry h3 a::after{content:" ↗";font-size:11px;color:var(--ink-faint)}
+  .night .what strong a{color:var(--adriatic)}
+  .night .what strong a::after{content:" ↗";font-size:10px;color:var(--ink-faint)}
+  ul.plain a::after{content:" ↗";font-size:9px;color:var(--ink-faint)}
+
+  .mapembed{width:100%;border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin:22px 0 30px;background:var(--card)}
+  .mapembed iframe{width:100%;height:420px;border:0;display:block}
+  .mapembed-cap{padding:10px 16px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-faint);border-top:1px solid var(--rule)}
+  @media (max-width:620px){.mapembed iframe{height:300px}}
+
+  .money-box{margin-top:40px;padding:32px 30px;background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--bush);border-radius:3px}
+  .money-box h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+  .money-box>p{margin:0 0 8px;color:var(--ink-soft);font-size:14.5px}
+  .money-row{display:flex;gap:20px;padding:16px 0;border-top:1px solid var(--rule-soft);align-items:baseline}
+  .money-row:first-of-type{border-top:1px solid var(--rule);margin-top:14px}
+  .m-amt{
+    font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:21px;color:var(--bush);
+    min-width:120px;flex-shrink:0;letter-spacing:-.01em;
+  }
+  .m-amt.unknown{
+    font-size:11.5px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;
+    color:var(--ink-faint);letter-spacing:.04em;text-transform:uppercase;
+  }
+  .m-body b{display:block;font-size:15px;font-weight:600;margin-bottom:2px}
+  .m-body span{display:block;font-size:13.5px;color:var(--ink-soft)}
+  .money-paid{
+    margin-top:18px;padding-top:14px;border-top:1px dashed var(--rule);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--ink-faint);line-height:1.8;
+  }
+  @media (max-width:560px){.money-row{flex-direction:column;gap:4px}.m-amt{min-width:0}}
+
+
+  .pack{
+    margin-top:12px;padding-top:12px;border-top:1px dashed var(--rule);
+    font-size:13px;color:var(--ink-soft);line-height:1.65;
+  }
+  .pack b{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--bush);
+    margin-right:8px;white-space:nowrap;
+  }
+
+  /* ---------- leg 4 day-by-day narrative + live map (nested two-column layout) ---------- */
+  .layout{
+    display:grid; grid-template-columns: 1fr 400px; grid-template-areas: "story map";
+    gap:28px; margin:28px 0 8px;
+  }
+  .story-inner{grid-area:story; min-width:0}
+  .mapcol{grid-area:map; min-width:0}
+
+  .mapbox{
+    position:sticky; top:20px; z-index:50;
+    width:100%; height:540px;
+    background:var(--stone-2);
+    border:2px solid var(--ink);
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 6px 16px rgba(24,38,42,.18);
+  }
+  .mapbox iframe{width:100%;height:100%;border:0;display:block}
+  .maploading{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-faint);
+    background:var(--stone-2);pointer-events:none;opacity:0;transition:opacity .2s;
+  }
+  .maploading.show{opacity:1}
+  #daybadge{position:absolute;z-index:60;bottom:14px;left:14px;background:var(--ink);color:#fff;
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    padding:7px 12px;border-radius:2px;box-shadow:0 2px 8px rgba(24,38,42,.25);max-width:64%;
+    pointer-events:none}
+  #daybadge b{display:block;font-size:13px;letter-spacing:.03em;margin-top:2px;text-transform:none}
+  .mapopen{position:absolute;z-index:60;bottom:14px;right:12px;
+    background:rgba(253,253,252,.95);border:1px solid var(--rule);border-radius:3px;
+    padding:6px 11px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-soft);
+    text-decoration:none}
+  .mapopen:hover{color:var(--adriatic)}
+
+  .day{padding:5vh 0 5vh 20px;border-left:4px solid transparent;opacity:.45;transition:opacity .35s, border-color .35s}
+  .day.active{opacity:1;border-left-color:var(--adriatic)}
+  .day .when{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+    letter-spacing:.1em;color:var(--adriatic);margin-bottom:8px;text-transform:uppercase}
+  .day h3{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:clamp(20px,2.4vw,25px);
+    letter-spacing:-.01em;line-height:1.15;margin:0 0 12px}
+  .day p{margin:0 0 12px;color:var(--ink-soft);font-size:14.5px}
+  .day p strong{color:var(--ink)}
+  .movestrip{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px}
+  .movestrip b{font-weight:500;background:var(--stone-2);color:var(--ink-soft);padding:4px 9px;border-radius:2px}
+  .movestrip b.hotc{background:var(--adriatic);color:#fff}
+  .movestrip b.ferrychip{background:var(--sea);color:#fff}
+  .movestrip b.trainchip{background:var(--bush);color:#fff}
+  .choice{border:1px dashed var(--ink-faint);border-radius:3px;padding:13px 16px;margin:14px 0;background:var(--card)}
+  .choice .ctag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--bush);font-weight:600;display:block;margin-bottom:5px}
+  .choice p{margin:0;font-size:13.8px}
+  .bookahead{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+  .bookahead b{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+    font-weight:600;color:var(--bush);border:1px solid var(--bush);border-radius:2px;padding:4px 9px;background:transparent}
+  .epic{margin-top:14px;padding:12px 16px;background:var(--ink);color:#EDEFEA;border-radius:3px;font-size:13.8px}
+  .epic b{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:#D8A56B;display:block;margin-bottom:4px}
+  .foodlist{columns:2;column-gap:24px;margin:10px 0 0;padding:0;list-style:none;font-size:13.5px}
+  .foodlist li{break-inside:avoid;margin-bottom:4px;color:var(--ink-soft)}
+  .foodlist li::before{content:"·";color:var(--ink-faint);margin-right:7px}
+
+  @media (max-width:880px){
+    .layout{grid-template-columns:1fr; grid-template-areas:"map" "story"; gap:0}
+    .mapbox{position:sticky; top:0; height:320px; border-radius:0; border-left:0; border-right:0}
+    .day{padding-left:14px}
+  }
+
+  /* ---------- the nights strip (leg 4 signature) ---------- */
+  .nights{margin:0 0 16px;border-top:1px solid var(--rule)}
+  .night{
+    display:grid;grid-template-columns:104px 1fr auto;gap:4px 18px;
+    padding:14px 2px;border-bottom:1px solid var(--rule-soft);align-items:baseline;
+  }
+  .night:last-child{border-bottom:1px solid var(--rule)}
+  .night .when{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+    font-weight:600;color:var(--adriatic);letter-spacing:.02em;
+  }
+  .night .what strong{display:block;font-size:16px;font-weight:600;letter-spacing:-.005em}
+  .night .what span{display:block;font-size:14px;color:var(--ink-soft);margin-top:1px}
+  .night .what .pack-hint{
+    display:block;font-size:12px;color:var(--bush);margin-top:5px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.01em;
+  }
+  .night .what .pack-hint b{
+    text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-right:6px;
+  }
+  .night .tag{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+    padding:3px 7px;border-radius:2px;
+  }
+  .t-booked{background:var(--adriatic);color:#fff}
+  .t-plan{background:var(--stone-2);color:var(--ink-soft)}
+  .t-open{border:1px dashed var(--ink-faint);color:var(--ink-faint)}
+  .night--open .what strong{color:var(--ink-soft);font-weight:500}
+  .drivenote{
+    grid-column:1/-1;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.06em;color:var(--bush);padding-top:4px;
+  }
+
+  /* ---------- lists ---------- */
+  details{
+    background:var(--card);border:1px solid var(--rule);border-radius:3px;
+    padding:0;margin-bottom:14px;
+  }
+  summary{
+    cursor:pointer;padding:16px 22px;font-weight:600;font-size:15px;
+    list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{
+    content:"+";font-family:"IBM Plex Mono",monospace;color:var(--ink-faint);font-weight:400;font-size:18px;
+  }
+  details[open] summary::after{content:"–"}
+  details .body{padding:0 22px 20px}
+  .cols{columns:2;column-gap:32px}
+  @media (max-width:560px){.cols{columns:1}}
+  .cols li{break-inside:avoid;font-size:14.5px;color:var(--ink-soft);margin-bottom:5px}
+  ul.plain{list-style:none;margin:0;padding:0}
+  ul.plain li::before{content:"·";color:var(--ink-faint);margin-right:8px}
+
+  /* ---------- open items ---------- */
+  .open-box{margin-top:64px;padding:32px 30px;background:var(--card);border:1px solid var(--rule);border-radius:3px}
+  .open-box h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:25px;margin:0 0 6px;letter-spacing:-.01em}
+  .open-box>p{margin:0 0 20px;color:var(--ink-soft);font-size:14.5px}
+  .open-box ul{margin:0;padding-left:20px}
+  .open-box li{margin-bottom:10px;color:var(--ink-soft);font-size:14.5px}
+  .open-box li b{color:var(--ink);font-weight:600}
+  .flag{border-left:3px solid var(--bush);padding:14px 16px;background:var(--stone);border-radius:2px;margin:0 0 20px}
+  .flag p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .flag b{color:var(--ink)}
+
+  footer{
+    margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11.5px;line-height:1.85;color:var(--ink-faint);
+  }
+
+  @media (max-width:620px){
+    header{padding:44px 0 30px}
+    .leg{padding-left:32px}
+    .leg-num{left:32px}
+    .stats{gap:22px}
+    .night{grid-template-columns:1fr;gap:2px}
+    .night .tag{justify-self:start;margin-top:6px}
+  }
+  @media print{
+    body{background:#fff}
+    .entry,.open-box,.night{break-inside:avoid}
+    details{border:0} details .body{display:block}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Itinerary · booked to date · 29 Jul 2026</p>
+  <h1>Ethan &amp; <em>Brooke</em></h1>
+  <p class="dates">Honeymoon — 16 August to 20 September 2026</p>
+
+  <div class="route">
+    <span>LAX</span><i>→</i><span>IST</span><i>→</i><span>CPT</span><i>→</i>
+    <span>HDS</span><i class="drive">→ road →</i><span>JNB</span><i>→</i><span>IST</span><i>→</i>
+    <span>LJU</span><i class="drive">→ 16 days by car →</i><span>DBV</span><i>→</i>
+    <span>AMS</span><i>→</i><span>ATL</span><i>→</i><span>SDF</span><i class="drive">→ Turo →</i><span>French Lick</span><i class="drive">→ Turo →</i><span>SDF</span><i>→</i>
+    <span>MSP</span><i>→</i><span>LAX</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>36</b><span>days away</span></div>
+    <div class="stat"><b>4</b><span>countries</span></div>
+    <div class="stat"><b>11</b><span>flight segments</span></div>
+    <div class="stat"><b>8/10</b><span>Europe stops confirmed</span></div>
+    <div class="stat"><b>$18k</b><span>target spend</span></div>
+  </div>
+
+  <div class="legend">
+    <span><i class="swatch sw-conf"></i> Confirmation in hand</span>
+    <span><i class="swatch sw-doc"></i> Per the planning doc, unconfirmed</span>
+    <span><i class="swatch sw-open"></i> Not booked</span>
+  </div>
+</header>
+
+<!-- ============ LEG 1 ============ -->
+<section class="leg leg--cape">
+  <div class="leg-num">LEG 01</div>
+  <div class="leg-head">
+    <div class="leg-when">SUN 16 AUG — MON 24 AUG</div>
+    <h2>Cape Town &amp; the Winelands</h2>
+    <p>Two nights in the air, then six days on the Cape.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Los Angeles → Cape Town</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">TK 10</span><span class="pair">LAX → IST</span><span class="time">Sun 16 Aug, 8:10pm dep</span><span class="time">777-300ER</span></div>
+      <div class="seg"><span class="no">TK 44</span><span class="pair">IST → CPT</span><span class="time">arrives Tue 18 Aug, 11:50am</span><span class="time">A350-900</span></div>
+    </div>
+    <p>Turkish Airlines, Business Flex. One stop in Istanbul with a 6h 30m layover; 30h 40m gate to gate. Checked bags, refund and exchange included — carry-on and seat selection are not.</p>
+    <div class="facts">
+      <b>Airline conf <u>SC7A8T</u></b>
+      <b>Chase trip <u>1015915798</u></b>
+      <b>Fare <u>$11,039.20</u></b>
+      <b>132,941 pts + $9,045.08 · Visa •2357</b>
+      <b>Non-refundable</b>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Stay</span><h3><a href="https://www.google.com/maps/search/?api=1&query=6+Chilworth+Road%2C+Camps+Bay%2C+Cape+Town%2C+South+Africa" target="_blank" rel="noopener">Cape Town</a> — Camps Bay apartment, 4 nights</h3></div>
+    <p>"NEW: Spacious Apartment Close to Camps Bay Beach," hosted by Janine. Check-in 2:00pm Tuesday, checkout 10:00am Saturday.</p>
+    <div class="facts">
+      <b>Conf <u>HMATPXCP3B</u></b>
+      <b>Host <u>+27 83 709 9001</u></b>
+      <b><a href="https://www.google.com/maps/search/?api=1&query=6+Chilworth+Road%2C+Camps+Bay%2C+Cape+Town%2C+South+Africa" target="_blank" rel="noopener">6 Chilworth Road, Cape Town 8040</a></b>
+      <b>Check-in Tue 2pm · out Sat 10am</b>
+    </div>
+    <p class="pack"><b>Pack</b> windbreaker or light jacket — Camps Bay is exposed to the Cape's afternoon wind · swimsuit and a rash guard for the Atlantic (it runs cold) · smart-casual for wine-country dinners · comfortable walking shoes for Table Mountain and the coastal path · sunscreen, the UV runs strong even when it's breezy.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Stay</span><h3><a href="https://www.google.com/maps/search/?api=1&query=7+Anne-Marie+Street%2C+Franschhoek%2C+South+Africa" target="_blank" rel="noopener">Franschhoek</a> — La Rivière riverside cottage, 2 nights</h3></div>
+    <p>"La Rivière: Peaceful Riverside Cottage," hosted by Sarah. Check-in 2:00pm Saturday, checkout 10:00am Monday — that Monday checkout lines up with the flight to Hoedspruit that afternoon.</p>
+    <div class="facts">
+      <b>Conf <u>HMC5ZSMNTH</u></b>
+      <b>Host <u>+27 65 833 3999</u></b>
+      <b><a href="https://www.google.com/maps/search/?api=1&query=7+Anne-Marie+Street%2C+Franschhoek%2C+South+Africa" target="_blank" rel="noopener">7 Anne-Marie Street, Franschhoek 7690</a></b>
+      <b>Check-in Sat 2pm · out Mon 10am</b>
+    </div>
+    <p class="pack"><b>Pack</b> neutral linen or cotton for wine-estate lunches — this is the stretch the outfit board was built around · a light layer for evenings, the valley cools fast after sunset · one nicer outfit for a tasting-room dinner · comfortable flats or loafers over anything technical.</p>
+  </article>
+</section>
+
+<!-- ============ LEG 2 ============ -->
+<section class="leg leg--bush">
+  <div class="leg-num">LEG 02</div>
+  <div class="leg-head">
+    <div class="leg-when">MON 24 AUG — THU 27 AUG</div>
+    <h2>Saseka Tented Camp</h2>
+    <p>Three nights in the Greater Kruger. Arranged end to end by Sydney van Deventer at Africa Tailormade, reconfirmed 24 July.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Cape Town → Hoedspruit</h3></div>
+    <p>E-tickets issued and seats pre-assigned by Africa Tailormade. They'll check you both in 24 hours ahead and send boarding passes — they've asked whether you'd prefer WhatsApp or email, which still needs an answer. Flight numbers and times are in the two ticket-receipt PDFs attached to their 24 July email.</p>
+    <div class="facts"><b>Booked via <u>Africa Tailormade</u></b><b>sydney@africatailormade.com</b><b>Pre-seated</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Transfer</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Hoedspruit+Airport%2C+South+Africa" target="_blank" rel="noopener">Hoedspruit Airport</a> → Saseka</h3></div>
+    <p>A Sable Tours representative meets you in arrivals holding a board with your names. If they're not there, call them directly.</p>
+    <div class="facts"><b>Sable Tours <u>+27 15 793 0802</u></b><b><u>+27 83 268 7496</u></b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Lodge</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Saseka+Tented+Camp%2C+Timbavati%2C+South+Africa" target="_blank" rel="noopener">Saseka Tented Camp</a> — 3 nights</h3></div>
+    <p>In on the 24th, out on the 27th. Pack warm layers: August game drives are cold. The Greater Kruger is low-risk malaria, worth a word with your GP. A yellow fever certificate only applies if you've recently come from a yellow fever country, so it doesn't affect you.</p>
+    <div class="facts"><b>Digital itinerary on <u>safariportal.app</u></b><b>Reconfirmed 24 Jul</b><b>Outfit needed: safari casual</b></div>
+    <p class="pack"><b>Pack</b> neutral khaki, olive or brown — bright colors and white spook game — the green pants and long-sleeve shirt already on hand work well · warm layers for early and evening drives, temps drop fast · closed shoes, not sandals · a light scarf or buff for dust · binoculars if you have them, camp doesn't always supply them.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Admin</span><h3>SARS online traveller declaration</h3></div>
+    <p>New as of 1 July 2026: everyone entering <em>and</em> leaving South Africa files an online customs declaration within 24 hours of travel — so once on the way in, and again before you fly JNB → IST on 30 August. Keep the emailed confirmation on your phone. Nothing to declare still means you file.</p>
+    <div class="facts"><b>sars.gov.za/travellerdeclaration</b><b>File twice</b><b>No US visa required</b><b>Passport valid 6 months + 2–3 blank pages</b></div>
+  </article>
+</section>
+
+<!-- ============ LEG 3 ============ -->
+<section class="leg leg--bush">
+  <div class="leg-num">LEG 03</div>
+  <div class="leg-head">
+    <div class="leg-when">THU 27 AUG — SUN 30 AUG</div>
+    <h2>Monate Game Lodge — the wedding</h2>
+    <p>The fixed point the whole trip is built around.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Transfer</span><h3>Saseka → Monate Game Lodge</h3></div>
+    <p>Sable Tours collect you from Saseka at 10:00am on Thursday 27 August and drive you through to Monate.</p>
+    <div class="facts"><b>Pickup <u>10:00am, 27 Aug</u></b><b>Sable Tours</b><b>Part of the Africa Tailormade package</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Lodge</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Monate+Game+Lodge%2C+South+Africa" target="_blank" rel="noopener">Monate Game Lodge</a> — 3 nights</h3></div>
+    <p>Check-in Thursday at 14:00, check-out strictly 10:00. Reception hours are 07:00–21:00 — arrange ahead for a late check-in or early check-out. It's a licensed establishment, so no outside liquor or cooler boxes. Wedding outfit is sorted. Randy is handling the final payment directly with Elzaan at Monate — see Money below, not something to track over email.</p>
+    <div class="facts"><b>Reservation <u>#116793</u></b><b>roomsdiv@monatelodge.com</b><b>+27 14 718 7000</b><b>Check-in Thu 14:00 · out 10:00</b></div>
+    <p class="pack"><b>Pack</b> the wedding outfit ✓, already sorted · safari casual for the night-before dinner · a smarter layer for evenings, lodge dinners run a notch dressier than Saseka · comfortable shoes that can go from game drive to reception without a change.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Transfer</span><h3>Monate → Johannesburg, 30 August</h3></div>
+    <p>Uncle Randy is driving you to JNB for the 6:00pm departure — no longer an open item, but worth confirming a pickup time with him directly given it's roughly a three-hour drive.</p>
+    <div class="facts"><b>Driver <u>Randy</u></b><b>Flight departs <u>6:00pm</u></b><b>~3hr drive</b></div>
+  </article>
+</section>
+
+<!-- ============ LEG 4 ============ -->
+<section class="leg leg--adriatic">
+  <div class="leg-num">LEG 04</div>
+  <div class="leg-head">
+    <div class="leg-when">SUN 30 AUG — WED 16 SEP</div>
+    <h2>Slovenia to the Adriatic</h2>
+    <p>Seventeen nights, one car, Ljubljana down to Dubrovnik. City, then mountains, then coast, then islands.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Johannesburg → Ljubljana</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">TK 43</span><span class="pair">JNB → IST</span><span class="time">Sun 30 Aug, 6:00pm dep</span><span class="time">A350-900</span></div>
+      <div class="seg"><span class="no">TK 1061</span><span class="pair">IST → LJU</span><span class="time">Mon 31 Aug, 8:50am arr</span><span class="plus">next day</span></div>
+    </div>
+    <p>Turkish Airlines, Business Flex, 2h 45m in Istanbul, 14h 45m total. This ticket is refundable. Chase has pushed two minor schedule changes through already, on 5 July and 27 July, so it's worth one last look at the times the week before you fly.</p>
+    <div class="facts"><b>Airline conf <u>RCPLFN</u></b><b>Chase trip <u>1018183599</u></b><b>Refundable</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Car</span><h3>Enterprise — Ljubljana Airport to Dubrovnik Airport</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">PICK UP</span><span class="pair">LJU</span><span class="time">Mon 31 Aug, 10:00am · <a href="https://www.google.com/maps/search/?api=1&query=Zgornji+Brnik+130a%2C+Slovenia" target="_blank" rel="noopener">Zgornji Brnik 130a</a></span></div>
+      <div class="seg"><span class="no">DROP OFF</span><span class="pair">DBV</span><span class="time">Wed 16 Sep, 10:00am · <a href="https://www.google.com/maps/search/?api=1&query=Cilipi+20213%2C+Croatia" target="_blank" rel="noopener">Čilipi 20213</a></span></div>
+    </div>
+    <p>Compact — VW Golf or similar, 5 seats, unlimited mileage. Sixteen days, one-way across the Slovenia–Croatia border, so confirm the cross-border fee and green card at the counter.</p>
+    <div class="facts">
+      <b>Enterprise conf <u>2123930311</u></b>
+      <b>Expedia itin <u>73498767418297</u></b>
+      <b>Total <u>$1,226.76</u> due at counter</b>
+      <b>$547.98 rental + $678.78 tax &amp; fees</b>
+      <b>Enterprise SI +386 30 208 881</b>
+    </div>
+  </article>
+
+  <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:21px;margin:34px 0 4px;letter-spacing:-.01em">Where you sleep, night by night — at a glance</h3>
+  <p style="margin:0 0 16px;color:var(--ink-soft);font-size:14.5px">Ten stops in seventeen nights, for quick reference. The full day-by-day plan — with the live map — follows below.</p>
+
+  <div class="nights">
+    <div class="night">
+      <div class="when">31 AUG — 3 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Ljubljana</a></strong><span>Airbnb · the city stretch, straight off the flight</span></div>
+      <div class="tag t-plan">Per doc</div>
+    </div>
+    <div class="night">
+      <div class="when">3 — 5 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Lake+Bohinj%2C+Slovenia" target="_blank" rel="noopener">Lake Bohinj</a></strong><span>Hotel · the mountain stretch, in the Julian Alps</span></div>
+      <div class="tag t-plan">Per doc</div>
+    </div>
+    <div class="night">
+      <div class="when">5 — 6 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Kamp+Siber%2C+Poljubinj+92a%2C+Tolmin%2C+Slovenia" target="_blank" rel="noopener">Tolmin</a></strong><span>Camp Šiber · wooden glamping tent for 2, confirmed · pay at reception on arrival</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">6 — 7 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Izola%2C+Slovenia" target="_blank" rel="noopener">Izola</a></strong><span>Airbnb, about $120 · first night on the water</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">7 — 9 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Rovinj%2C+Croatia" target="_blank" rel="noopener">Rovinj</a></strong><span>Airbnb with free parking, about $300 · Istria</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">9 — 10 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Omis%2C+Croatia" target="_blank" rel="noopener">Omiš</a></strong><span>Bluesun Hotel Marina · reservation PH29018259 · parking €10/day/car</span></div>
+      <div class="tag t-booked">Booked</div>
+      <div class="drivenote">↓ ROVINJ TO THE MAKARSKA COAST IS ALMOST A 6-HOUR DRIVE — THIS IS THE BREAK-THE-JOURNEY NIGHT</div>
+    </div>
+    <div class="night">
+      <div class="when">10 — 13 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Korcula%2C+Croatia" target="_blank" rel="noopener">Korčula</a></strong><span>The Dreamers' Club, Sun Ray (2+2), Lumbarda · eco-aparthotel by the vineyards — you boat in</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+    <div class="night">
+      <div class="when">13 — 16 SEP</div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubrovnik</a></strong><span>Hotel Stari Grad, inside Old Town · about $800 for 3 nights</span></div>
+      <div class="tag t-booked">Booked</div>
+    </div>
+  </div>
+
+<article class="entry entry--doc">
+    <div class="entry-top"><span class="kind">Watch</span><h3>The car and Old Town don't quite line up</h3></div>
+    <p>Old Town is car-free and the booking runs to the morning you fly — and since Expedia can't adjust this one online, the plan is to raise it in person at the Enterprise counter at Ljubljana Airport on pickup (31 Aug): either shorten the return to the 13th, or keep it and park outside the walls (Ilijina Glavica garage is the usual move, ~10 min walk from Pile Gate). Nothing else to do before then.</p>
+    <div class="facts"><b>Arrive Dubrovnik <u>13 Sep</u></b><b>Car booked until <u>16 Sep</u></b><b>Flight departs <u>1:25pm, 16 Sep</u></b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Table</span><h3><a href="https://www.google.com/maps/search/?api=1&query=Dubravka+1836%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubravka 1836</a> — dinner, Mon 14 Sep, 6:30–8:30pm</h3></div>
+    <p>Confirmed for two. Dubrovnik, just inside the Pile Gate with the view back along the walls. They hold the table 15 minutes past 6:30 before releasing it, so don't run late.</p>
+  </article>
+
+  <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:24px;margin:44px 0 4px;letter-spacing:-.01em">The day-by-day plan</h3>
+  <p style="margin:0 0 8px;color:var(--ink-soft);font-size:14.5px">Scroll through — a real Google Map on the right swaps to match wherever you are in the story: city, then mountains, then coast, then islands.</p>
+
+  <div class="layout" id="leg4layout">
+  <div class="story-inner">
+<div class="day chapter" data-day="1">
+<div class="when">Mon 31 Aug · Day 1</div>
+  <h3>Wheels down, keys up, into the city</h3>
+  <div class="movestrip"><b class="hotc">LJU airport → Ljubljana</b><b>26 km</b><b>~25 min</b></div>
+  <p>Land 8:50am off the Istanbul red-eye, Enterprise counter at 10:00 — <strong>this is where you raise the Dubrovnik return question in person</strong> — then a shockingly short hop into the capital. Airbnb, shower, coffee.</p>
+  <p>Keep day one on foot and by the river: Prešeren Square, the Triple Bridge, the funicular up to the castle if legs allow. No driving after check-in — you'll have earned a riverside dinner.</p>
+  <p><strong>Brooke's 16 saved spots all sit inside one ~800-metre riverside band</strong> — the highlighted zone on the map, Prešeren down through Stari trg. Nothing is more than a 10-minute walk from anything else, so nothing needs planning; wander and pick.</p>
+  <ul class="foodlist">
+    <li>Raw Pasta</li><li>Julija</li><li>Piccola</li><li>Lajbah</li>
+    <li>Sarajevo 84</li><li>Le Petit</li><li>Kavarna Rog</li><li>Super Natural</li>
+    <li>Barbella</li><li>Veganika</li><li>El Papron</li><li>Uno Mass</li>
+    <li>Brot</li><li>Donut Tell</li><li>5-6 Kg</li><li>Dobra Vila</li>
+  </ul>
+  <div class="epic"><b>Make it epic</b>Book one proper dinner tonight for tomorrow (Julija is the classic old-town pick) and let jet lag set the pace for everything else.</div>
+</div>
+
+<div class="day chapter" data-day="2">
+<div class="when">Tue 1 – Wed 2 Sep · Days 2–3</div>
+  <h3>Two full city days — spend one wisely</h3>
+  <div class="movestrip"><b>On foot</b><b>Castle · market · Metelkova · Tivoli</b></div>
+  <p>Ljubljana genuinely only needs one full day: castle, central market (morning), Metelkova's murals, Tivoli Park at golden hour. Which frees a decision:</p>
+  <div class="choice"><span class="ctag">The choice</span>
+  <p><strong>Day-trip on day 3, or save it?</strong> Bled is 45 minutes away and the obvious lure — but you drive right past it on Thursday anyway. Recommendation: <strong>don't burn a day on it now.</strong> Do Postojna/Predjama Castle as the day-3 trip if you want one (1h away, castle-in-a-cliff), or take the rest day. You'll want the fuel later.</p></div>
+  <div class="bookahead"><b>Book: Dubrovnik walls tickets (skip-line, for 14 Sep)</b><b>Book: Vintgar Gorge timed slot for Thu am</b></div>
+</div>
+
+<div class="day chapter" data-day="3">
+<div class="when">Thu 3 Sep · Day 4</div>
+  <h3>Into the Alps — via the postcard</h3>
+  <div class="movestrip"><b class="hotc">Ljubljana → Bled → Bohinj</b><b>~80 km</b><b>1h15 driving + stops</b></div>
+  <p>Checkout, then the route earns its keep: <strong>Vintgar Gorge first</strong> (boardwalks over glacial water — go at opening, before the buses), then <strong>Lake Bled</strong> — pletna boat to the island or just the lakeside walk, and a kremšnita cream cake at the castle view. That's 3–4 unhurried hours.</p>
+  <p>Then 25 more minutes and the crowds simply vanish: <strong>Lake Bohinj</strong> is Bled's bigger, wilder, quieter sibling. Check in, swim if the sun's out, sunset at the Church of St John bridge.</p>
+  <div class="epic"><b>Make it epic</b>Bled by 10am means island + cake before lunch and an empty Bohinj beach by 4pm. The whole day is a warm-up act structured around one truth: sleep by the quiet lake, visit the famous one.</div>
+</div>
+
+<div class="day chapter" data-day="4">
+<div class="when">Fri 4 Sep · Day 5</div>
+  <h3>The mountain day</h3>
+  <div class="movestrip"><b>Bohinj basin</b><b>Vogel · Savica · the lake</b></div>
+  <p>One full Julian Alps day, weather-dependent by design: <strong>if it's clear, Vogel cable car first</strong> — the Triglav panorama from the top station is the single best view of the trip's first week. Then Savica Waterfall (25-min hike), then the afternoon on the water — canoe or SUP rental at Ribčev Laz, or the swim you'll describe for years.</p>
+  <div class="choice"><span class="ctag">Weather call</span>
+  <p>Clouds down? Flip the day: Mostnica Gorge (all-weather, gorgeous) and the Alpine Dairy Museum, save the splurge. Vogel with no view is money on fog.</p></div>
+</div>
+
+<div class="day chapter" data-day="5">
+<div class="when">Sat 5 Sep · Day 6</div>
+  <h3>Over — or under — to the Soča</h3>
+  <div class="movestrip"><b class="hotc">Bohinj → Tolmin</b><b>~50 km</b><b>1h15 over the hills</b><b class="trainchip">or: the car train</b></div>
+  <p>Short move, big character, and a genuine either/or:</p>
+  <div class="choice"><span class="ctag">Road or rail</span>
+  <p><strong>(a) Drive Baška Grapa</strong> — 1h15 of tight, pretty valley switchbacks. <strong>(b) The avtovlak:</strong> at Bohinjska Bistrica you drive the Tesla-less Golf onto a flatbed rail car and ride <em>inside your own car</em> through a 6-km WWI-era tunnel to Most na Soči — 40 minutes, a few euros, one of Europe's last car-shuttle trains. Check Saturday departure times the day before. It's the quirkier story.</p></div>
+  <p>Either way you surface in the Soča valley by lunch. Afternoon: <strong>Tolmin Gorges</strong> — the confluence, the Devil's Bridge, water an impossible blue-green. Then check in at Camp Šiber (cash, at reception) and grill something under the trees.</p>
+  <div class="epic"><b>Make it epic</b>Take the train in, and detour 25 min up-valley to Kobarid for lunch — the WWI museum is world-class and Hiša Franko's casual sister restaurant is in town if you want one big-deal meal in Slovenia.</div>
+</div>
+
+<div class="day chapter" data-day="6">
+<div class="when">Sun 6 Sep · Day 7</div>
+  <h3>Mountains to salt water in one morning</h3>
+  <div class="movestrip"><b class="hotc">Tolmin → Izola</b><b>~110 km</b><b>~1h50</b><b>+ Škocjan detour</b></div>
+  <p>The day the trip changes texture. Wind down the Soča, across the Karst, and the one stop worth the pause: <strong>Škocjan Caves</strong> — UNESCO, a 90-minute walk through a canyon <em>inside the earth</em>. Guided entries run on the hour; check morning times. (Predjama Castle is the lighter alternative if caves aren't the mood.)</p>
+  <p>Then: the Adriatic. First swim off Izola's town beach, then the move that makes the evening — <strong>Piran is 15 minutes away.</strong> Tartini Square, the walls at sunset, seafood on the water. Sleep back in cheaper, calmer Izola.</p>
+  <div class="bookahead"><b>Check: Škocjan tour times</b></div>
+</div>
+
+<div class="day chapter" data-day="7">
+<div class="when">Mon 7 Sep · Day 8</div>
+  <h3>One border, one hill town, then Rovinj</h3>
+  <div class="movestrip"><b class="hotc">Izola → Rovinj</b><b>~75 km direct</b><b>1h15 + border</b><b>+1h with Motovun</b></div>
+  <p><strong>The only border of the whole drive</strong> — Slovenia into Croatia at Dragonja. Passports in the door pocket; Monday morning queues are usually short. Both countries are Schengen and euro now, so it's a wave-through on a good day.</p>
+  <div class="choice"><span class="ctag">The detour</span>
+  <p>September is <strong>truffle season in Istria</strong>. Swinging inland through <strong>Motovun</strong> (or quieter Grožnjan) adds an hour and gets you a medieval hilltop town and a truffle-pasta lunch that will bully every meal for a week. Strongly endorsed.</p></div>
+  <p>Into Rovinj by late afternoon — the Airbnb has free parking, which in Rovinj is worth its weight in truffles. Old town at dusk: Grisia street up to St Euphemia's, batana boats in the harbour.</p>
+</div>
+
+<div class="day chapter" data-day="8">
+<div class="when">Tue 8 Sep · Day 9</div>
+  <h3>Rovinj, properly</h3>
+  <div class="movestrip"><b>Rovinj + Zlatni Rt</b><b>optional: Pula, 40 min</b></div>
+  <p>A no-driving day if you want one: morning swim and shaded cycling in <strong>Golden Cape (Zlatni Rt) forest park</strong> — pebble coves five minutes from the old town — long lunch, slow afternoon.</p>
+  <div class="choice"><span class="ctag">Optional add</span>
+  <p><strong>Pula's Roman amphitheatre</strong> is 40 minutes south — one of the six largest ever built, and you walk the arena floor. Doable as a 3-hour round trip; skip if the beach is winning.</p></div>
+  <div class="epic"><b>Make it epic</b>Dinner reservation tonight matters more than any other Rovinj call — the water-edge terraces book out. Ask the host for their one pick the day you arrive.</div>
+</div>
+
+<div class="day chapter" data-day="9">
+<div class="when">Wed 9 Sep · Day 10</div>
+  <h3>The long haul — built around one great stop</h3>
+  <div class="movestrip"><b class="hotc">Rovinj → Omiš</b><b>≈490 km</b><b>5h45 driving</b><b>A1 motorway</b></div>
+  <p>The one genuinely big day, and the reason Omiš exists on this plan at all — a bed placed exactly where the driving should stop. The A1 is fast, empty, and scenic in its own inland way. The play is <strong>one anchor stop, not three:</strong></p>
+  <div class="choice"><span class="ctag">Pick one</span>
+  <p><strong>Zadar</strong> (on route, +30 min): lunch in the old town, the Sea Organ playing the harbour — best value per minute. <strong>Plitvice Lakes</strong> (+2h detour, 3h inside): the fairy-tale one, but it turns this into a 10-hour day and needs a 7am start plus a timed ticket. <strong>Krka/Šibenik</strong> (+1h): the compromise. Honest recommendation: <strong>Zadar lunch</strong>, then push on.</p></div>
+  <p>Roll past Split (save it — see tomorrow) and into Omiš by early evening: a fortress town wedged into a literal canyon mouth where the Cetina river hits the sea. Hotel Marina, €10 parking, dinner, done.</p>
+  <div class="bookahead"><b>If Plitvice: timed entry + 7am start</b></div>
+</div>
+
+<div class="day chapter" data-day="10">
+<div class="when">Thu 10 Sep · Day 11</div>
+  <h3>The coast road, the bridge, the boat</h3>
+  <div class="movestrip"><b class="hotc">Omiš → Orebić</b><b>~185 km</b><b>~3h driving</b><b class="ferrychip">+ 20-min car ferry</b></div>
+  <p>The most beautiful driving day of the trip, no contest. First, if you're up early: the <strong>Fortica fortress</strong> above Omiš (45-min climb, canyon-and-sea view) — or the Cetina canyon <strong>zipline</strong>, which needs booking days ahead.</p>
+  <p>Then the <strong>Makarska Riviera</strong> — the D8 coastal road with Biokovo's 1,700-metre wall on your left and that impossible water on your right. Pull-offs at <strong>Brela</strong> (the famous stone) are mandatory. Vertigo fans: the <strong>Biokovo Skywalk</strong> detour adds 1.5h.</p>
+  <div class="choice"><span class="ctag">Boat choice</span>
+  <p>At Ploče you choose: <strong>(a) Pelješac Bridge</strong> — the elegant 2022 span, free, no waiting, then the peninsula road to Orebić; or <strong>(b) Ploče–Trpanj car ferry</strong> — 1h on the water, cuts driving, but sails to a timetable. The bridge is faster and more reliable; the ferry is more romantic. Either way it ends the same: <strong>Orebić → Dominče car ferry, 20 minutes across to Korčula</strong>, then 10 minutes to Lumbarda.</p></div>
+  <div class="epic"><b>Make it epic</b>The Pelješac road runs straight through <strong>Dingač wine country</strong> — Croatia's best reds, grown on slopes so steep they built a tunnel for the grapes. A 4pm cellar stop (Matuško or Grgić, book a tasting) with Brooke, 30 minutes before the ferry, is the honeymoon photo.</div>
+  <div class="bookahead"><b>Book: zipline (if wanted)</b><b>Book: Pelješac tasting ~4pm</b></div>
+</div>
+
+<div class="day chapter" data-day="11">
+<div class="when">Fri 11 – Sat 12 Sep · Days 12–13</div>
+  <h3>Korčula — the exhale</h3>
+  <div class="movestrip"><b>Lumbarda base</b><b>Grk vineyards on foot</b><b>Old town 15 min away</b></div>
+  <p>Two clear days, zero obligations. The Dreamers' Club sits in Lumbarda's vineyard flats, and this is the one place on earth that grows <strong>Grk</strong> — a white that ripens only in this sand. <strong>Bire and Zure wineries are walking distance from the room.</strong> Zure also does a family-table dinner worth booking.</p>
+  <p>Split the days: one for <strong>Vela Pržina beach</strong> (sandy — rare here — 15 min walk) and lazy vineyard wandering; one for <strong>Korčula Town</strong> — a miniature Dubrovnik without the crowds, Marco Polo's alleged tower, swimming off the rocks at Banje. Water-taxi to <strong>Badija island</strong> (monastery + tame deer) if a boat urge strikes.</p>
+  <div class="epic"><b>Make it epic</b>Saturday sunset: the west-facing beach bars in Lumbarda point directly at the sun dropping behind Pelješac's ridge. Book nothing after 6pm. That's the whole plan.</div>
+  <div class="bookahead"><b>Book: Zure dinner</b></div>
+</div>
+
+<div class="day chapter" data-day="12">
+<div class="when">Sun 13 Sep · Day 14</div>
+  <h3>Oysters, walls, and the last miles</h3>
+  <div class="movestrip"><b class="ferrychip">Ferry back</b><b class="hotc">Orebić → Ston → Dubrovnik</b><b>~150 km</b><b>~3h + stops</b></div>
+  <p>Ferry off the island, back along Pelješac — and this time <strong>stop at Ston</strong>: Europe's longest fortress walls (a 40-minute rampart walk if it's not scorching) and, in Mali Ston, the oyster beds that have fed Dubrovnik for 500 years. Lunch here is non-negotiable. Fun link: <strong>Bota Šare in Mali Ston is the original of the Bota on Brooke's Dubrovnik list</strong> — same family, same oysters.</p>
+  <p>Then the D8 south — all in Croatia, the bridge means no Bosnia corridor — with one soft stop at <strong>Trsteno Arboretum</strong> (Renaissance gardens over the sea, 30 min). Into Dubrovnik by late afternoon: park at <strong>Ilijina Glavica garage</strong> (or as agreed at the Enterprise counter), roll bags 10 minutes to Hotel Stari Grad inside the walls.</p>
+  <div class="epic"><b>Make it epic</b>First evening ritual: through Pile Gate at golden hour, straight down Stradun, out the hole in the seaward wall to <strong>Buža Bar</strong> — a drink on the rocks with the sun going down on day 14. It's on her list. Start there.</div>
+</div>
+
+<div class="day chapter" data-day="13">
+<div class="when">Mon 14 – Tue 15 Sep · Days 15–16</div>
+  <h3>Dubrovnik — everything is six minutes away</h3>
+  <div class="movestrip"><b>Hotel Stari Grad, in the walls</b><b>Dubravka booked Mon 6:30pm</b></div>
+  <p>The map is zoomed all the way in for a reason: <strong>every one of Brooke's nine restaurants sits within a 6-minute walk of the hotel door.</strong> Dubravka and Nautika cluster at Pile Gate, Proto and Lucin Kantun are practically on your street, Arsenal and Bota flank the old port, Buža hangs off the seaward wall. Zero logistics. Pure choosing.</p>
+  <p>The two mornings: <strong>walls at 08:00 sharp Monday</strong> (tickets in hand, 90 minutes, before heat and cruise crowds), then <strong>Lokrum island Tuesday</strong> — 15-min boat from the old port, swimming coves, peacocks, back by mid-afternoon. Srđ cable car for one sunset. <strong>Monday 6:30pm: Dubravka 1836</strong> — booked, table held only 15 minutes, city walls glowing over your shoulder.</p>
+  <ul class="foodlist">
+    <li>Dubravka 1836 — <em>booked</em></li><li>Nautika</li><li>Buža Bar</li>
+    <li>Fish Restaurant Proto</li><li>Lucin Kantun</li><li>Grand Kavana Arsenal</li>
+    <li>Bota Oyster &amp; Sushi</li><li>Pady Pi-pi</li><li>M'arden Wine Bar</li>
+  </ul>
+</div>
+
+<div class="day chapter" data-day="14">
+<div class="when">Wed 16 Sep · Day 17</div>
+  <h3>Down the coast, hand back the keys</h3>
+  <div class="movestrip"><b class="hotc">Old town → DBV airport</b><b>~22 km</b><b>~30 min</b><b>Car due 10:00 · fly 13:25</b></div>
+  <p>Unhurried by design: bags out by 9, the coast road south past Cavtat, car to the Enterprise desk at 10:00, and three clean hours before the KLM hop to Amsterdam. Sixteen days, ~1,090 km, one ferry, zero regrets.</p>
+  <p>Next stop: Louisville, a lockbox, and a Tesla.</p>
+</div>
+  </div><!-- /story-inner -->
+
+  <div class="mapcol">
+  <div class="mapbox">
+    <iframe id="mapframe" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map for current day"></iframe>
+    <div class="maploading" id="maploading">loading map…</div>
+    <div id="daybadge">Leg 04<b>The whole run</b></div>
+    <a class="mapopen" id="mapopen" href="#" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+  </div><!-- /mapbox -->
+  </div><!-- /mapcol -->
+  </div><!-- /layout -->
+
+  <details>
+    <summary>Ljubljana — where to eat <span style="font-weight:400;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:11px">17 SPOTS</span></summary>
+    <div class="body">
+      <ul class="plain cols">
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Raw+Pasta%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Raw Pasta</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Julija%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Julija</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Piccola%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Piccola</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lajbah%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Lajbah</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Sarajevo+84%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Sarajevo 84</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Le+Petit%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Le Petit</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Kavarna+Rog%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Kavarna Rog</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Super+Natural%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Super Natural</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Barbella%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Barbella</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Veganika%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Veganika</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=El+Papron%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">El Papron</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Uno+Mass%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Uno Mass</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Brot%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Brot</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Donut+Tell%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Donut Tell</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=5-6+Kg%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">5-6 Kg</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Dobra+Vila%2C+Ljubljana%2C+Slovenia" target="_blank" rel="noopener">Dobra Vila</a></li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Dubrovnik — where to eat <span style="font-weight:400;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:11px">9 SPOTS</span></summary>
+    <div class="body">
+      <ul class="plain cols">
+        <li><a href="https://www.google.com/maps/search/?api=1&query=Dubravka+1836%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubravka 1836</a> — <em>booked, 14 Sep 6:30pm</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Bu%C5%BEa+Bar%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Buža Bar</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Nautika%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Nautika</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Fish+Restaurant+Proto%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Fish Restaurant Proto</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Grand+Kavana+Arsenal%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Grand Kavana Arsenal</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Pady+Pi-pi%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Pady Pi-pi</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lucin+Kantun%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Lucin Kantun</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=M%27arden+Wine+Bar%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">M'arden Wine Bar</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Oyster+%26+Sushi+Bar+Bota%2C+Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Oyster & Sushi Bar Bota</a></li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Dubrovnik — what to do <span style="font-weight:400;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:11px">13 THINGS</span></summary>
+    <div class="body">
+      <ul class="plain cols">
+        <li><a href="https://www.google.com/maps/search/?api=1&query=City+Walls+of+Dubrovnik" target="_blank" rel="noopener">City Walls walk</a> — <em>go early</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Dubrovnik+Old+Town" target="_blank" rel="noopener">Old Town on foot</a> — <em>go early</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Mount+Sr%C4%91+Cable+Car+Dubrovnik" target="_blank" rel="noopener">Mount Srđ cable car</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lokrum+Island" target="_blank" rel="noopener">Lokrum Island</a> — <em>short boat, swimming and trails</em></li><li><a href="https://www.google.com/maps/search/?api=1&query=Banje+Beach+Dubrovnik" target="_blank" rel="noopener">Banje Beach</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=West+Harbour+Dubrovnik" target="_blank" rel="noopener">West Harbour</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Plo%C4%8De+Gate+Dubrovnik" target="_blank" rel="noopener">The road above Ploče Gate</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Franciscan+Monastery+Dubrovnik" target="_blank" rel="noopener">Franciscan Monastery</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Jesuit+Staircase+Dubrovnik" target="_blank" rel="noopener">Jesuit Staircase</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Lovrijenac+Fortress" target="_blank" rel="noopener">Lovrijenac Fortress</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Onofrio%27s+Fountain+Dubrovnik" target="_blank" rel="noopener">Onofrio's Fountain</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Rector%27s+Palace+Dubrovnik" target="_blank" rel="noopener">Rector's Palace</a></li><li><a href="https://www.google.com/maps/search/?api=1&query=Stradun+Dubrovnik" target="_blank" rel="noopener">Stradun</a></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ============ LEG 5 ============ -->
+<section class="leg leg--home leg--last">
+  <div class="leg-num">LEG 05</div>
+  <div class="leg-head">
+    <div class="leg-when">WED 16 SEP — SUN 20 SEP</div>
+    <h2>Louisville → French Lick, then home</h2>
+    <p>Land in Louisville late, drive to West Baden Springs for Brian and Josie's wedding, drive back for a late landing at LAX.</p>
+  </div>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Dubrovnik → Louisville</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">DL 9504</span><span class="pair">DBV → AMS</span><span class="time">Wed 16 Sep, 1:25pm — 3:55pm</span><span class="time">KLM Cityhopper</span></div>
+      <div class="seg"><span class="no">DL 9374</span><span class="pair">AMS → ATL</span><span class="time">5:05pm — 8:25pm</span><span class="time">KLM</span></div>
+      <div class="seg"><span class="no">DL 2624</span><span class="pair">ATL → SDF</span><span class="time">10:40pm — 11:59pm</span></div>
+    </div>
+    <p>Delta, economy. Car drops at Dubrovnik airport at 10:00am, so there's about three and a half hours before departure — comfortable, not generous.</p>
+    <div class="facts"><b>Conf <u>HJYJ8T</u></b><b>1h 10m in Amsterdam</b><b>2h 15m in Atlanta</b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Car</span><h3>Turo — Jesse's Tesla Model 3 (2022), <a href="https://www.google.com/maps/search/?api=1&query=600+Terminal+Drive%2C+Louisville%2C+KY+40209" target="_blank" rel="noopener">Louisville Airport</a></h3></div>
+    <p>Confirmed and paid in full. Lockbox self check-in at the airport — well suited to the 11:59pm landing, since the trip starts at midnight. 800 miles included ($0.25/mi after; the French Lick round trip is only ~160, so no concern), and it's an EV: return it at the same charge level you picked it up with, or get billed the recharge plus a convenience fee. Worth scouting charging near the resort before the drive back.</p>
+    <div class="facts">
+      <b>Reservation <u>#57925830</u></b>
+      <b>Host <u>Jesse · (812) 722-5525</u></b>
+      <b>Start <u>Thu 17 Sep, 12:00am</u></b>
+      <b>Return <u>Sun 20 Sep, 12:00pm</u></b>
+      <b>Paid <u>$430.30</u></b>
+      <b>800 mi included</b>
+      <b>Lockbox check-in</b>
+    </div>
+  </article>
+
+  <article class="entry entry--doc">
+    <div class="entry-top"><span class="kind">Watch</span><h3>Two timing gaps on this leg</h3></div>
+    <p><strong>The night of the 16th has no bed.</strong> The flight lands 11:59pm Wednesday, the car is yours from midnight — but West Baden's reservation starts Thursday with a 4:00pm check-in. Either book the Wednesday night (at the hotel or a Louisville airport hotel), or confirm with West Baden that a ~2:00am arrival can check into Thursday's room early. <strong>And the return is tight:</strong> checkout is 11:00am Sunday, the drive back is ~1h45, and the car is due at noon — that doesn't quite work, and it leaves a car-less afternoon before the 7:54pm flight. A quick message to Jesse asking to push the return to mid-afternoon fixes both.</p>
+    <div class="facts"><b>Land <u>11:59pm Wed</u></b><b>Hotel from <u>4pm Thu</u></b><b>Checkout <u>11am Sun</u></b><b>Car due <u>12pm Sun</u></b><b>Flight <u>7:54pm Sun</u></b></div>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Lodge</span><h3><a href="https://www.google.com/maps/search/?api=1&query=8538+West+Baden+Avenue%2C+West+Baden+Springs%2C+IN+47469" target="_blank" rel="noopener">West Baden Springs Hotel</a> — 3 nights</h3></div>
+    <p>Booked by Brooke. Arriving Thursday, 4:00pm check-in; departing Sunday, 11:00am checkout — the flight home isn't until 7:54pm that evening, so there's a free morning and most of the afternoon before heading back to the airport. Exterior View room, one king bed. A credit or debit card on file will see an incidental hold at check-in for the room total plus $150, released at checkout if settled another way.</p>
+    <div class="facts">
+      <b>Conf <u>PYSMN</u></b>
+      <b><a href="https://www.google.com/maps/search/?api=1&query=8538+West+Baden+Avenue%2C+West+Baden+Springs%2C+IN+47469" target="_blank" rel="noopener">8538 West Baden Avenue, West Baden Springs, IN 47469</a></b>
+      <b>+1 (888) 936-9360</b>
+      <b>Check-in Thu 4pm · out Sun 11am</b>
+      <b>Total <u>$911.91</u></b>
+    </div>
+    <p class="pack"><b>Pack</b> Brian and Josie's wedding outfit ✓ · a cowboy cocktail look — still to pull together · comfortable shoes, you'll be back on pavement after weeks of sand and stone · something for the pools and spa if there's a window before checkout.</p>
+  </article>
+
+  <article class="entry entry--doc">
+    <div class="entry-top"><span class="kind">Watch</span><h3>Cancellation window</h3></div>
+    <p>West Baden Springs will charge the first night plus tax if plans change without at least two days' notice, by 4:00pm local time. Not urgent, just worth knowing it's not a same-day-free cancellation.</p>
+  </article>
+
+  <article class="entry">
+    <div class="entry-top"><span class="kind">Flight</span><h3>Louisville → Los Angeles</h3></div>
+    <div class="segs">
+      <div class="seg"><span class="no">DL 4965</span><span class="pair">SDF → MSP</span><span class="time">Sun 20 Sep, 7:54pm — 9:05pm</span><span class="time">Endeavor Air</span></div>
+      <div class="seg"><span class="no">DL 2103</span><span class="pair">MSP → LAX</span><span class="time">9:59pm — 11:52pm</span></div>
+    </div>
+    <p>Delta Main Classic, both of you on the same record. Home just before midnight.</p>
+    <div class="facts"><b>Conf <u>H3HZX8</u></b><b>Ethan + Brooke</b><b>54m in Minneapolis</b></div>
+  </article>
+</section>
+
+<!-- ============ MONEY ============ -->
+<section class="money-box">
+  <h2>Money still owed</h2>
+  <p>Everything with a dollar or euro figure still outstanding, in one place — pulled out of the day-by-day itinerary above so it doesn't get lost among logistics.</p>
+
+  <div class="money-row">
+    <div class="m-amt">$1,226.76</div>
+    <div class="m-body"><b>Enterprise rental car</b><span>Due at the counter on pickup — <a href="https://www.google.com/maps/search/?api=1&query=Ljubljana+Airport%2C+Slovenia" target="_blank" rel="noopener">Ljubljana Airport</a>, 31 Aug. Conf 2123930311.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt">€661.20</div>
+    <div class="m-body"><b><a href="https://www.google.com/maps/search/?api=1&query=Korcula%2C+Croatia" target="_blank" rel="noopener">Korčula</a> balance — The Dreamers' Club</b><span>Due 11 Aug to Adriatic Pearls (myholiday@adriaticpearls.com). Deposit of €314 already paid. Their reminder email hasn't arrived — don't wait for it.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt unknown">Amount TBD</div>
+    <div class="m-body"><b><a href="https://www.google.com/maps/search/?api=1&query=Monate+Game+Lodge%2C+South+Africa" target="_blank" rel="noopener">Monate Game Lodge</a> final payment</b><span>Randy is handling this directly with Elzaan (roomsdiv@monatelodge.com) — not something to track over email. Reservation #116793. Monate has flagged they'll never change their bank details from what's on the official invoice, so anything that looks like a new payment request is suspect.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt unknown">Cash on arrival</div>
+    <div class="m-body"><b><a href="https://www.google.com/maps/search/?api=1&query=Kamp+Siber%2C+Poljubinj+92a%2C+Tolmin%2C+Slovenia" target="_blank" rel="noopener">Camp Šiber</a>, Tolmin</b><span>Pay in person at reception when you check in, 5 Sep. No pre-payment required.</span></div>
+  </div>
+
+  <div class="money-row">
+    <div class="m-amt">$911.91</div>
+    <div class="m-body"><b>West Baden Springs Hotel</b><span>3 nights, room-only rate + tax. Card on file gets an incidental hold at check-in for this amount plus $150 — confirm with Brooke whether it's already been charged or is due at the property.</span></div>
+  </div>
+
+  <p class="money-paid">Already paid, for reference — not action items: Turo Tesla Model 3 ($430.30, paid in full) · Turkish Airlines LAX–CPT ($9,045.08 + 132,941 pts, Visa •2357) · Turkish Airlines JNB–LJU (ticketed, refundable) · Delta DBV–SDF and SDF–LAX (both ticketed) · Korčula deposit (€314) · Bluesun Omiš (parking is €10/day/car extra, paid on site).</p>
+</section>
+
+<!-- ============ OPEN ============ -->
+<section class="open-box">
+  <h2>Still open</h2>
+  <p>Non-financial items only — money is tracked separately above. French Lick lodging is settled; down to the Turo pickup details, two unconfirmed Slovenia nights, a handful of admin items, and the small bookings that make the Adriatic days easier.</p>
+
+  <ul>
+    <li><b>The night of 16–17 Sep has no bed</b> — flight lands 11:59pm, the Turo starts at midnight, but West Baden's booking begins Thursday 4pm. Book Wednesday night somewhere or confirm an early Thursday check-in with the hotel.</li>
+    <li><b>Turo return time</b> — car due at noon Sunday but checkout is 11am and the drive back is ~1h45. Message Jesse (812-722-5525) to push the return to mid-afternoon; also solves the car-less wait before the 7:54pm flight.</li>
+    <li><b>Ljubljana and Lake Bohinj, 31 Aug – 5 Sep</b> — the only two Slovenia/Croatia nights with no confirmation forwarded, versus everything from Tolmin onward, which is now locked. Worth checking these are actually reserved and not just decided.</li>
+    <li><b>Dubrovnik car — handling at the counter</b> — decided: raise the early-return-or-park question in person at the Enterprise desk at Ljubljana pickup on 31 Aug, since it can't be changed online.</li>
+    <li><b>Boarding-pass preference</b> — Sydney is still waiting to hear WhatsApp or email for the Cape Town → Hoedspruit passes.</li>
+    <li><b>SARS declarations</b> — one on the way into South Africa, one before leaving on 30 August, each within 24 hours of travel.</li>
+    <li><b>Two outfits</b> — safari casual for the night-before dinner, and cowboy cocktail for French Lick.</li>
+    <li><b>Dubrovnik walls tickets</b> — buy online now for Mon 14 Sep, 08:00 entry, to skip the line.</li>
+    <li><b>Vintgar Gorge timed slot</b> — for Thu 3 Sep morning, before Bled.</li>
+    <li><b>Avtovlak car-train times</b> — check the Saturday timetable for 5 Sep, if taking the car train to Tolmin.</li>
+    <li><b>Škocjan Caves tour time</b> — check the Sunday-morning schedule for 6 Sep.</li>
+    <li><b>One Rovinj dinner</b> — ask the host on arrival, book for the 8th; the water-edge terraces book out.</li>
+    <li><b>Omiš zipline</b> — only if wanted; books out days ahead (morning of the 10th).</li>
+    <li><b>Pelješac wine tasting</b> — Matuško or Grgić, ~4:00pm Thu 10 Sep, en route to the ferry.</li>
+    <li><b>Zure family dinner, Lumbarda</b> — for the 11th or 12th.</li>
+  </ul>
+</section>
+
+<footer>
+  Built from confirmation emails in simcock.ethan@gmail.com, forwards from stroosma.simcock@gmail.com and stroosma.b@gmail.com, and the shared "Honeymoon" doc — last updated 29 July 2026.<br>
+  Neither of Brooke's inboxes is directly connected here, and neither is the "Doing Things" calendar or the Turo app — the Ljubljana, Bohinj, and Turo pickup details are most likely sitting in one of those.<br>
+  The Slovenia–Croatia day-by-day plan pulls in a live Google Map, swapped to match wherever you are in that section as you scroll.
+</footer>
+
+</div>
+<script>
+(function(){
+"use strict";
+
+var URLS = [
+ "https://www.google.com/maps?saddr=Ljubljana+Airport%2C+Slovenia&daddr=Ljubljana%2C+Slovenia+to+Lake+Bohinj%2C+Slovenia+to+Tolmin%2C+Slovenia+to+Izola%2C+Slovenia+to+Rovinj%2C+Croatia+to+Omis%2C+Croatia+to+Orebic%2C+Croatia+to+Korcula%2C+Croatia+to+Dubrovnik%2C+Croatia&output=embed",
+ "https://www.google.com/maps?saddr=Ljubljana+Airport%2C+Slovenia&daddr=Ljubljana%2C+Slovenia&output=embed",
+ "https://www.google.com/maps?q=Presernov+trg%2C+Ljubljana%2C+Slovenia&z=16&output=embed",
+ "https://www.google.com/maps?saddr=Ljubljana%2C+Slovenia&daddr=Bled%2C+Slovenia+to+Lake+Bohinj%2C+Slovenia&output=embed",
+ "https://www.google.com/maps?q=Lake+Bohinj%2C+Slovenia&z=13&output=embed",
+ "https://www.google.com/maps?saddr=Bohinjska+Bistrica%2C+Slovenia&daddr=Tolmin%2C+Slovenia&output=embed",
+ "https://www.google.com/maps?saddr=Tolmin%2C+Slovenia&daddr=Skocjan+Caves%2C+Slovenia+to+Izola%2C+Slovenia&output=embed",
+ "https://www.google.com/maps?saddr=Izola%2C+Slovenia&daddr=Rovinj%2C+Croatia&output=embed",
+ "https://www.google.com/maps?q=Rovinj%2C+Croatia&z=14&output=embed",
+ "https://www.google.com/maps?saddr=Rovinj%2C+Croatia&daddr=Zadar%2C+Croatia+to+Split%2C+Croatia+to+Omis%2C+Croatia&output=embed",
+ "https://www.google.com/maps?saddr=Omis%2C+Croatia&daddr=Makarska%2C+Croatia+to+Orebic%2C+Croatia&output=embed",
+ "https://www.google.com/maps?q=Lumbarda%2C+Korcula%2C+Croatia&z=13&output=embed",
+ "https://www.google.com/maps?saddr=Orebic%2C+Croatia&daddr=Ston%2C+Croatia+to+Dubrovnik%2C+Croatia&output=embed",
+ "https://www.google.com/maps?q=Stradun%2C+Dubrovnik%2C+Croatia&z=17&output=embed",
+ "https://www.google.com/maps?saddr=Dubrovnik%2C+Croatia&daddr=Dubrovnik+Airport%2C+Croatia&output=embed"
+];
+var BADGES = [
+ ["Leg 04", "The whole run: LJU → DBV"],
+ ["Day 1 · Mon 31 Aug", "Airport → Ljubljana"],
+ ["Days 2–3 · 1–2 Sep", "Ljubljana on foot"],
+ ["Day 4 · Thu 3 Sep", "Ljubljana → Bled → Bohinj"],
+ ["Day 5 · Fri 4 Sep", "The mountain day"],
+ ["Day 6 · Sat 5 Sep", "Bohinj → Tolmin (road or rail)"],
+ ["Day 7 · Sun 6 Sep", "Tolmin → the sea"],
+ ["Day 8 · Mon 7 Sep", "Border day: Izola → Rovinj"],
+ ["Day 9 · Tue 8 Sep", "Rovinj, properly"],
+ ["Day 10 · Wed 9 Sep", "The long haul: 490 km"],
+ ["Day 11 · Thu 10 Sep", "Coast road → bridge → ferry"],
+ ["Days 12–13 · 11–12 Sep", "Korčula — the exhale"],
+ ["Day 14 · Sun 13 Sep", "Ston oysters → Dubrovnik"],
+ ["Days 15–16 · 14–15 Sep", "Dubrovnik: 6 minutes to everything"],
+ ["Day 17 · Wed 16 Sep", "Old town → DBV · fly 13:25"]
+];
+
+var frame = document.getElementById('mapframe');
+var loading = document.getElementById('maploading');
+var badge = document.getElementById('daybadge');
+var openBtn = document.getElementById('mapopen');
+if (!frame) return;
+
+var active = -1;
+
+function go(n){
+  if (n === active) return;
+  active = n;
+  var url = URLS[n] || URLS[0];
+  loading.classList.add('show');
+  frame.src = url;
+  openBtn.href = url.replace('&output=embed','');
+  var b = BADGES[n] || BADGES[0];
+  badge.innerHTML = b[0] + '<b>' + b[1] + '</b>';
+}
+
+frame.addEventListener('load', function(){ loading.classList.remove('show'); });
+
+var days = document.querySelectorAll('.day');
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (e.isIntersecting){
+      var n = +e.target.getAttribute('data-day');
+      days.forEach(function(d){ d.classList.remove('active'); });
+      e.target.classList.add('active');
+      go(n);
+    }
+  });
+}, {rootMargin:'-38% 0px -38% 0px', threshold:0});
+
+go(0);
+days.forEach(function(d){ io.observe(d); });
+})();
+</script>
+</body>
+</html>
