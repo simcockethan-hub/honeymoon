@@ -444,6 +444,43 @@
 </head>
 <body>
 
+<div id="lockscreen" style="position:fixed;inset:0;z-index:9999;background:#0f1a17;color:#f2ede4;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <form id="lockform" style="display:flex;flex-direction:column;gap:14px;width:min(320px,86vw);text-align:center;">
+    <p style="margin:0 0 4px;font-size:15px;letter-spacing:.02em;color:#cfc8ba;">This itinerary is private. Enter the passcode.</p>
+    <input id="lockinput" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" style="font-size:17px;padding:12px 14px;border-radius:8px;border:1px solid #3a463f;background:#182420;color:#f2ede4;outline:none;">
+    <button type="submit" style="font-size:15px;padding:12px 14px;border-radius:8px;border:0;background:#3d6b5c;color:#fff;cursor:pointer;">Unlock</button>
+    <p id="lockerror" style="margin:0;font-size:13px;color:#e08a7d;display:none;">Wrong passcode, try again.</p>
+  </form>
+</div>
+<script>
+(function(){
+  var HASH = "57c7a8466300ce21bc9b50c98c2773d844af0611c2e4ae4d3cb14b5ba2225653";
+  var KEY = "honeymoon-unlocked";
+  var lock = document.getElementById('lockscreen');
+  function sha256(msg){
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg)).then(function(buf){
+      return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+    });
+  }
+  if (localStorage.getItem(KEY) === HASH) {
+    lock.remove();
+  } else {
+    document.getElementById('lockform').addEventListener('submit', function(e){
+      e.preventDefault();
+      var val = document.getElementById('lockinput').value;
+      sha256(val).then(function(h){
+        if (h === HASH) {
+          localStorage.setItem(KEY, HASH);
+          lock.remove();
+        } else {
+          document.getElementById('lockerror').style.display = 'block';
+        }
+      });
+    });
+  }
+})();
+</script>
+
 <nav id="jumpnav">
   <p class="jn-title">Jump to</p>
   <a href="#packing">Packing list</a>
