@@ -454,7 +454,7 @@
 </div>
 <script>
 (function(){
-  var HASH = "25c04df2cd57dc7dfff9795edd28a8bc0442ddafb4fd2b915c4d0f8d9d6609d4";
+  var HASH = "28f60e14072c2d5a07f06df42452be673f65b8717ec271a21beae625c605d6af";
   var KEY = "honeymoon-guest-unlocked";
   var lock = document.getElementById('lockscreen');
   function sha256(msg){
@@ -483,26 +483,22 @@
 
 <nav id="jumpnav">
   <p class="jn-title">Jump to</p>
-  <a href="#packing">Packing list</a>
   <a href="#leg1">Leg 1 · Cape Town</a>
   <a href="#leg2">Leg 2 · Saseka</a>
   <a href="#leg3">Leg 3 · Monate</a>
   <a href="#leg4">Leg 4 · Slovenia/Croatia</a>
   <a href="#leg4days" class="jn-sub">↳ Day-by-day</a>
   <a href="#leg5">Leg 5 · French Lick</a>
-  <a href="#open">Still open</a>
 </nav>
 
 <button id="jumptoggle" aria-label="Jump to section" aria-expanded="false">≡</button>
 <div id="jumpsheet">
-  <a href="#packing">Packing list</a>
   <a href="#leg1">Leg 1 · Cape Town</a>
   <a href="#leg2">Leg 2 · Saseka</a>
   <a href="#leg3">Leg 3 · Monate</a>
   <a href="#leg4">Leg 4 · Slovenia/Croatia</a>
   <a href="#leg4days" class="jn-sub">↳ Day-by-day</a>
   <a href="#leg5">Leg 5 · French Lick</a>
-  <a href="#open">Still open</a>
 </div>
 
 <div class="wrap">
@@ -525,7 +521,6 @@
     <div class="stat"><b>4</b><span>countries</span></div>
     <div class="stat"><b>11</b><span>flight segments</span></div>
     <div class="stat"><b>8/10</b><span>Europe stops confirmed</span></div>
-    <div class="stat"><b>$14.8k+</b><span>known spend so far</span></div>
   </div>
 
   <div class="legend">
@@ -534,88 +529,6 @@
     <span><i class="swatch sw-open"></i> Not booked</span>
   </div>
 </header>
-
-<!-- ============ PACKING ============ -->
-<section class="pack-box" id="packing">
-  <h2>Packing list</h2>
-  <p>One bag has to work across five very different climates and dress codes — checked here as you pack, not tracked anywhere else.</p>
-  <div class="pack-climate">
-    <b>SA winter mornings · cold</b>
-    <b>Cape wind · variable</b>
-    <b>Julian Alps · cool + wet</b>
-    <b>Adriatic · hot + humid</b>
-    <b>Kentucky Sept · warm</b>
-  </div>
-
-  <div class="pack-groups">
-    <div class="pack-group pg-doc">
-      <h3>Documents &amp; money</h3>
-      <ul>
-        <li><input type="checkbox"><span>Passports — 6+ months validity, 2–3 blank pages</span></li>
-        <li><input type="checkbox"><span>Driver's licenses + International Driving Permits, for the Enterprise and Turo rentals</span></li>
-        <li><input type="checkbox"><span>SARS traveller declaration confirmations, screenshotted on your phone</span></li>
-        <li><input type="checkbox"><span>Wedding attire in a garment bag — Monate <em>and</em> French Lick both need one</span></li>
-        <li><input type="checkbox"><span>Printed or offline copies of key confirmations — Monate, Africa Tailormade e-tickets, Enterprise, Turo, West Baden</span></li>
-        <li><input type="checkbox"><span>Primary + backup credit card, plus a little local cash — Rand for South Africa, Euro for Slovenia and Croatia</span></li>
-        <li><input type="checkbox"><span>Travel insurance details, on your phone and printed</span></li>
-      </ul>
-    </div>
-
-    <div class="pack-group pg-elec">
-      <h3>Electronics &amp; everyday</h3>
-      <ul>
-        <li><input type="checkbox"><span>Universal power adapter — three different plug types on this trip: South Africa (Type M), Slovenia/Croatia (Type C/F), US (Type A)</span></li>
-        <li><input type="checkbox"><span>Phone chargers + a portable battery pack for long flight days</span></li>
-        <li><input type="checkbox"><span>Camera, spare memory card, charger</span></li>
-        <li><input type="checkbox"><span>Headphones for the LAX–IST–CPT and JNB–IST–LJU long-hauls</span></li>
-        <li><input type="checkbox"><span>Refillable water bottle</span></li>
-        <li><input type="checkbox"><span>Small laundry bag or detergent sheets — five weeks is long enough that a wash stop is worth planning for</span></li>
-        <li><input type="checkbox"><span>Basic meds — motion sickness, pain relief, anti-diarrheal, any prescriptions with extra supply</span></li>
-      </ul>
-    </div>
-
-    <div class="pack-group pg-sa">
-      <h3>South Africa — legs 1–3</h3>
-      <ul>
-        <li><input type="checkbox"><span>Neutral khaki, olive or brown for game drives — no bright colors or white</span></li>
-        <li><input type="checkbox"><span>Warm layers for cold mornings at Saseka — temps drop fast on early drives</span></li>
-        <li><input type="checkbox"><span>Closed shoes, not sandals, for the bush</span></li>
-        <li><input type="checkbox"><span>Wedding outfit ✓ and a separate safari-casual look for the night-before dinner at Monate</span></li>
-        <li><input type="checkbox"><span>Windbreaker or light jacket for Camps Bay's afternoon wind</span></li>
-        <li><input type="checkbox"><span>Smart-casual for Franschhoek wine-estate lunches and dinners</span></li>
-        <li><input type="checkbox"><span>Swimsuit — the Atlantic runs cold, but worth having</span></li>
-        <li><input type="checkbox"><span>Binoculars, if you have a pair — camp doesn't always supply them</span></li>
-        <li><input type="checkbox"><span>Insect repellent and sunscreen</span></li>
-      </ul>
-    </div>
-
-    <div class="pack-group pg-adr">
-      <h3>Slovenia &amp; Croatia — leg 4</h3>
-      <ul>
-        <li><input type="checkbox"><span>Hiking shoes — Vintgar, Bohinj, Tolmin Gorges all want real tread</span></li>
-        <li><input type="checkbox"><span>Two or three swimsuits — lake, Adriatic, and pool days stack up fast</span></li>
-        <li><input type="checkbox"><span>Comfortable flat shoes for cobblestones — Ljubljana and Dubrovnik Old Towns are unforgiving in anything else</span></li>
-        <li><input type="checkbox"><span>Light rain shell for the mountains</span></li>
-        <li><input type="checkbox"><span>One or two smart-casual outfits — Dubravka, Zure, and a Rovinj dinner all warrant it</span></li>
-        <li><input type="checkbox"><span>A dry bag for the Korčula boat transfer</span></li>
-        <li><input type="checkbox"><span>Quick-dry towel</span></li>
-        <li><input type="checkbox"><span>Reef-safe sunscreen and a sun hat</span></li>
-      </ul>
-    </div>
-
-    <div class="pack-group pg-ky">
-      <h3>Kentucky — leg 5</h3>
-      <ul>
-        <li><input type="checkbox"><span>Brian and Josie's wedding outfit ✓</span></li>
-        <li><input type="checkbox"><span>Cowboy cocktail look — still to pull together</span></li>
-        <li><input type="checkbox"><span>Comfortable everyday shoes — back on pavement after weeks of sand and stone</span></li>
-        <li><input type="checkbox"><span>Swimsuit, for the West Baden pools and spa if there's a window before checkout</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <p class="pack-note"><b>Worth doing before you leave:</b> confirm the IDP requirement with Enterprise and Turo directly — some tourist rentals don't strictly enforce it, but it's a cheap, fast thing to get wrong. And with three plug standards across five weeks, one universal adapter beats three region-specific ones.</p>
-</section>
 
 <!-- ============ LEG 1 ============ -->
 <section class="leg leg--cape" id="leg1">
@@ -636,8 +549,8 @@
     <div class="facts">
       <b>Airline conf on file</b>
       <b>Chase trip on file</b>
-      <b>Fare <u>$11,039.20</u></b>
-      <b>132,941 pts + $9,045.08 · Visa •2357</b>
+      <b>Fare on file</b>
+      <b>Paid via points + card</b>
       <b>Non-refundable</b>
     </div>
   </article>
@@ -726,7 +639,7 @@
 
   <article class="entry">
     <div class="entry-top"><span class="kind">Transfer</span><h3>Monate → Johannesburg, 30 August</h3></div>
-    <p>Uncle Randy is driving you to JNB for the 6:00pm departure — no longer an open item, but worth confirming a pickup time with him directly given it's roughly a three-hour drive.</p>
+    <p>Uncle Randy is driving to JNB for the 6:00pm departure.</p>
     <div class="facts"><b>Driver <u>Randy</u></b><b>Flight departs <u>6:00pm</u></b><b>~3hr drive</b></div>
   </article>
 </section>
@@ -760,8 +673,8 @@
     <div class="facts">
       <b>Enterprise conf on file</b>
       <b>Expedia itin on file</b>
-      <b>Total <u>$1,226.76</u> due at counter</b>
-      <b>$547.98 rental + $678.78 tax &amp; fees</b>
+      <b>Total due at counter</b>
+      <b>Rental + tax &amp; fees</b>
       <b>Enterprise SI +386 30 208 881</b>
     </div>
   </article>
@@ -787,12 +700,12 @@
     </div>
     <div class="night">
       <div class="when">6 — 7 SEP</div>
-      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Izola%2C+Slovenia" target="_blank" rel="noopener">Izola</a></strong><span>Airbnb, about $120 · first night on the water</span></div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Izola%2C+Slovenia" target="_blank" rel="noopener">Izola</a></strong><span>Airbnb · first night on the water</span></div>
       <div class="tag t-booked">Booked</div>
     </div>
     <div class="night">
       <div class="when">7 — 9 SEP</div>
-      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Rovinj%2C+Croatia" target="_blank" rel="noopener">Rovinj</a></strong><span>Airbnb with free parking, about $300 · Istria</span></div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Rovinj%2C+Croatia" target="_blank" rel="noopener">Rovinj</a></strong><span>Airbnb with free parking · Istria</span></div>
       <div class="tag t-booked">Booked</div>
     </div>
     <div class="night">
@@ -808,7 +721,7 @@
     </div>
     <div class="night">
       <div class="when">13 — 16 SEP</div>
-      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubrovnik</a></strong><span>Hotel Stari Grad, inside Old Town · about $800 for 3 nights</span></div>
+      <div class="what"><strong><a href="https://www.google.com/maps/search/?api=1&query=Dubrovnik%2C+Croatia" target="_blank" rel="noopener">Dubrovnik</a></strong><span>Hotel Stari Grad, inside Old Town · 3 nights</span></div>
       <div class="tag t-booked">Booked</div>
     </div>
   </div>
@@ -1037,13 +950,13 @@
 
   <article class="entry">
     <div class="entry-top"><span class="kind">Car</span><h3>Turo — Jesse's Tesla Model 3 (2022), <a href="https://www.google.com/maps/search/?api=1&query=600+Terminal+Drive%2C+Louisville%2C+KY+40209" target="_blank" rel="noopener">Louisville Airport</a></h3></div>
-    <p>Confirmed and paid in full. Lockbox self check-in at the airport — well suited to the 11:59pm landing, since the trip starts at midnight. 800 miles included ($0.25/mi after; the French Lick round trip is only ~160, so no concern), and it's an EV: return it at the same charge level you picked it up with, or get billed the recharge plus a convenience fee. Worth scouting charging near the resort before the drive back.</p>
+    <p>Confirmed and paid in full. Lockbox self check-in at the airport — well suited to the 11:59pm landing, since the trip starts at midnight. Mileage is well within the included allowance, and it's an EV: return it at the same charge level you picked it up with, or get billed the recharge plus a convenience fee. Worth scouting charging near the resort before the drive back.</p>
     <div class="facts">
       <b>Reservation <u>#57925830</u></b>
-      <b>Host <u>Jesse · (812) 722-5525</u></b>
+      <b>Host <u>Jesse · phone on file</u></b>
       <b>Start <u>Thu 17 Sep, 12:00am</u></b>
       <b>Return <u>Sun 20 Sep, 12:00pm</u></b>
-      <b>Paid <u>$430.30</u></b>
+      <b>Paid</b>
       <b>800 mi included</b>
       <b>Lockbox check-in</b>
     </div>
@@ -1051,19 +964,19 @@
 
   <article class="entry entry--doc">
     <div class="entry-top"><span class="kind">Watch</span><h3>Two timing gaps on this leg</h3></div>
-    <p><strong>The night of the 16th has no bed.</strong> The flight lands 11:59pm Wednesday, the car is yours from midnight — but West Baden's reservation starts Thursday with a 4:00pm check-in. Either book the Wednesday night (at the hotel or a Louisville airport hotel), or confirm with West Baden that a ~2:00am arrival can check into Thursday's room early. <strong>And the return is tight:</strong> checkout is 11:00am Sunday, the drive back is ~1h45, and the car is due at noon — that doesn't quite work, and it leaves a car-less afternoon before the 7:54pm flight. A quick message to Jesse asking to push the return to mid-afternoon fixes both.</p>
+    <p>The car is picked up at midnight after the flight lands, and returned before the flight home Sunday, with the West Baden stay in between.</p>
     <div class="facts"><b>Land <u>11:59pm Wed</u></b><b>Hotel from <u>4pm Thu</u></b><b>Checkout <u>11am Sun</u></b><b>Car due <u>12pm Sun</u></b><b>Flight <u>7:54pm Sun</u></b></div>
   </article>
 
   <article class="entry">
     <div class="entry-top"><span class="kind">Lodge</span><h3><a href="https://www.google.com/maps/search/?api=1&query=8538+West+Baden+Avenue%2C+West+Baden+Springs%2C+IN+47469" target="_blank" rel="noopener">West Baden Springs Hotel</a> — 3 nights</h3></div>
-    <p>Booked by Brooke. Arriving Thursday, 4:00pm check-in; departing Sunday, 11:00am checkout — the flight home isn't until 7:54pm that evening, so there's a free morning and most of the afternoon before heading back to the airport. Exterior View room, one king bed. A credit or debit card on file will see an incidental hold at check-in for the room total plus $150, released at checkout if settled another way.</p>
+    <p>Booked by Brooke. Arriving Thursday, 4:00pm check-in; departing Sunday, 11:00am checkout — the flight home isn't until 7:54pm that evening, so there's a free morning and most of the afternoon before heading back to the airport. Exterior View room, one king bed. A credit or debit card on file will see a standard incidental hold at check-in, released at checkout if settled another way.</p>
     <div class="facts">
       <b>Conf on file</b>
       <b><a href="https://www.google.com/maps/search/?api=1&query=8538+West+Baden+Avenue%2C+West+Baden+Springs%2C+IN+47469" target="_blank" rel="noopener">8538 West Baden Avenue, West Baden Springs, IN 47469</a></b>
       <b>+1 (888) 936-9360</b>
       <b>Check-in Thu 4pm · out Sun 11am</b>
-      <b>Total <u>$911.91</u></b>
+      <b>Total on file</b>
     </div>
     <p class="pack"><b>Pack</b> Brian and Josie's wedding outfit ✓ · a cowboy cocktail look — still to pull together · comfortable shoes, you'll be back on pavement after weeks of sand and stone · something for the pools and spa if there's a window before checkout.</p>
   </article>
@@ -1089,29 +1002,6 @@
 <!-- ============ MONEY ============ -->
 
 <!-- ============ OPEN ============ -->
-<section class="open-box" id="open">
-  <h2>Still open</h2>
-  <p>Non-financial items only — money is tracked separately above. French Lick lodging is settled; down to the Turo pickup details, two unconfirmed Slovenia nights, a handful of admin items, and the small bookings that make the Adriatic days easier.</p>
-
-  <ul>
-    <li><b>The night of 16–17 Sep has no bed</b> — flight lands 11:59pm, the Turo starts at midnight, but West Baden's booking begins Thursday 4pm. Book Wednesday night somewhere or confirm an early Thursday check-in with the hotel.</li>
-    <li><b>Turo return time</b> — car due at noon Sunday but checkout is 11am and the drive back is ~1h45. Message Jesse (phone on file) to push the return to mid-afternoon; also solves the car-less wait before the 7:54pm flight.</li>
-    <li><b>Ljubljana and Lake Bohinj, 31 Aug – 5 Sep</b> — the only two Slovenia/Croatia nights with no confirmation forwarded, versus everything from Tolmin onward, which is now locked. Worth checking these are actually reserved and not just decided.</li>
-    <li><b>Dubrovnik car — handling at the counter</b> — decided: raise the early-return-or-park question in person at the Enterprise desk at Ljubljana pickup on 31 Aug, since it can't be changed online.</li>
-    <li><b>Boarding-pass preference</b> — Sydney is still waiting to hear WhatsApp or email for the Cape Town → Hoedspruit passes.</li>
-    <li><b>SARS declarations</b> — one on the way into South Africa, one before leaving on 30 August, each within 24 hours of travel.</li>
-    <li><b>Two outfits</b> — safari casual for the night-before dinner, and cowboy cocktail for French Lick.</li>
-    <li><b>Dubrovnik walls tickets</b> — buy online now for Mon 14 Sep, 08:00 entry, to skip the line.</li>
-    <li><b>Vintgar Gorge timed slot</b> — for Thu 3 Sep morning, before Bled.</li>
-    <li><b>Avtovlak car-train times</b> — check the Saturday timetable for 5 Sep, if taking the car train to Tolmin.</li>
-    <li><b>Škocjan Caves tour time</b> — check the Sunday-morning schedule for 6 Sep.</li>
-    <li><b>One Rovinj dinner</b> — ask the host on arrival, book for the 8th; the water-edge terraces book out.</li>
-    <li><b>Omiš zipline</b> — only if wanted; books out days ahead (morning of the 10th).</li>
-    <li><b>Pelješac wine tasting</b> — Matuško or Grgić, ~4:00pm Thu 10 Sep, en route to the ferry.</li>
-    <li><b>Zure family dinner, Lumbarda</b> — for the 11th or 12th.</li>
-  </ul>
-</section>
-
 <footer>
   Built from confirmation emails in the couple's email, forwards from family email and family email, and the shared "Honeymoon" doc — last updated 29 July 2026.<br>
   Neither of Brooke's inboxes is directly connected here, and neither is the "Doing Things" calendar or the Turo app — the Ljubljana, Bohinj, and Turo pickup details are most likely sitting in one of those.<br>

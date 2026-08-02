@@ -105,12 +105,15 @@ user on 2026-08-02.
   is public.
 - There is a second, redacted copy at `guest/index.html`
   (`/guest/` on the live site), same rule — its own passcode, own
-  hash, plaintext never committed. Meant for wedding guests / other
-  visitors. It strips budget figures,
-  confirmation numbers, phone numbers, and personal emails but keeps
-  the full day-by-day itinerary. **When editing the master
+  hash, plaintext never committed (the guest passcode is intentionally
+  a simple plain-English word, meant to be handed out freely, unlike
+  the private one). Meant for wedding guests / other visitors.
+  It strips: the packing list section, the budget section, the money
+  section, the "still open" section, every dollar figure throughout
+  the doc, confirmation numbers, phone numbers, personal emails, and
+  personal action-item notes (e.g. "confirm with X", "message Y about
+  Z") — but keeps the full day-by-day itinerary, hotel/lodging names,
+  check-in times, and maps. **When editing the master
   `honeymoon-itinerary.html`, remember non-sensitive changes (dates,
   activities, logistics) need to be mirrored into `guest/index.html`
-  too** — check whether the edit touches redacted content first (see
-  the redaction list in the commit that introduced `guest/index.html`
-  for what's stripped).
+  too**, minus whatever falls into the stripped categories above.
